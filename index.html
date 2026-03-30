@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>캠핏 안심취소 100% 특별 프로모션</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* ===== URGENT TICKER ===== */
+        .urgent-ticker {
+            background: linear-gradient(90deg, #ff3c3c, #ff6b35, #ff3c3c);
+            background-size: 200% 100%;
+            animation: tickerGlow 2s ease-in-out infinite;
+            padding: 14px 20px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        @keyframes tickerGlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .urgent-ticker .blink {
+            animation: blink 1s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            position: relative;
+            padding: 40px 20px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(0, 200, 150, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 30%, rgba(0, 150, 255, 0.06) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 10px 28px;
+            background: rgba(255, 60, 60, 0.12);
+            border: 1px solid rgba(255, 60, 60, 0.4);
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #ff6b6b;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 32px;
+            animation: badgePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes badgePulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 60, 60, 0.2); }
+            50% { box-shadow: 0 0 20px 4px rgba(255, 60, 60, 0.15); }
+        }
+
+        .hero h1 {
+            font-size: clamp(36px, 6vw, 64px);
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #fff 0%, #00c896 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: clamp(16px, 2.5vw, 22px);
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 300;
+            line-height: 1.6;
+            max-width: 700px;
+            margin: 0 auto 48px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 48px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat .number {
+            font-size: 48px;
+            font-weight: 900;
+            color: #00c896;
+        }
+
+        .hero-stat .number.red {
+            color: #ff6b6b;
+        }
+
+        .hero-stat .label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 8px;
+        }
+
+        /* ===== COUNTDOWN ===== */
+        .countdown-section {
+            padding: 60px 20px;
+            background: linear-gradient(180deg, #16213e 0%, #0a0a0a 100%);
+        }
+
+        .countdown-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .countdown-box {
+            background: linear-gradient(135deg, rgba(255, 60, 60, 0.08), rgba(255, 60, 60, 0.03));
+            border: 2px solid rgba(255, 60, 60, 0.3);
+            border-radius: 24px;
+            padding: 48px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .countdown-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 60, 60, 0.04) 0%, transparent 50%);
+            animation: rotateBg 10s linear infinite;
+        }
+
+        @keyframes rotateBg {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .countdown-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .countdown-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #ff6b6b;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .countdown-date {
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 900;
+            margin-bottom: 12px;
+        }
+
+        .countdown-date span {
+            color: #ff6b6b;
+        }
+
+        .countdown-sub {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 32px;
+        }
+
+        .countdown-timer {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .timer-block {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 20px 24px;
+            min-width: 90px;
+        }
+
+        .timer-block .num {
+            font-size: 36px;
+            font-weight: 900;
+            color: #ff6b6b;
+            line-height: 1;
+        }
+
+        .timer-block .unit {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ===== SECTION BASE ===== */
+        .section-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #00c896;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: clamp(28px, 4vw, 44px);
+            font-weight: 800;
+            line-height: 1.3;
+            margin-bottom: 20px;
+        }
+
+        .section-desc {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 300;
+            line-height: 1.7;
+            max-width: 700px;
+            margin-bottom: 60px;
+        }
+
+        /* ===== WHY SECTION (CS 민원) ===== */
+        .why-section {
+            background: linear-gradient(180deg, #0a0a0a 0%, #111 100%);
+            padding: 100px 20px;
+        }
+
+        .why-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .why-card {
+            background: linear-gradient(135deg, rgba(255, 170, 0, 0.06), rgba(255, 170, 0, 0.02));
+            border: 1px solid rgba(255, 170, 0, 0.2);
+            border-radius: 24px;
+            padding: 60px;
+            margin-top: 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .why-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 170, 0, 0.06) 0%, transparent 70%);
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .why-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .why-icon {
+            width: 52px;
+            height: 52px;
+            min-width: 52px;
+            background: rgba(255, 170, 0, 0.1);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .why-item h4 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #ffaa00;
+        }
+
+        .why-item p {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.6;
+        }
+
+        /* ===== PROMOTION DETAIL ===== */
+        .promo-section {
+            padding: 100px 20px;
+            background: #0a0a0a;
+        }
+
+        .promo-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .promo-main-card {
+            margin-top: 48px;
+            background: linear-gradient(135deg, rgba(0, 200, 150, 0.08), rgba(0, 200, 150, 0.02));
+            border: 2px solid rgba(0, 200, 150, 0.25);
+            border-radius: 28px;
+            padding: 64px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .promo-main-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 200, 150, 0.06) 0%, transparent 60%);
+        }
+
+        .promo-main-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .promo-tag {
+            display: inline-block;
+            padding: 8px 24px;
+            background: rgba(0, 200, 150, 0.15);
+            border: 1px solid rgba(0, 200, 150, 0.3);
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #00c896;
+            margin-bottom: 32px;
+        }
+
+        .promo-rate {
+            font-size: clamp(64px, 10vw, 100px);
+            font-weight: 900;
+            color: #00c896;
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+
+        .promo-rate-label {
+            font-size: 22px;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 400;
+            margin-bottom: 48px;
+        }
+
+        .promo-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-top: 16px;
+        }
+
+        .promo-feature {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 32px 24px;
+        }
+
+        .promo-feature .feat-icon {
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+
+        .promo-feature .feat-value {
+            font-size: 28px;
+            font-weight: 900;
+            color: #00c896;
+            margin-bottom: 8px;
+        }
+
+        .promo-feature .feat-name {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .promo-feature .feat-desc {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.4);
+            line-height: 1.5;
+        }
+
+        /* ===== FEE BREAKDOWN ===== */
+        .breakdown-section {
+            padding: 100px 20px;
+            background: linear-gradient(180deg, #0a0a0a 0%, #0d1117 100%);
+        }
+
+        .breakdown-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .breakdown-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .breakdown-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 40px 32px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .breakdown-card:hover {
+            border-color: rgba(0, 200, 150, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .breakdown-card .icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 24px;
+        }
+
+        .breakdown-card:nth-child(1) .icon {
+            background: rgba(0, 150, 255, 0.1);
+        }
+
+        .breakdown-card:nth-child(2) .icon {
+            background: rgba(0, 200, 150, 0.1);
+        }
+
+        .breakdown-card:nth-child(3) .icon {
+            background: rgba(255, 200, 0, 0.1);
+        }
+
+        .breakdown-card .card-rate {
+            font-size: 40px;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+
+        .breakdown-card:nth-child(1) .card-rate { color: #0096ff; }
+        .breakdown-card:nth-child(2) .card-rate { color: #00c896; }
+        .breakdown-card:nth-child(3) .card-rate { color: #ffc800; }
+
+        .breakdown-card .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .breakdown-card .card-desc {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.4);
+            line-height: 1.6;
+        }
+
+        .total-row {
+            margin-top: 32px;
+            background: linear-gradient(135deg, rgba(0, 200, 150, 0.08), rgba(0, 200, 150, 0.03));
+            border: 1px solid rgba(0, 200, 150, 0.2);
+            border-radius: 16px;
+            padding: 28px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .total-row .label {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .total-row .value {
+            font-size: 36px;
+            font-weight: 900;
+            color: #00c896;
+        }
+
+        /* ===== BENEFITS SECTION ===== */
+        .benefits-section {
+            padding: 100px 20px;
+            background: #0a0a0a;
+        }
+
+        .benefits-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .benefit-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            border-color: rgba(0, 200, 150, 0.2);
+            background: rgba(0, 200, 150, 0.02);
+        }
+
+        .benefit-card .num {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(0, 200, 150, 0.1);
+            color: #00c896;
+            font-size: 14px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .benefit-card h4 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .benefit-card p {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.45);
+            line-height: 1.7;
+        }
+
+        /* ===== HOW IT WORKS ===== */
+        .how-section {
+            padding: 100px 20px;
+            background: linear-gradient(180deg, #0a0a0a 0%, #0d1117 100%);
+        }
+
+        .how-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .how-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .how-step {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 40px 32px;
+            text-align: center;
+            position: relative;
+        }
+
+        .how-step::after {
+            content: '>';
+            position: absolute;
+            right: -16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.15);
+            font-weight: 700;
+        }
+
+        .how-step:last-child::after {
+            display: none;
+        }
+
+        .step-num {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00c896, #00a67d);
+            color: #fff;
+            font-size: 20px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .how-step h4 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .how-step p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.4);
+            line-height: 1.6;
+        }
+
+        /* ===== NOTICE ===== */
+        .notice-section {
+            padding: 80px 20px;
+            background: #0a0a0a;
+        }
+
+        .notice-inner {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .notice-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 40px 48px;
+        }
+
+        .notice-card h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 20px;
+        }
+
+        .notice-card ul {
+            list-style: none;
+        }
+
+        .notice-card ul li {
+            padding: 10px 0;
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.45);
+            line-height: 1.6;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .notice-card ul li:last-child {
+            border-bottom: none;
+        }
+
+        .notice-card ul li .dot {
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 10px;
+            margin-top: 6px;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            padding: 120px 20px;
+            text-align: center;
+            background: linear-gradient(180deg, #0d1117 0%, #0a0a0a 50%, #1a1a2e 100%);
+            position: relative;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 200, 150, 0.08) 0%, transparent 70%);
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-deadline {
+            display: inline-block;
+            padding: 12px 32px;
+            background: rgba(255, 60, 60, 0.12);
+            border: 1px solid rgba(255, 60, 60, 0.3);
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin-bottom: 32px;
+            animation: badgePulse 2s ease-in-out infinite;
+        }
+
+        .cta-content h2 {
+            font-size: clamp(32px, 5vw, 52px);
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 24px;
+        }
+
+        .cta-content h2 span {
+            color: #00c896;
+        }
+
+        .cta-content p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 48px;
+            line-height: 1.7;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 48px;
+            background: linear-gradient(135deg, #00c896, #00a67d);
+            color: #fff;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 60px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 30px rgba(0, 200, 150, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 40px rgba(0, 200, 150, 0.4);
+        }
+
+        .cta-free {
+            margin-top: 20px;
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .cta-contact {
+            margin-top: 32px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .footer p {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.25);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .why-grid,
+            .breakdown-cards,
+            .benefits-grid,
+            .how-steps,
+            .promo-features {
+                grid-template-columns: 1fr;
+            }
+
+            .why-card,
+            .promo-main-card {
+                padding: 32px 24px;
+            }
+
+            .how-step::after {
+                display: none;
+            }
+
+            .countdown-timer {
+                gap: 8px;
+            }
+
+            .timer-block {
+                min-width: 70px;
+                padding: 16px 12px;
+            }
+        }
+
+        /* ===== ANIMATION ===== */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- URGENT TICKER -->
+    <div class="urgent-ticker">
+        <span class="blink">[ 3/30 ~ 3/31 ]</span>&nbsp;&nbsp;&nbsp;단 2일간 진행되는 특별 프로모션&nbsp;&nbsp;&nbsp;<span class="blink">[ 3/30 ~ 3/31 ]</span>
+    </div>
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="hero-content">
+            <div class="badge">2-DAY SPECIAL PROMOTION</div>
+            <h1>계좌이체 3.3%<br>안심취소 100%<br>특별 프로모션</h1>
+            <p>프리미엄 캠핑장의 환불 CS 부담을 줄이기 위해 준비한<br>캠핏의 <strong style="color: #fff;">단 2일간 한정 특별 프로모션</strong>입니다</p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="number">3.3%</div>
+                    <div class="label">계좌이체 수수료</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="number">100%</div>
+                    <div class="label">안심취소 적용</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="number red">D-2</div>
+                    <div class="label">3/31 마감</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- COUNTDOWN -->
+    <div class="countdown-section">
+        <div class="countdown-inner">
+            <div class="countdown-box">
+                <div class="countdown-content">
+                    <div class="countdown-label">Promotion Deadline</div>
+                    <div class="countdown-date">2026. <span>3. 30</span> ~ <span>3. 31</span></div>
+                    <div class="countdown-sub">단 2일, 지금이 아니면 참여할 수 없습니다</div>
+                    <div class="countdown-timer">
+                        <div class="timer-block">
+                            <div class="num" id="hours">--</div>
+                            <div class="unit">Hours</div>
+                        </div>
+                        <div class="timer-block">
+                            <div class="num" id="minutes">--</div>
+                            <div class="unit">Minutes</div>
+                        </div>
+                        <div class="timer-block">
+                            <div class="num" id="seconds">--</div>
+                            <div class="unit">Seconds</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WHY: CS 민원 배경 -->
+    <div class="why-section">
+        <div class="why-inner">
+            <div class="section-label">Why This Promotion</div>
+            <div class="section-title">이 프로모션을 제안드리는 이유</div>
+            <div class="section-desc">프리미엄 캠핑장의 운영 현황을 분석한 결과, 환불 관련 CS 민원이 많은 것으로 확인되었습니다.</div>
+
+            <div class="why-card fade-up">
+                <div class="why-grid">
+                    <div class="why-item">
+                        <div class="why-icon">📞</div>
+                        <div>
+                            <h4>환불 CS 민원 증가</h4>
+                            <p>예약 취소·환불 관련 고객 문의가 지속적으로 증가하고 있어, 캠핑장 운영에 부담이 되고 있습니다.</p>
+                        </div>
+                    </div>
+                    <div class="why-item">
+                        <div class="why-icon">📈</div>
+                        <div>
+                            <h4>높은 예약 건수</h4>
+                            <p>프리미엄 캠핑장은 예약 건수가 많은 만큼, 취소·환불 발생 빈도도 함께 높아지고 있습니다.</p>
+                        </div>
+                    </div>
+                    <div class="why-item">
+                        <div class="why-icon">😤</div>
+                        <div>
+                            <h4>고객 불만 리스크</h4>
+                            <p>환불 처리 과정에서 발생하는 고객 불만이 캠핑장 평판과 재방문율에 영향을 줄 수 있습니다.</p>
+                        </div>
+                    </div>
+                    <div class="why-item">
+                        <div class="why-icon">🛡️</div>
+                        <div>
+                            <h4>안심취소로 해결</h4>
+                            <p>안심취소 100% 적용으로 환불 분쟁을 원천 차단하고, CS 업무 부담을 대폭 줄일 수 있습니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROMOTION DETAIL -->
+    <div class="promo-section">
+        <div class="promo-inner">
+            <div class="section-label">Promotion Detail</div>
+            <div class="section-title">프로모션 내용</div>
+            <div class="section-desc">계좌이체 3.3% 수수료로 안심취소 100%를 적용받는 특별 프로모션입니다.</div>
+
+            <div class="promo-main-card fade-up">
+                <div class="promo-main-content">
+                    <div class="promo-tag">Special Promotion</div>
+                    <div class="promo-rate">3.3%</div>
+                    <div class="promo-rate-label">계좌이체 수수료 + 안심취소 100% 포함</div>
+
+                    <div class="promo-features">
+                        <div class="promo-feature">
+                            <div class="feat-icon">💳</div>
+                            <div class="feat-value">계좌이체</div>
+                            <div class="feat-name">결제 방식</div>
+                            <div class="feat-desc">간편하고 빠른 계좌이체 결제 시스템 적용</div>
+                        </div>
+                        <div class="promo-feature">
+                            <div class="feat-icon">🛡️</div>
+                            <div class="feat-value">100%</div>
+                            <div class="feat-name">안심취소 적용</div>
+                            <div class="feat-desc">취소·환불 발생 시 매출 100% 보전</div>
+                        </div>
+                        <div class="promo-feature">
+                            <div class="feat-icon">⏰</div>
+                            <div class="feat-value">2일</div>
+                            <div class="feat-name">한정 기간</div>
+                            <div class="feat-desc">3/30~3/31 단 2일간만 참여 가능</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BENEFITS -->
+    <div class="benefits-section">
+        <div class="benefits-inner">
+            <div class="section-label">Benefits</div>
+            <div class="section-title">프로모션 참여 시 기대 효과</div>
+            <div class="section-desc">환불 CS 민원 부담을 줄이고, 캠핑장 운영에 집중할 수 있습니다.</div>
+
+            <div class="benefits-grid fade-up">
+                <div class="benefit-card">
+                    <div class="num">01</div>
+                    <h4>환불 CS 민원 대폭 감소</h4>
+                    <p>캠퍼와 캠지기 간에 특정 사유로 100% 환불해달라는 민원이 줄어들어, 운영 관리 효율이 크게 높아집니다.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="num">02</div>
+                    <h4>캠퍼 환불 수수료 캠핏이 보장</h4>
+                    <p>캠핑장은 규정된 환불 수수료 비율만큼만 환불해주시면 됩니다. 캠퍼가 부담해야 하는 환불 수수료는 캠핏에서 보장해드립니다.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="num">03</div>
+                    <h4>고객 만족도 향상</h4>
+                    <p>안심취소가 적용되면 고객도 부담 없이 예약할 수 있어, 예약 전환율과 고객 만족도가 함께 올라갑니다.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="num">04</div>
+                    <h4>운영 효율 극대화</h4>
+                    <p>환불 처리에 소요되는 시간과 인력을 줄이고, 캠핑장 본연의 운영과 서비스 향상에 집중할 수 있습니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <div class="how-section">
+        <div class="how-inner">
+            <div class="section-label">How to Join</div>
+            <div class="section-title">참여 방법</div>
+            <div class="section-desc">간단한 3단계로 프로모션에 참여하실 수 있습니다.</div>
+
+            <div class="how-steps fade-up">
+                <div class="how-step">
+                    <div class="step-num">1</div>
+                    <h4>프로모션 참여 의사 전달</h4>
+                    <p>캠핏 담당자에게<br>참여 의사를 전달해주세요</p>
+                </div>
+                <div class="how-step">
+                    <div class="step-num">2</div>
+                    <h4>계좌이체 결제 전환</h4>
+                    <p>기존 결제 방식에서<br>계좌이체로 전환 설정</p>
+                </div>
+                <div class="how-step">
+                    <div class="step-num">3</div>
+                    <h4>안심취소 100% 적용</h4>
+                    <p>즉시 안심취소 100%가<br>자동으로 적용됩니다</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONFIDENTIAL -->
+    <div class="confidential-section" style="padding: 100px 20px; background: linear-gradient(180deg, #0d1117 0%, #0a0a0a 100%);">
+        <div style="max-width: 1100px; margin: 0 auto;">
+            <div class="section-label" style="color: #ff6b6b;">Confidential</div>
+            <div class="section-title">비밀유지 안내</div>
+            <div class="section-desc">본 프로모션은 프리미엄 캠핑장만을 대상으로 한 비공개 제안입니다.</div>
+
+            <div class="fade-up" style="
+                background: linear-gradient(135deg, rgba(255, 60, 60, 0.06), rgba(255, 60, 60, 0.02));
+                border: 2px solid rgba(255, 60, 60, 0.2);
+                border-radius: 24px;
+                padding: 56px;
+                margin-top: 48px;
+                position: relative;
+                overflow: hidden;
+            ">
+                <div style="display: flex; align-items: flex-start; gap: 24px; margin-bottom: 36px;">
+                    <div style="
+                        width: 64px; height: 64px; min-width: 64px;
+                        background: rgba(255, 60, 60, 0.1);
+                        border-radius: 16px;
+                        display: flex; align-items: center; justify-content: center;
+                        font-size: 28px;
+                    ">🔒</div>
+                    <div>
+                        <h3 style="font-size: 22px; font-weight: 800; margin-bottom: 12px; color: #ff6b6b;">본 제안서는 대외비 자료입니다</h3>
+                        <p style="font-size: 16px; color: rgba(255,255,255,0.55); line-height: 1.7;">
+                            본 프로모션은 캠핏이 선별한 <strong style="color: #fff;">프리미엄 캠핑장에만 제공되는 특별 혜택</strong>입니다.<br>
+                            프로모션의 조건, 수수료율 등 세부 내용은 외부에 공유하거나 타 캠핑장에 전달하지 않도록 부탁드립니다.
+                        </p>
+                    </div>
+                </div>
+                <div style="
+                    display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+                    padding-top: 32px; border-top: 1px solid rgba(255, 60, 60, 0.1);
+                ">
+                    <div style="display: flex; align-items: flex-start; gap: 14px;">
+                        <div style="
+                            width: 28px; height: 28px; min-width: 28px; border-radius: 50%;
+                            background: rgba(255, 60, 60, 0.12); color: #ff6b6b;
+                            display: flex; align-items: center; justify-content: center;
+                            font-size: 13px; margin-top: 2px;
+                        ">!</div>
+                        <span style="color: rgba(255,255,255,0.55); font-size: 15px; line-height: 1.6;">
+                            프로모션 조건 및 수수료율 <strong style="color: #fff;">외부 공유 금지</strong>
+                        </span>
+                    </div>
+                    <div style="display: flex; align-items: flex-start; gap: 14px;">
+                        <div style="
+                            width: 28px; height: 28px; min-width: 28px; border-radius: 50%;
+                            background: rgba(255, 60, 60, 0.12); color: #ff6b6b;
+                            display: flex; align-items: center; justify-content: center;
+                            font-size: 13px; margin-top: 2px;
+                        ">!</div>
+                        <span style="color: rgba(255,255,255,0.55); font-size: 15px; line-height: 1.6;">
+                            타 캠핑장 및 제3자에게 <strong style="color: #fff;">전달 불가</strong>
+                        </span>
+                    </div>
+                    <div style="display: flex; align-items: flex-start; gap: 14px;">
+                        <div style="
+                            width: 28px; height: 28px; min-width: 28px; border-radius: 50%;
+                            background: rgba(255, 60, 60, 0.12); color: #ff6b6b;
+                            display: flex; align-items: center; justify-content: center;
+                            font-size: 13px; margin-top: 2px;
+                        ">!</div>
+                        <span style="color: rgba(255,255,255,0.55); font-size: 15px; line-height: 1.6;">
+                            캠핏이 선별한 <strong style="color: #fff;">프리미엄 파트너 전용</strong> 제안
+                        </span>
+                    </div>
+                    <div style="display: flex; align-items: flex-start; gap: 14px;">
+                        <div style="
+                            width: 28px; height: 28px; min-width: 28px; border-radius: 50%;
+                            background: rgba(255, 60, 60, 0.12); color: #ff6b6b;
+                            display: flex; align-items: center; justify-content: center;
+                            font-size: 13px; margin-top: 2px;
+                        ">!</div>
+                        <span style="color: rgba(255,255,255,0.55); font-size: 15px; line-height: 1.6;">
+                            SNS, 커뮤니티 등 <strong style="color: #fff;">온라인 게시 금지</strong>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTICE -->
+    <div class="notice-section">
+        <div class="notice-inner">
+            <div class="notice-card fade-up">
+                <h4>안내 사항</h4>
+                <ul>
+                    <li>
+                        <span class="dot">●</span>
+                        <span>본 프로모션은 <strong style="color: #fff;">2026년 3월 30일 ~ 3월 31일, 단 2일간</strong> 진행됩니다.</span>
+                    </li>
+                    <li>
+                        <span class="dot">●</span>
+                        <span>프리미엄 캠핑장 대상으로 제안드리며, <strong style="color: #fff;">참여 여부는 자유</strong>입니다.</span>
+                    </li>
+                    <li>
+                        <span class="dot">●</span>
+                        <span>계좌이체 3.3% 수수료에 안심취소 100%가 포함된 특별 프로모션입니다.</span>
+                    </li>
+                    <li>
+                        <span class="dot">●</span>
+                        <span>프로모션 기간 종료 후에는 동일 조건으로 참여가 불가합니다.</span>
+                    </li>
+                    <li>
+                        <span class="dot">●</span>
+                        <span><strong style="color: #ff6b6b;">본 제안서는 대외비이며, 내용의 외부 유출을 금합니다.</strong></span>
+                    </li>
+                    <li>
+                        <span class="dot">●</span>
+                        <span>자세한 문의는 캠핏 파트너팀으로 연락 부탁드립니다.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section">
+        <div class="cta-content">
+            <div class="cta-deadline">3/31 마감 | 단 2일 한정</div>
+            <h2>환불 CS 걱정 없는<br><span>안심취소 100%</span><br>지금 신청하세요</h2>
+            <p>계좌이체 3.3%로 안심취소 100%를 적용받을 수 있는<br>이번 기회를 놓치지 마세요.</p>
+            <a href="#" class="cta-button" onclick="event.preventDefault(); alert('캠지기센터 오른쪽 상단 담당자에게 문의 주시면\n상담 도와드리겠습니다.');">프로모션 참여 신청</a>
+            <div class="cta-free">참여 여부는 자유이며, 부담 없이 문의 주세요</div>
+            <div class="cta-contact">
+                문의: 캠핏 파트너팀
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <p>&copy; 2026 캠핏 (Camfit). 본 제안서는 프리미엄 캠핑장 대상 비공개 자료입니다.</p>
+    </div>
+
+    <script>
+        // Scroll animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        // Countdown timer to 2026-03-31 23:59:59
+        function updateCountdown() {
+            const deadline = new Date('2026-03-31T23:59:59+09:00');
+            const now = new Date();
+            const diff = deadline - now;
+
+            if (diff <= 0) {
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                return;
+            }
+
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+
+</body>
+</html>
