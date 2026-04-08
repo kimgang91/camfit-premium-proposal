@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MD 입점 성과급 대비 공헌이익 대시보드</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0f1923;
+            color: #e0e6ed;
+            min-height: 100vh;
+        }
+        .header {
+            background: linear-gradient(135deg, #1a2a3a 0%, #0d1b2a 100%);
+            padding: 24px 32px;
+            border-bottom: 1px solid #1e3a5f;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        .header h1 span { color: #4cc9f0; }
+        .header-info {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            font-size: 13px;
+            color: #8899aa;
+        }
+        .header-info .update-date { color: #4cc9f0; font-weight: 600; }
+
+        .controls {
+            background: #131f2e;
+            padding: 16px 32px;
+            border-bottom: 1px solid #1e3a5f;
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .upload-area {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .upload-btn {
+            background: #1e3a5f;
+            color: #4cc9f0;
+            border: 1px dashed #4cc9f0;
+            padding: 8px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+        .upload-btn:hover { background: #254a6f; }
+        .data-source-tabs {
+            display: flex;
+            gap: 8px;
+            margin-left: auto;
+        }
+        .tab-btn {
+            background: #1a2a3a;
+            color: #8899aa;
+            border: 1px solid #1e3a5f;
+            padding: 6px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+        .tab-btn.active { background: #4cc9f0; color: #0f1923; border-color: #4cc9f0; font-weight: 600; }
+        .tab-btn:hover:not(.active) { background: #254a6f; color: #e0e6ed; }
+
+        .main { padding: 24px 32px; }
+
+        /* KPI Cards */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .kpi-card {
+            background: linear-gradient(135deg, #1a2a3a 0%, #162436 100%);
+            border: 1px solid #1e3a5f;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+        .kpi-card .label { font-size: 11px; color: #6b8299; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+        .kpi-card .value { font-size: 26px; font-weight: 700; color: #ffffff; }
+        .kpi-card .value.positive { color: #00d26a; }
+        .kpi-card .value.warning { color: #ffc107; }
+        .kpi-card .value.danger { color: #ff6b6b; }
+        .kpi-card .sub { font-size: 11px; color: #6b8299; margin-top: 4px; }
+
+        /* Section */
+        .section {
+            background: #131f2e;
+            border: 1px solid #1e3a5f;
+            border-radius: 10px;
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+        .section-header {
+            padding: 16px 24px;
+            border-bottom: 1px solid #1e3a5f;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .section-header h2 { font-size: 16px; font-weight: 600; color: #ffffff; }
+        .section-body { padding: 24px; }
+
+        /* Charts layout */
+        .charts-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        .chart-container {
+            background: #131f2e;
+            border: 1px solid #1e3a5f;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .chart-container h3 {
+            font-size: 14px;
+            color: #ffffff;
+            margin-bottom: 16px;
+        }
+        .chart-wrapper { position: relative; height: 300px; }
+
+        /* Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        .data-table thead th {
+            background: #0f1923;
+            color: #6b8299;
+            font-weight: 600;
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 2px solid #1e3a5f;
+            position: sticky;
+            top: 0;
+            white-space: nowrap;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .data-table tbody td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #1a2a3a;
+            white-space: nowrap;
+        }
+        .data-table tbody tr:hover { background: rgba(76, 201, 240, 0.05); }
+        .data-table .num-right { text-align: right; font-variant-numeric: tabular-nums; }
+        .data-table .highlight-good { color: #00d26a; font-weight: 600; }
+        .data-table .highlight-warn { color: #ffc107; font-weight: 600; }
+        .data-table .highlight-bad { color: #ff6b6b; font-weight: 600; }
+
+        /* Progress bar */
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #1a2a3a;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+        .progress-bar .fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.5s;
+        }
+        .fill-good { background: linear-gradient(90deg, #00d26a, #00e676); }
+        .fill-warn { background: linear-gradient(90deg, #ffc107, #ffca28); }
+        .fill-bad { background: linear-gradient(90deg, #ff6b6b, #ff8a80); }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .badge-good { background: rgba(0,210,106,0.15); color: #00d26a; }
+        .badge-warn { background: rgba(255,193,7,0.15); color: #ffc107; }
+        .badge-bad { background: rgba(255,107,107,0.15); color: #ff6b6b; }
+
+        /* MD Rank indicator */
+        .rank-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .rank-num {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+        }
+        .rank-1 { background: #ffd700; color: #0f1923; }
+        .rank-2 { background: #c0c0c0; color: #0f1923; }
+        .rank-3 { background: #cd7f32; color: #0f1923; }
+        .rank-default { background: #1e3a5f; color: #8899aa; }
+
+        /* View Toggle */
+        .view-toggle { display: flex; gap: 4px; }
+        .view-toggle button {
+            background: #1a2a3a;
+            color: #6b8299;
+            border: 1px solid #1e3a5f;
+            padding: 4px 12px;
+            font-size: 11px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .view-toggle button.active { background: #4cc9f0; color: #0f1923; border-color: #4cc9f0; }
+
+        /* Alert Section */
+        .alert-section { margin-bottom: 24px; }
+        .alert-card {
+            background: linear-gradient(135deg, rgba(255,107,107,0.1) 0%, rgba(255,107,107,0.05) 100%);
+            border: 1px solid rgba(255,107,107,0.3);
+            border-radius: 10px;
+            padding: 16px 24px;
+            margin-bottom: 12px;
+        }
+        .alert-card.warning {
+            background: linear-gradient(135deg, rgba(255,193,7,0.1) 0%, rgba(255,193,7,0.05) 100%);
+            border-color: rgba(255,193,7,0.3);
+        }
+        .alert-card h4 { font-size: 13px; color: #ff6b6b; margin-bottom: 4px; }
+        .alert-card.warning h4 { color: #ffc107; }
+        .alert-card p { font-size: 12px; color: #8899aa; }
+
+        /* Scrollable table wrapper */
+        .table-scroll { overflow-x: auto; max-height: 500px; overflow-y: auto; }
+
+        @media (max-width: 1200px) {
+            .kpi-grid { grid-template-columns: repeat(3, 1fr); }
+            .charts-row { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+            .header { flex-direction: column; gap: 12px; }
+            .controls { flex-direction: column; }
+            .main { padding: 16px; }
+        }
+
+        /* Loading overlay */
+        .loading {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15,25,35,0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            font-size: 16px;
+            color: #4cc9f0;
+        }
+        .loading.show { display: flex; }
+
+        /* Tooltip */
+        .info-tip {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background: #1e3a5f;
+            color: #6b8299;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 16px;
+            font-size: 10px;
+            cursor: help;
+            margin-left: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="loading" id="loading">데이터 처리중...</div>
+
+    <div class="header">
+        <h1><span>CAMFIT</span> MD 입점 성과급 대비 공헌이익 대시보드</h1>
+        <div class="header-info">
+            <span>기준일: <span class="update-date" id="updateDate">2026.01.18</span></span>
+            <span>|</span>
+            <span>총 업체: <strong id="totalCompanies">1,810</strong></span>
+        </div>
+    </div>
+
+    <div class="controls">
+        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+            <button class="upload-btn" onclick="fetchFromGoogleSheets()" id="fetchBtn">📡 구글 시트 불러오기</button>
+            <select id="filterYear" style="background:#1a2a3a;color:#e0e6ed;border:1px solid #1e3a5f;padding:6px 12px;border-radius:4px;font-size:12px;" onchange="applyDateFilter()">
+                <option value="">전체 연도</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+                <option value="2026">2026</option>
+            </select>
+            <select id="filterMonth" style="background:#1a2a3a;color:#e0e6ed;border:1px solid #1e3a5f;padding:6px 12px;border-radius:4px;font-size:12px;" onchange="applyDateFilter()">
+                <option value="">전체 월</option>
+                <option value="1">1월</option>
+                <option value="2">2월</option>
+                <option value="3">3월</option>
+                <option value="4">4월</option>
+                <option value="5">5월</option>
+                <option value="6">6월</option>
+                <option value="7">7월</option>
+                <option value="8">8월</option>
+                <option value="9">9월</option>
+                <option value="10">10월</option>
+                <option value="11">11월</option>
+                <option value="12">12월</option>
+            </select>
+            <span id="filterInfo" style="font-size:11px; color:#6b8299;">페이지 로드 시 자동으로 데이터를 불러옵니다</span>
+        </div>
+        <div class="data-source-tabs">
+            <button class="tab-btn active" onclick="switchView('md')">MD별 분석</button>
+            <button class="tab-btn" onclick="switchView('plan')">플랜별 분석</button>
+            <button class="tab-btn" onclick="switchView('period')">입점시기별</button>
+            <button class="tab-btn" onclick="switchView('detail')">상세 데이터</button>
+            <button class="tab-btn" onclick="switchView('alert')">경고/인사이트</button>
+        </div>
+    </div>
+
+    <div class="main">
+        <!-- KPI Cards -->
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="label">전체 지급 성과급</div>
+                <div class="value" id="kpiTotalBonus">₩329.1M</div>
+                <div class="sub">누적 총액</div>
+            </div>
+            <div class="kpi-card">
+                <div class="label">전체 회수 금액</div>
+                <div class="value positive" id="kpiTotalRevenue">₩3,140.5M</div>
+                <div class="sub">누적 매출</div>
+            </div>
+            <div class="kpi-card">
+                <div class="label">전체 회수율</div>
+                <div class="value positive" id="kpiTotalRate">954%</div>
+                <div class="sub">목표: 100%</div>
+            </div>
+            <div class="kpi-card">
+                <div class="label">회수완료 업체</div>
+                <div class="value" id="kpiCompleted">953</div>
+                <div class="sub" id="kpiCompletedRate">전체의 52.7%</div>
+            </div>
+            <div class="kpi-card">
+                <div class="label">회수중 업체</div>
+                <div class="value warning" id="kpiInProgress">857</div>
+                <div class="sub" id="kpiPensionNote">펜션 587개소 포함</div>
+            </div>
+            <div class="kpi-card">
+                <div class="label">6개월 이상 미회수</div>
+                <div class="value danger" id="kpiOverdue">746</div>
+                <div class="sub" id="kpiOverdueRate">회수중의 87%</div>
+            </div>
+        </div>
+
+        <!-- MD View -->
+        <div id="viewMd">
+            <!-- Charts -->
+            <div class="charts-row">
+                <div class="chart-container">
+                    <h3>MD별 회수율(금액) 비교</h3>
+                    <div class="chart-wrapper"><canvas id="chartMdRate"></canvas></div>
+                </div>
+                <div class="chart-container">
+                    <h3>MD별 지급성과급 vs 누적매출</h3>
+                    <div class="chart-wrapper"><canvas id="chartMdBonusVsRevenue"></canvas></div>
+                </div>
+            </div>
+            <div class="charts-row">
+                <div class="chart-container">
+                    <h3>MD별 회수 현황 (업체수)</h3>
+                    <div class="chart-wrapper"><canvas id="chartMdCompanyStatus"></canvas></div>
+                </div>
+                <div class="chart-container">
+                    <h3>MD별 효율성 스코어 (회수율 x 회수업체비율)</h3>
+                    <div class="chart-wrapper"><canvas id="chartMdEfficiency"></canvas></div>
+                </div>
+            </div>
+
+            <!-- MD Table -->
+            <div class="section">
+                <div class="section-header">
+                    <h2>MD별 성과 상세</h2>
+                </div>
+                <div class="section-body">
+                    <div class="table-scroll">
+                        <table class="data-table" id="mdTable">
+                            <thead>
+                                <tr>
+                                    <th>순위</th>
+                                    <th>담당MD</th>
+                                    <th>담당업체수</th>
+                                    <th>지급성과급</th>
+                                    <th>누적매출</th>
+                                    <th>회수율(금액)</th>
+                                    <th>평균경과기간</th>
+                                    <th>회수율(업체수)</th>
+                                    <th>회수완료</th>
+                                    <th>회수중</th>
+                                    <th>6개월 이상</th>
+                                    <th>효율등급</th>
+                                </tr>
+                            </thead>
+                            <tbody id="mdTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Plan View -->
+        <div id="viewPlan" style="display:none;">
+            <div class="charts-row">
+                <div class="chart-container">
+                    <h3>플랜별 회수율(금액) 비교</h3>
+                    <div class="chart-wrapper"><canvas id="chartPlanRate"></canvas></div>
+                </div>
+                <div class="chart-container">
+                    <h3>플랜별 업체수 분포</h3>
+                    <div class="chart-wrapper"><canvas id="chartPlanDist"></canvas></div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <h2>플랜별 성과 상세</h2>
+                </div>
+                <div class="section-body">
+                    <div class="table-scroll">
+                        <table class="data-table" id="planTable">
+                            <thead>
+                                <tr>
+                                    <th>플랜명</th>
+                                    <th>업체수</th>
+                                    <th>지급성과급</th>
+                                    <th>누적매출</th>
+                                    <th>회수율(금액)</th>
+                                    <th>평균경과기간</th>
+                                    <th>회수율(업체수)</th>
+                                    <th>회수완료</th>
+                                    <th>회수중</th>
+                                    <th>6개월 이상</th>
+                                </tr>
+                            </thead>
+                            <tbody id="planTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detail View -->
+        <div id="viewDetail" style="display:none;">
+            <div class="section">
+                <div class="section-header">
+                    <h2>업체별 상세 데이터</h2>
+                    <div style="display:flex;gap:8px;align-items:center;">
+                        <select id="filterMd" style="background:#1a2a3a;color:#e0e6ed;border:1px solid #1e3a5f;padding:6px 12px;border-radius:4px;font-size:12px;">
+                            <option value="">전체 MD</option>
+                        </select>
+                        <select id="filterPlan" style="background:#1a2a3a;color:#e0e6ed;border:1px solid #1e3a5f;padding:6px 12px;border-radius:4px;font-size:12px;">
+                            <option value="">전체 플랜</option>
+                        </select>
+                        <select id="filterStatus" style="background:#1a2a3a;color:#e0e6ed;border:1px solid #1e3a5f;padding:6px 12px;border-radius:4px;font-size:12px;">
+                            <option value="">전체 상태</option>
+                            <option value="회수완료">회수완료</option>
+                            <option value="회수중">회수중</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="section-body">
+                    <div class="table-scroll" style="max-height:600px;">
+                        <table class="data-table" id="detailTable">
+                            <thead>
+                                <tr>
+                                    <th>캠핑장명</th>
+                                    <th>업체등급</th>
+                                    <th>담당MD</th>
+                                    <th>플랜</th>
+                                    <th>입점시기</th>
+                                    <th>지급성과급</th>
+                                    <th>누적매출</th>
+                                    <th>회수율</th>
+                                    <th>경과기간</th>
+                                    <th>회수상태</th>
+                                </tr>
+                            </thead>
+                            <tbody id="detailTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Period View -->
+        <div id="viewPeriod" style="display:none;">
+            <div class="charts-row">
+                <div class="chart-container">
+                    <h3>입점시기별 업체수 & 평균 회수율</h3>
+                    <div class="chart-wrapper"><canvas id="chartPeriod"></canvas></div>
+                </div>
+                <div class="chart-container">
+                    <h3>입점시기별 지급성과급 vs 회수금액</h3>
+                    <div class="chart-wrapper"><canvas id="chartPeriodAmount"></canvas></div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <h2>입점시기별 성과 분석</h2>
+                </div>
+                <div class="section-body">
+                    <div class="table-scroll">
+                        <table class="data-table" id="periodTable">
+                            <thead>
+                                <tr>
+                                    <th>입점년월</th>
+                                    <th>업체수</th>
+                                    <th>지급성과급 합계</th>
+                                    <th>누적매출 합계</th>
+                                    <th>회수금액 합계</th>
+                                    <th>평균 회수율</th>
+                                    <th>회수완료 수</th>
+                                    <th>회수완료율</th>
+                                </tr>
+                            </thead>
+                            <tbody id="periodTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alert View -->
+        <div id="viewAlert" style="display:none;">
+            <div class="alert-section" id="alertSection"></div>
+
+            <div class="section">
+                <div class="section-header">
+                    <h2>MD별 위험 지표 요약</h2>
+                </div>
+                <div class="section-body">
+                    <div class="table-scroll">
+                        <table class="data-table" id="alertTable">
+                            <thead>
+                                <tr>
+                                    <th>담당MD</th>
+                                    <th>회수중 비율</th>
+                                    <th>6개월+ 미회수 비율</th>
+                                    <th>업체당 평균매출</th>
+                                    <th>효율 등급</th>
+                                    <th>주요 이슈</th>
+                                </tr>
+                            </thead>
+                            <tbody id="alertTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // ==================== DEFAULT DATA ====================
+    const defaultMdData = [
+        { name: "박해준", companies: 642, bonus: 119350000, revenue: 1612007644, rate: 1351, avgMonths: 12, companyRate: 55, completed: 354, inProgress: 288, overdue: 278 },
+        { name: "박지환", companies: 293, bonus: 43000000, revenue: 381798285, rate: 888, avgMonths: 10, companyRate: 54, completed: 159, inProgress: 134, overdue: 125 },
+        { name: "이석형", companies: 407, bonus: 67600000, revenue: 564986315, rate: 836, avgMonths: 10, companyRate: 50, completed: 203, inProgress: 204, overdue: 195 },
+        { name: "이제권", companies: 177, bonus: 42500000, revenue: 291887175, rate: 687, avgMonths: 12, companyRate: 55, completed: 98, inProgress: 79, overdue: 64 },
+        { name: "김흥섭", companies: 55, bonus: 12900000, revenue: 85892952, rate: 666, avgMonths: 8, companyRate: 73, completed: 40, inProgress: 15, overdue: 9 },
+        { name: "김형기", companies: 25, bonus: 5850000, revenue: 17309342, rate: 296, avgMonths: 9, companyRate: 64, completed: 16, inProgress: 9, overdue: 7 },
+        { name: "임승범", companies: 18, bonus: 4400000, revenue: 4910670, rate: 112, avgMonths: 8, companyRate: 44, completed: 8, inProgress: 10, overdue: 8 },
+        { name: "조아라", companies: 96, bonus: 23300000, revenue: 30806545, rate: 132, avgMonths: 7, companyRate: 31, completed: 30, inProgress: 66, overdue: 29 },
+        { name: "김태식", companies: 50, bonus: 7200000, revenue: 1187988, rate: 16, avgMonths: 7, companyRate: 4, completed: 2, inProgress: 48, overdue: 31 },
+    ];
+
+    const defaultPlanData = [
+        { name: "파트너", companies: 528, bonus: 158400000, revenue: 1781478465, rate: 1125, avgMonths: 12, companyRate: 81, completed: 429, inProgress: 99, overdue: 49 },
+        { name: "캠핑케어", companies: 91, bonus: 27300000, revenue: 533773088, rate: 1955, avgMonths: 16, companyRate: 82, completed: 75, inProgress: 16, overdue: 16 },
+        { name: "베이직", companies: 151, bonus: 22650000, revenue: 119663904, rate: 528, avgMonths: 12, companyRate: 62, completed: 93, inProgress: 58, overdue: 31 },
+        { name: "스타터", companies: 486, bonus: 55950000, revenue: 9246326, rate: 17, avgMonths: 11, companyRate: 3, completed: 15, inProgress: 471, overdue: 455 },
+        { name: "니치", companies: 117, bonus: 23400000, revenue: 734801, rate: 3, avgMonths: 9, companyRate: 1, completed: 1, inProgress: 116, overdue: 116 },
+        { name: "리저브실드", companies: 39, bonus: 11700000, revenue: 299170368, rate: 2557, avgMonths: 6, companyRate: 90, completed: 35, inProgress: 4, overdue: 0 },
+        { name: "오토", companies: 288, bonus: 28800000, revenue: 276484155, rate: 960, avgMonths: 7, companyRate: 68, completed: 196, inProgress: 92, overdue: 83 },
+        { name: "이지캠핑", companies: 3, bonus: 900000, revenue: 1850533, rate: 206, avgMonths: 8, companyRate: 67, completed: 2, inProgress: 1, overdue: 0 },
+    ];
+
+    let mdData = [...defaultMdData];
+    let planData = [...defaultPlanData];
+    let detailData = [];
+    let allDetailData = []; // unfiltered full dataset
+    let chartInstances = {};
+
+    // ==================== UTILITY FUNCTIONS ====================
+    function formatMoney(val) {
+        if (val >= 1e9) return '₩' + (val / 1e9).toFixed(1) + 'B';
+        if (val >= 1e6) return '₩' + (val / 1e6).toFixed(1) + 'M';
+        if (val >= 1e3) return '₩' + (val / 1e3).toFixed(0) + 'K';
+        return '₩' + val.toLocaleString();
+    }
+
+    function formatFullMoney(val) {
+        return '₩' + val.toLocaleString();
+    }
+
+    function getRateClass(rate) {
+        if (rate >= 500) return 'highlight-good';
+        if (rate >= 100) return 'highlight-warn';
+        return 'highlight-bad';
+    }
+
+    function getRateBadge(rate) {
+        if (rate >= 500) return '<span class="badge badge-good">우수</span>';
+        if (rate >= 100) return '<span class="badge badge-warn">보통</span>';
+        return '<span class="badge badge-bad">미달</span>';
+    }
+
+    function getGrade(md) {
+        const score = (md.rate / 100) * (md.companyRate / 100) * 100;
+        if (score >= 300) return { label: 'S', class: 'badge-good', desc: '최우수' };
+        if (score >= 100) return { label: 'A', class: 'badge-good', desc: '우수' };
+        if (score >= 50) return { label: 'B', class: 'badge-warn', desc: '보통' };
+        if (score >= 10) return { label: 'C', class: 'badge-warn', desc: '주의' };
+        return { label: 'D', class: 'badge-bad', desc: '위험' };
+    }
+
+    function destroyChart(id) {
+        if (chartInstances[id]) {
+            chartInstances[id].destroy();
+            delete chartInstances[id];
+        }
+    }
+
+    // ==================== RENDER FUNCTIONS ====================
+    function renderKPIs() {
+        const totalBonus = mdData.reduce((s, m) => s + m.bonus, 0);
+        const totalRevenue = mdData.reduce((s, m) => s + m.revenue, 0);
+        const totalCompleted = mdData.reduce((s, m) => s + m.completed, 0);
+        const totalInProgress = mdData.reduce((s, m) => s + m.inProgress, 0);
+        const totalOverdue = mdData.reduce((s, m) => s + m.overdue, 0);
+        const totalCompanies = mdData.reduce((s, m) => s + m.companies, 0);
+        const totalRate = totalBonus > 0 ? Math.round(totalRevenue / totalBonus * 100) : 0;
+
+        document.getElementById('kpiTotalBonus').textContent = formatMoney(totalBonus);
+        document.getElementById('kpiTotalRevenue').textContent = formatMoney(totalRevenue);
+        document.getElementById('kpiTotalRate').textContent = totalRate + '%';
+        document.getElementById('kpiCompleted').textContent = totalCompleted.toLocaleString();
+        document.getElementById('kpiCompletedRate').textContent = '전체의 ' + (totalCompanies > 0 ? Math.round(totalCompleted / totalCompanies * 100) : 0) + '%';
+        document.getElementById('kpiInProgress').textContent = totalInProgress.toLocaleString();
+        document.getElementById('kpiOverdue').textContent = totalOverdue.toLocaleString();
+        document.getElementById('kpiOverdueRate').textContent = totalInProgress > 0 ? '회수중의 ' + Math.round(totalOverdue / totalInProgress * 100) + '%' : '';
+        document.getElementById('totalCompanies').textContent = totalCompanies.toLocaleString();
+    }
+
+    function renderMdTable() {
+        const sorted = [...mdData].sort((a, b) => b.rate - a.rate);
+        const tbody = document.getElementById('mdTableBody');
+        tbody.innerHTML = sorted.map((md, i) => {
+            const grade = getGrade(md);
+            const rankClass = i < 3 ? `rank-${i+1}` : 'rank-default';
+            return `<tr>
+                <td><div class="rank-indicator"><span class="rank-num ${rankClass}">${i+1}</span></div></td>
+                <td><strong>${md.name}</strong></td>
+                <td class="num-right">${md.companies.toLocaleString()}</td>
+                <td class="num-right">${formatFullMoney(md.bonus)}</td>
+                <td class="num-right">${formatFullMoney(md.revenue)}</td>
+                <td class="num-right ${getRateClass(md.rate)}">${md.rate.toLocaleString()}%</td>
+                <td class="num-right">${md.avgMonths}개월</td>
+                <td class="num-right">${md.companyRate}%</td>
+                <td class="num-right">${md.completed.toLocaleString()}</td>
+                <td class="num-right">${md.inProgress.toLocaleString()}</td>
+                <td class="num-right ${md.overdue > md.inProgress * 0.5 ? 'highlight-bad' : ''}">${md.overdue.toLocaleString()}</td>
+                <td><span class="badge ${grade.class}">${grade.label} ${grade.desc}</span></td>
+            </tr>`;
+        }).join('');
+    }
+
+    function renderPlanTable() {
+        const sorted = [...planData].sort((a, b) => b.rate - a.rate);
+        const tbody = document.getElementById('planTableBody');
+        tbody.innerHTML = sorted.map(p => `<tr>
+            <td><strong>${p.name}</strong></td>
+            <td class="num-right">${p.companies.toLocaleString()}</td>
+            <td class="num-right">${formatFullMoney(p.bonus)}</td>
+            <td class="num-right">${formatFullMoney(p.revenue)}</td>
+            <td class="num-right ${getRateClass(p.rate)}">${p.rate.toLocaleString()}%</td>
+            <td class="num-right">${p.avgMonths}개월</td>
+            <td class="num-right">${p.companyRate}%</td>
+            <td class="num-right">${p.completed.toLocaleString()}</td>
+            <td class="num-right">${p.inProgress.toLocaleString()}</td>
+            <td class="num-right ${p.overdue > p.inProgress * 0.5 ? 'highlight-bad' : ''}">${p.overdue.toLocaleString()}</td>
+        </tr>`).join('');
+    }
+
+    function renderMdCharts() {
+        const sorted = [...mdData].sort((a, b) => b.rate - a.rate);
+        const labels = sorted.map(m => m.name);
+        const colors = sorted.map(m => m.rate >= 500 ? '#00d26a' : m.rate >= 100 ? '#ffc107' : '#ff6b6b');
+
+        // Rate chart
+        destroyChart('chartMdRate');
+        chartInstances['chartMdRate'] = new Chart(document.getElementById('chartMdRate'), {
+            type: 'bar',
+            data: {
+                labels,
+                datasets: [{
+                    label: '회수율(금액)',
+                    data: sorted.map(m => m.rate),
+                    backgroundColor: colors,
+                    borderRadius: 4,
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    datalabels: { display: true, anchor: 'end', align: 'top', color: '#e0e6ed', font: { size: 11, weight: 'bold' }, formatter: v => v + '%' }
+                },
+                scales: {
+                    x: { ticks: { color: '#6b8299' }, grid: { display: false } },
+                    y: { ticks: { color: '#6b8299', callback: v => v + '%' }, grid: { color: '#1e3a5f' } }
+                }
+            },
+            plugins: [ChartDataLabels]
+        });
+
+        // Bonus vs Revenue
+        destroyChart('chartMdBonusVsRevenue');
+        chartInstances['chartMdBonusVsRevenue'] = new Chart(document.getElementById('chartMdBonusVsRevenue'), {
+            type: 'bar',
+            data: {
+                labels,
+                datasets: [
+                    { label: '지급성과급', data: sorted.map(m => m.bonus), backgroundColor: '#ff6b6b', borderRadius: 4 },
+                    { label: '누적매출', data: sorted.map(m => m.revenue), backgroundColor: '#4cc9f0', borderRadius: 4 }
+                ]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: {
+                    legend: { labels: { color: '#e0e6ed', font: { size: 11 } } },
+                    datalabels: { display: false }
+                },
+                scales: {
+                    x: { ticks: { color: '#6b8299' }, grid: { display: false } },
+                    y: { ticks: { color: '#6b8299', callback: v => formatMoney(v) }, grid: { color: '#1e3a5f' } }
+                }
+            }
+        });
+
+        // Company status stacked bar
+        destroyChart('chartMdCompanyStatus');
+        chartInstances['chartMdCompanyStatus'] = new Chart(document.getElementById('chartMdCompanyStatus'), {
+            type: 'bar',
+            data: {
+                labels,
+                datasets: [
+                    { label: '회수완료', data: sorted.map(m => m.completed), backgroundColor: '#00d26a', borderRadius: 2 },
+                    { label: '회수중(6개월 미만)', data: sorted.map(m => m.inProgress - m.overdue), backgroundColor: '#ffc107', borderRadius: 2 },
+                    { label: '6개월 이상 미회수', data: sorted.map(m => m.overdue), backgroundColor: '#ff6b6b', borderRadius: 2 }
+                ]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: {
+                    legend: { labels: { color: '#e0e6ed', font: { size: 11 } } },
+                    datalabels: { display: false }
+                },
+                scales: {
+                    x: { stacked: true, ticks: { color: '#6b8299' }, grid: { display: false } },
+                    y: { stacked: true, ticks: { color: '#6b8299' }, grid: { color: '#1e3a5f' } }
+                }
+            }
+        });
+
+        // Efficiency score
+        destroyChart('chartMdEfficiency');
+        const effScores = sorted.map(m => Math.round((m.rate / 100) * (m.companyRate / 100) * 100));
+        const effColors = effScores.map(s => s >= 300 ? '#00d26a' : s >= 100 ? '#4cc9f0' : s >= 50 ? '#ffc107' : '#ff6b6b');
+        chartInstances['chartMdEfficiency'] = new Chart(document.getElementById('chartMdEfficiency'), {
+            type: 'bar',
+            data: {
+                labels,
+                datasets: [{
+                    label: '효율성 스코어',
+                    data: effScores,
+                    backgroundColor: effColors,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                indexAxis: 'y',
+                plugins: {
+                    legend: { display: false },
+                    datalabels: { display: true, anchor: 'end', align: 'right', color: '#e0e6ed', font: { size: 11, weight: 'bold' } }
+                },
+                scales: {
+                    x: { ticks: { color: '#6b8299' }, grid: { color: '#1e3a5f' } },
+                    y: { ticks: { color: '#e0e6ed' }, grid: { display: false } }
+                }
+            },
+            plugins: [ChartDataLabels]
+        });
+    }
+
+    function renderPlanCharts() {
+        const sorted = [...planData].sort((a, b) => b.rate - a.rate);
+        const labels = sorted.map(p => p.name);
+        const colors = ['#4cc9f0', '#00d26a', '#ffc107', '#ff6b6b', '#a78bfa', '#f472b6', '#fb923c', '#94a3b8'];
+
+        destroyChart('chartPlanRate');
+        chartInstances['chartPlanRate'] = new Chart(document.getElementById('chartPlanRate'), {
+            type: 'bar',
+            data: {
+                labels,
+                datasets: [{
+                    label: '회수율(금액)',
+                    data: sorted.map(p => p.rate),
+                    backgroundColor: sorted.map(p => p.rate >= 500 ? '#00d26a' : p.rate >= 100 ? '#ffc107' : '#ff6b6b'),
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    datalabels: { display: true, anchor: 'end', align: 'top', color: '#e0e6ed', font: { size: 11, weight: 'bold' }, formatter: v => v + '%' }
+                },
+                scales: {
+                    x: { ticks: { color: '#6b8299' }, grid: { display: false } },
+                    y: { ticks: { color: '#6b8299', callback: v => v + '%' }, grid: { color: '#1e3a5f' } }
+                }
+            },
+            plugins: [ChartDataLabels]
+        });
+
+        destroyChart('chartPlanDist');
+        chartInstances['chartPlanDist'] = new Chart(document.getElementById('chartPlanDist'), {
+            type: 'doughnut',
+            data: {
+                labels,
+                datasets: [{
+                    data: sorted.map(p => p.companies),
+                    backgroundColor: colors,
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'right', labels: { color: '#e0e6ed', font: { size: 11 }, padding: 12 } },
+                    datalabels: { display: true, color: '#ffffff', font: { size: 11, weight: 'bold' }, formatter: (v, ctx) => {
+                        const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+                        return Math.round(v / total * 100) + '%';
+                    }}
+                }
+            },
+            plugins: [ChartDataLabels]
+        });
+    }
+
+    function renderAlerts() {
+        const section = document.getElementById('alertSection');
+        let html = '';
+
+        // Find concerning MDs
+        mdData.forEach(md => {
+            if (md.rate < 100) {
+                html += `<div class="alert-card">
+                    <h4>⚠ ${md.name} - 회수율 미달 (${md.rate}%)</h4>
+                    <p>지급성과급 ${formatFullMoney(md.bonus)} 대비 누적매출 ${formatFullMoney(md.revenue)}로 성과급 회수가 완료되지 않았습니다.
+                    담당 ${md.companies}개 업체 중 회수완료 ${md.completed}개(${md.companyRate}%), 6개월 이상 미회수 ${md.overdue}개.</p>
+                </div>`;
+            }
+            if (md.overdue > md.companies * 0.5) {
+                html += `<div class="alert-card warning">
+                    <h4>⏰ ${md.name} - 장기 미회수 업체 과다</h4>
+                    <p>담당 ${md.companies}개 업체 중 ${md.overdue}개(${Math.round(md.overdue/md.companies*100)}%)가 6개월 이상 미회수 상태입니다. 해당 업체 관리가 필요합니다.</p>
+                </div>`;
+            }
+        });
+
+        // Plan alerts
+        planData.forEach(p => {
+            if (p.rate < 50 && p.companies >= 50) {
+                html += `<div class="alert-card">
+                    <h4>⚠ ${p.name} 플랜 - 구조적 회수율 문제 (${p.rate}%)</h4>
+                    <p>${p.companies}개 업체 가입, 회수완료 ${p.completed}개(${p.companyRate}%). 플랜 자체의 수익 구조 재검토가 필요합니다.</p>
+                </div>`;
+            }
+        });
+
+        if (!html) html = '<div style="padding:24px;color:#6b8299;text-align:center;">현재 특별한 경고 사항이 없습니다.</div>';
+        section.innerHTML = html;
+
+        // Alert table
+        const tbody = document.getElementById('alertTableBody');
+        const sorted = [...mdData].sort((a, b) => {
+            const scoreA = (a.overdue / Math.max(a.companies, 1)) * 100;
+            const scoreB = (b.overdue / Math.max(b.companies, 1)) * 100;
+            return scoreB - scoreA;
+        });
+
+        tbody.innerHTML = sorted.map(md => {
+            const inProgressRate = Math.round(md.inProgress / Math.max(md.companies, 1) * 100);
+            const overdueRate = Math.round(md.overdue / Math.max(md.companies, 1) * 100);
+            const avgRevPerCompany = Math.round(md.revenue / Math.max(md.companies, 1));
+            const grade = getGrade(md);
+            let issues = [];
+            if (md.rate < 100) issues.push('회수율 미달');
+            if (overdueRate > 50) issues.push('장기미회수 과다');
+            if (md.companyRate < 30) issues.push('회수업체 부족');
+
+            return `<tr>
+                <td><strong>${md.name}</strong></td>
+                <td class="num-right ${inProgressRate > 60 ? 'highlight-bad' : ''}">${inProgressRate}%</td>
+                <td class="num-right ${overdueRate > 50 ? 'highlight-bad' : ''}">${overdueRate}%</td>
+                <td class="num-right">${formatMoney(avgRevPerCompany)}</td>
+                <td><span class="badge ${grade.class}">${grade.label} ${grade.desc}</span></td>
+                <td>${issues.length ? issues.map(i => `<span class="badge badge-bad" style="margin-right:4px;">${i}</span>`).join('') : '<span class="badge badge-good">양호</span>'}</td>
+            </tr>`;
+        }).join('');
+    }
+
+    function renderDetailTable() {
+        if (detailData.length === 0) {
+            document.getElementById('detailTableBody').innerHTML = '<tr><td colspan="10" style="text-align:center;padding:40px;color:#6b8299;">구글 시트에서 데이터를 불러오는 중입니다...</td></tr>';
+            return;
+        }
+
+        const mdFilter = document.getElementById('filterMd').value;
+        const planFilter = document.getElementById('filterPlan').value;
+        const statusFilter = document.getElementById('filterStatus').value;
+
+        let filtered = detailData;
+        if (mdFilter) filtered = filtered.filter(d => d.md === mdFilter);
+        if (planFilter) filtered = filtered.filter(d => d.plan === planFilter);
+        if (statusFilter) filtered = filtered.filter(d => d.status === statusFilter);
+
+        const tbody = document.getElementById('detailTableBody');
+        tbody.innerHTML = filtered.slice(0, 500).map(d => `<tr>
+            <td>${d.name}</td>
+            <td>${d.grade || ''}</td>
+            <td>${d.md}</td>
+            <td>${d.plan}</td>
+            <td>${d.joinDate || ''}</td>
+            <td class="num-right">${formatFullMoney(d.bonus)}</td>
+            <td class="num-right">${formatFullMoney(d.revenue)}</td>
+            <td class="num-right ${getRateClass(d.rate)}">${d.rate}%</td>
+            <td class="num-right">${d.months}개월</td>
+            <td>${d.status === '회수완료' ? '<span class="badge badge-good">회수완료</span>' : '<span class="badge badge-warn">회수중</span>'}</td>
+        </tr>`).join('');
+    }
+
+    // ==================== VIEW SWITCHING ====================
+    function switchView(view) {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        event.target.classList.add('active');
+
+        ['viewMd', 'viewPlan', 'viewPeriod', 'viewDetail', 'viewAlert'].forEach(v => {
+            document.getElementById(v).style.display = 'none';
+        });
+
+        if (view === 'md') {
+            document.getElementById('viewMd').style.display = 'block';
+            renderMdCharts();
+        } else if (view === 'plan') {
+            document.getElementById('viewPlan').style.display = 'block';
+            renderPlanCharts();
+        } else if (view === 'period') {
+            document.getElementById('viewPeriod').style.display = 'block';
+            renderPeriodView();
+        } else if (view === 'detail') {
+            document.getElementById('viewDetail').style.display = 'block';
+            renderDetailTable();
+        } else if (view === 'alert') {
+            document.getElementById('viewAlert').style.display = 'block';
+            renderAlerts();
+        }
+    }
+
+    // ==================== CSV PARSING ====================
+    function parseCSV(text) {
+        const lines = text.split('\n');
+        const result = [];
+        let headers = [];
+
+        for (let i = 0; i < lines.length; i++) {
+            const row = parseCSVLine(lines[i]);
+            if (i === 0) {
+                headers = row.map(h => h.trim());
+            } else if (row.length >= 2) {
+                const obj = {};
+                headers.forEach((h, idx) => obj[h] = (row[idx] || '').trim());
+                result.push(obj);
+            }
+        }
+        return { headers, rows: result };
+    }
+
+    function parseCSVLine(line) {
+        const result = [];
+        let current = '';
+        let inQuotes = false;
+
+        for (let i = 0; i < line.length; i++) {
+            const char = line[i];
+            if (inQuotes) {
+                if (char === '"' && line[i + 1] === '"') {
+                    current += '"';
+                    i++;
+                } else if (char === '"') {
+                    inQuotes = false;
+                } else {
+                    current += char;
+                }
+            } else {
+                if (char === '"') {
+                    inQuotes = true;
+                } else if (char === ',') {
+                    result.push(current);
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+        }
+        result.push(current);
+        return result;
+    }
+
+    function parseNumber(str) {
+        if (!str) return 0;
+        const cleaned = str.replace(/[₩%\s]/g, '').replace(/,/g, '');
+        const val = parseInt(cleaned);
+        return isNaN(val) ? 0 : val;
+    }
+
+    function parsePercent(str) {
+        if (!str) return 0;
+        const match = str.match(/([\d.]+)/);
+        return match ? parseFloat(match[1]) : 0;
+    }
+
+    // ==================== GOOGLE SHEETS FETCH ====================
+    async function fetchFromGoogleSheets() {
+        const loading = document.getElementById('loading');
+        loading.classList.add('show');
+        const fetchBtn = document.getElementById('fetchBtn');
+        fetchBtn.textContent = '불러오는 중...';
+        fetchBtn.disabled = true;
+
+        try {
+            const url = 'https://docs.google.com/spreadsheets/d/1y76NTbpE0lf8hf328tUyZQmRCLPEfk5TBasBemzcgbk/gviz/tq?tqx=out:csv&gid=0';
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('HTTP ' + response.status);
+            const text = await response.text();
+
+            const { headers, rows } = parseCSV(text);
+
+            const findCol = (keywords) => headers.find(h => keywords.some(k => h.includes(k))) || '';
+
+            const gradeCol = findCol(['업체등급']);
+            const mdCol = findCol(['담당MD', 'MD', '담당자']);
+            const nameCol = findCol(['업체명', '캠핑장', '업소명']);
+            const planCol = findCol(['플랜명', '플랜']);
+            const joinDateCol = findCol(['입점시기']);
+            const bonusCol = findCol(['지급성과급', '성과급']);
+            const revenueCol = findCol(['현재 누적 수수료매출', '누적매출', '수수료매출', '매출']);
+            const recoveryCol = findCol(['회수금액']);
+            const rateCol = findCol(['회수율']);
+            const monthsCol = findCol(['경과기간', '경과']);
+            const statusCol = findCol(['회수상태', '상태']);
+
+            allDetailData = rows.map(r => {
+                const joinDateStr = r[joinDateCol] || '';
+                let joinYear = '', joinMonth = '';
+                // Parse date format like "2026. 3. 31" or "2026.03.31" or "2026-03-31"
+                const dateMatch = joinDateStr.match(/(\d{4})\s*[\.\-\/]\s*(\d{1,2})/);
+                if (dateMatch) {
+                    joinYear = dateMatch[1];
+                    joinMonth = String(parseInt(dateMatch[2]));
+                }
+
+                return {
+                    grade: r[gradeCol] || '',
+                    md: r[mdCol] || '',
+                    name: r[nameCol] || '',
+                    plan: r[planCol] || '',
+                    joinDate: joinDateStr,
+                    joinYear: joinYear,
+                    joinMonth: joinMonth,
+                    bonus: parseNumber(r[bonusCol]),
+                    revenue: parseNumber(r[revenueCol]),
+                    recovery: parseNumber(r[recoveryCol]),
+                    rate: parsePercent(r[rateCol]),
+                    months: parseNumber(r[monthsCol]),
+                    status: r[statusCol] || '',
+                    note: r[findCol(['비고'])] || ''
+                };
+            }).filter(d => d.name);
+
+            document.getElementById('updateDate').textContent = new Date().toISOString().slice(0, 10).replace(/-/g, '.');
+            document.getElementById('filterInfo').textContent = allDetailData.length + '개 업체 로드 완료';
+
+            applyDateFilter();
+
+        } catch(err) {
+            console.error('Google Sheets fetch error:', err);
+            document.getElementById('filterInfo').textContent = '불러오기 실패 - 기본 데이터 사용중';
+            // Keep default data as fallback
+            renderAll();
+        }
+
+        fetchBtn.textContent = '📡 구글 시트 불러오기';
+        fetchBtn.disabled = false;
+        loading.classList.remove('show');
+    }
+
+    // ==================== DATE FILTER ====================
+    function applyDateFilter() {
+        if (allDetailData.length === 0) return;
+
+        const yearFilter = document.getElementById('filterYear').value;
+        const monthFilter = document.getElementById('filterMonth').value;
+
+        let filtered = allDetailData;
+        if (yearFilter) filtered = filtered.filter(d => d.joinYear === yearFilter);
+        if (monthFilter) filtered = filtered.filter(d => d.joinMonth === monthFilter);
+
+        detailData = filtered;
+
+        // Update filter info
+        let info = allDetailData.length + '개 중 ' + detailData.length + '개 표시';
+        if (yearFilter || monthFilter) {
+            info += ' (';
+            if (yearFilter) info += yearFilter + '년';
+            if (monthFilter) info += ' ' + monthFilter + '월';
+            info += ' 입점)';
+        }
+        document.getElementById('filterInfo').textContent = info;
+
+        // Recalculate summaries from filtered data
+        recalcSummaries();
+
+        // Populate MD/Plan filters
+        const mdSet = new Set(detailData.map(d => d.md).filter(Boolean));
+        const planSet = new Set(detailData.map(d => d.plan).filter(Boolean));
+        const mdSelect = document.getElementById('filterMd');
+        const planSelect = document.getElementById('filterPlan');
+        mdSelect.innerHTML = '<option value="">전체 MD</option>' + [...mdSet].sort().map(m => `<option value="${m}">${m}</option>`).join('');
+        planSelect.innerHTML = '<option value="">전체 플랜</option>' + [...planSet].sort().map(p => `<option value="${p}">${p}</option>`).join('');
+
+        renderAll();
+    }
+
+    // ==================== PERIOD VIEW ====================
+    function renderPeriodView() {
+        if (allDetailData.length === 0) {
+            document.getElementById('periodTableBody').innerHTML = '<tr><td colspan="8" style="text-align:center;padding:40px;color:#6b8299;">데이터를 먼저 불러와주세요.</td></tr>';
+            return;
+        }
+
+        // Use allDetailData (unfiltered) for period analysis
+        const periodMap = {};
+        allDetailData.forEach(d => {
+            if (!d.joinYear || !d.joinMonth) return;
+            const key = d.joinYear + '-' + d.joinMonth.padStart(2, '0');
+            if (!periodMap[key]) periodMap[key] = {
+                key, year: d.joinYear, month: d.joinMonth,
+                companies: 0, bonus: 0, revenue: 0, recovery: 0,
+                totalRate: 0, completed: 0
+            };
+            const p = periodMap[key];
+            p.companies++;
+            p.bonus += d.bonus;
+            p.revenue += d.revenue;
+            p.recovery += d.recovery;
+            p.totalRate += d.rate;
+            if (d.status === '회수완료') p.completed++;
+        });
+
+        const periods = Object.values(periodMap).map(p => ({
+            ...p,
+            avgRate: p.companies > 0 ? Math.round(p.totalRate / p.companies) : 0,
+            completedRate: p.companies > 0 ? Math.round(p.completed / p.companies * 100) : 0,
+            label: p.year + '년 ' + p.month + '월'
+        })).sort((a, b) => b.key.localeCompare(a.key));
+
+        // Render table
+        const tbody = document.getElementById('periodTableBody');
+        tbody.innerHTML = periods.map(p => `<tr>
+            <td><strong>${p.label}</strong></td>
+            <td class="num-right">${p.companies.toLocaleString()}</td>
+            <td class="num-right">${formatFullMoney(p.bonus)}</td>
+            <td class="num-right">${formatFullMoney(p.revenue)}</td>
+            <td class="num-right">${formatFullMoney(p.recovery)}</td>
+            <td class="num-right ${getRateClass(p.avgRate)}">${p.avgRate}%</td>
+            <td class="num-right">${p.completed.toLocaleString()}</td>
+            <td class="num-right ${p.completedRate >= 50 ? 'highlight-good' : p.completedRate >= 20 ? 'highlight-warn' : 'highlight-bad'}">${p.completedRate}%</td>
+        </tr>`).join('');
+
+        // Chart - reverse for chronological order
+        const chartData = [...periods].reverse();
+        const labels = chartData.map(p => p.label);
+
+        destroyChart('chartPeriod');
+        chartInstances['chartPeriod'] = new Chart(document.getElementById('chartPeriod'), {
+            type: 'bar',
+            data: {
+                labels,
+                datasets: [
+                    {
+                        label: '업체수',
+                        data: chartData.map(p => p.companies),
+                        backgroundColor: '#4cc9f0',
+                        borderRadius: 4,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: '평균 회수율(%)',
+                        data: chartData.map(p => p.avgRate),
+                        type: 'line',
+                        borderColor: '#00d26a',
+                        backgroundColor: 'rgba(0,210,106,0.1)',
+                        pointBackgroundColor: '#00d26a',
+                        pointRadius: 4,
+                        fill: true,
+                        tension: 0.3,
+                        yAxisID: 'y1'
+                    }
+                ]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: {
+                    legend: { labels: { color: '#e0e6ed', font: { size: 11 } } },
+                    datalabels: { display: false }
+                },
+                scales: {
+                    x: { ticks: { color: '#6b8299', maxRotation: 45 }, grid: { display: false } },
+                    y: { position: 'left', ticks: { color: '#6b8299' }, grid: { color: '#1e3a5f' }, title: { display: true, text: '업체수', color: '#6b8299' } },
+                    y1: { position: 'right', ticks: { color: '#6b8299', callback: v => v + '%' }, grid: { display: false }, title: { display: true, text: '회수율', color: '#6b8299' } }
+                }
+            }
+        });
+
+        destroyChart('chartPeriodAmount');
+        chartInstances['chartPeriodAmount'] = new Chart(document.getElementById('chartPeriodAmount'), {
+            type: 'bar',
+            data: {
+                labels,
+                datasets: [
+                    { label: '지급성과급', data: chartData.map(p => p.bonus), backgroundColor: '#ff6b6b', borderRadius: 4 },
+                    { label: '회수금액', data: chartData.map(p => p.recovery), backgroundColor: '#00d26a', borderRadius: 4 }
+                ]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: {
+                    legend: { labels: { color: '#e0e6ed', font: { size: 11 } } },
+                    datalabels: { display: false }
+                },
+                scales: {
+                    x: { ticks: { color: '#6b8299', maxRotation: 45 }, grid: { display: false } },
+                    y: { ticks: { color: '#6b8299', callback: v => formatMoney(v) }, grid: { color: '#1e3a5f' } }
+                }
+            }
+        });
+    }
+
+    function recalcSummaries() {
+        const mdMap = {};
+        detailData.forEach(d => {
+            if (!d.md) return;
+            if (!mdMap[d.md]) mdMap[d.md] = { name: d.md, companies: 0, bonus: 0, revenue: 0, completed: 0, inProgress: 0, overdue: 0, totalMonths: 0 };
+            const m = mdMap[d.md];
+            m.companies++;
+            m.bonus += d.bonus;
+            m.revenue += d.revenue;
+            if (d.status === '회수완료') m.completed++;
+            else m.inProgress++;
+            if (d.months >= 6 && d.status !== '회수완료') m.overdue++;
+            m.totalMonths += d.months;
+        });
+        mdData = Object.values(mdMap).map(m => ({
+            ...m,
+            rate: m.bonus > 0 ? Math.round(m.revenue / m.bonus * 100) : 0,
+            avgMonths: m.companies > 0 ? Math.round(m.totalMonths / m.companies) : 0,
+            companyRate: m.companies > 0 ? Math.round(m.completed / m.companies * 100) : 0
+        }));
+
+        const planMap = {};
+        detailData.forEach(d => {
+            if (!d.plan) return;
+            if (!planMap[d.plan]) planMap[d.plan] = { name: d.plan, companies: 0, bonus: 0, revenue: 0, completed: 0, inProgress: 0, overdue: 0, totalMonths: 0 };
+            const p = planMap[d.plan];
+            p.companies++;
+            p.bonus += d.bonus;
+            p.revenue += d.revenue;
+            if (d.status === '회수완료') p.completed++;
+            else p.inProgress++;
+            if (d.months >= 6 && d.status !== '회수완료') p.overdue++;
+            p.totalMonths += d.months;
+        });
+        planData = Object.values(planMap).map(p => ({
+            ...p,
+            rate: p.bonus > 0 ? Math.round(p.revenue / p.bonus * 100) : 0,
+            avgMonths: p.companies > 0 ? Math.round(p.totalMonths / p.companies) : 0,
+            companyRate: p.companies > 0 ? Math.round(p.completed / p.companies * 100) : 0
+        }));
+    }
+
+    // Filter event listeners
+    document.getElementById('filterMd').addEventListener('change', renderDetailTable);
+    document.getElementById('filterPlan').addEventListener('change', renderDetailTable);
+    document.getElementById('filterStatus').addEventListener('change', renderDetailTable);
+
+    // ==================== RENDER ALL ====================
+    function renderAll() {
+        renderKPIs();
+        renderMdTable();
+        renderMdCharts();
+        renderPlanTable();
+        renderAlerts();
+        renderDetailTable();
+        // Only render period view if it's currently visible
+        if (document.getElementById('viewPeriod').style.display !== 'none') {
+            renderPeriodView();
+        }
+    }
+
+    // Initial render with default data, then auto-fetch
+    renderAll();
+    fetchFromGoogleSheets();
+    </script>
+</body>
+</html>
