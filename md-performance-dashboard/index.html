@@ -337,6 +337,7 @@
         </div>
         <div class="data-source-tabs">
             <button class="tab-btn active" onclick="switchView('md')">MD별 분석</button>
+            <button class="tab-btn" onclick="switchView('health')" style="background:#0d2137;border-color:#4cc9f0;color:#4cc9f0;">MD 건강도</button>
             <button class="tab-btn" onclick="switchView('plan')">플랜별 분석</button>
             <button class="tab-btn" onclick="switchView('period')">입점시기별</button>
             <button class="tab-btn" onclick="switchView('detail')">상세 데이터</button>
@@ -428,6 +429,70 @@
                                 </tr>
                             </thead>
                             <tbody id="mdTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MD Health View -->
+        <div id="viewHealth" style="display:none;">
+            <!-- MD 건강도 스코어카드 -->
+            <div id="healthCards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px;margin-bottom:24px;"></div>
+
+            <!-- 차트 영역 -->
+            <div class="charts-row">
+                <div class="chart-container">
+                    <h3>MD별 투자수익률(ROI) — 성과급 대비 순이익</h3>
+                    <div class="chart-wrapper"><canvas id="chartHealthROI"></canvas></div>
+                </div>
+                <div class="chart-container">
+                    <h3>건강도 매트릭스 (회수율 × 회수완료율)</h3>
+                    <div class="chart-wrapper"><canvas id="chartHealthMatrix"></canvas></div>
+                </div>
+            </div>
+
+            <!-- MD별 월별 입점 성과 히트맵 -->
+            <div class="section" style="margin-bottom:24px;">
+                <div class="section-header">
+                    <h2>MD별 월별 입점 공헌이익 현황</h2>
+                    <span style="font-size:11px;color:#6b8299;">셀 색상: 초록=흑자 / 빨강=적자 / 진할수록 금액 큼</span>
+                </div>
+                <div class="section-body">
+                    <div class="table-scroll" style="max-height:500px;">
+                        <table class="data-table" id="healthHeatmap">
+                            <thead id="healthHeatmapHead"></thead>
+                            <tbody id="healthHeatmapBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MD 건강도 상세 테이블 -->
+            <div class="section">
+                <div class="section-header">
+                    <h2>MD별 공헌이익 상세 분석</h2>
+                </div>
+                <div class="section-body">
+                    <div class="table-scroll">
+                        <table class="data-table" id="healthTable">
+                            <thead>
+                                <tr>
+                                    <th>MD</th>
+                                    <th>담당업체</th>
+                                    <th>지급성과급</th>
+                                    <th>누적매출</th>
+                                    <th>순이익</th>
+                                    <th>ROI</th>
+                                    <th>업체당 매출</th>
+                                    <th>회수완료율</th>
+                                    <th>3개월내 입점</th>
+                                    <th>3개월내 회수율</th>
+                                    <th>장기미회수율</th>
+                                    <th>건강등급</th>
+                                </tr>
+                            </thead>
+                            <tbody id="healthTableBody"></tbody>
                         </table>
                     </div>
                 </div>
@@ -984,13 +1049,16 @@
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         event.target.classList.add('active');
 
-        ['viewMd', 'viewPlan', 'viewPeriod', 'viewDetail', 'viewAlert'].forEach(v => {
+        ['viewMd', 'viewHealth', 'viewPlan', 'viewPeriod', 'viewDetail', 'viewAlert'].forEach(v => {
             document.getElementById(v).style.display = 'none';
         });
 
         if (view === 'md') {
             document.getElementById('viewMd').style.display = 'block';
             renderMdCharts();
+        } else if (view === 'health') {
+            document.getElementById('viewHealth').style.display = 'block';
+            renderMdHealth();
         } else if (view === 'plan') {
             document.getElementById('viewPlan').style.display = 'block';
             renderPlanCharts();
@@ -1331,6 +1399,256 @@
                 }
             }
         });
+    }
+
+    // ==================== MD HEALTH VIEW ====================
+    function getMdHealthData() {
+        const src = detailData.length > 0 ? detailData : [];
+        if (src.length === 0) return [];
+
+        const mdMap = {};
+        src.forEach(d => {
+            if (!d.md) return;
+            if (!mdMap[d.md]) mdMap[d.md] = {
+                name: d.md, companies: 0, bonus: 0, revenue: 0,
+                completed: 0, inProgress: 0, overdue: 0,
+                recent: 0, recentCompleted: 0, recentRevenue: 0, recentBonus: 0,
+                items: []
+            };
+            const m = mdMap[d.md];
+            m.companies++;
+            m.bonus += d.bonus;
+            m.revenue += d.revenue;
+            if (d.status === '회수완료') m.completed++;
+            else m.inProgress++;
+            if (d.months >= 6 && d.status !== '회수완료') m.overdue++;
+            if (d.months <= 3) {
+                m.recent++;
+                m.recentBonus += d.bonus;
+                m.recentRevenue += d.revenue;
+                if (d.status === '회수완료') m.recentCompleted++;
+            }
+            m.items.push(d);
+        });
+
+        return Object.values(mdMap).map(m => {
+            const netProfit = m.revenue - m.bonus;
+            const roi = m.bonus > 0 ? Math.round(netProfit / m.bonus * 100) : 0;
+            const companyRate = m.companies > 0 ? Math.round(m.completed / m.companies * 100) : 0;
+            const avgRevPerCompany = m.companies > 0 ? Math.round(m.revenue / m.companies) : 0;
+            const overdueRate = m.companies > 0 ? Math.round(m.overdue / m.companies * 100) : 0;
+            const recentRate = m.recentBonus > 0 ? Math.round(m.recentRevenue / m.recentBonus * 100) : 0;
+            const rate = m.bonus > 0 ? Math.round(m.revenue / m.bonus * 100) : 0;
+
+            // 건강도 점수: ROI(40%) + 회수완료율(30%) + 장기미회수 역점수(30%)
+            const healthScore = Math.round(
+                Math.min(roi / 10, 40) +
+                (companyRate / 100 * 30) +
+                ((100 - overdueRate) / 100 * 30)
+            );
+
+            let healthGrade, healthClass, healthIcon;
+            if (healthScore >= 70) { healthGrade = '건강'; healthClass = 'badge-good'; healthIcon = '💚'; }
+            else if (healthScore >= 45) { healthGrade = '보통'; healthClass = 'badge-warn'; healthIcon = '💛'; }
+            else { healthGrade = '위험'; healthClass = 'badge-bad'; healthIcon = '❤️'; }
+
+            return {
+                ...m, netProfit, roi, companyRate, avgRevPerCompany,
+                overdueRate, recentRate, rate, healthScore, healthGrade, healthClass, healthIcon
+            };
+        }).sort((a, b) => b.healthScore - a.healthScore);
+    }
+
+    function renderMdHealth() {
+        const data = getMdHealthData();
+        if (data.length === 0) {
+            document.getElementById('healthCards').innerHTML = '<div style="grid-column:1/-1;padding:40px;text-align:center;color:#6b8299;">데이터를 먼저 불러와주세요.</div>';
+            return;
+        }
+
+        // 1. 스코어카드
+        document.getElementById('healthCards').innerHTML = data.map(md => {
+            const profitColor = md.netProfit >= 0 ? '#00d26a' : '#ff6b6b';
+            const barWidth = Math.min(md.healthScore, 100);
+            const barColor = md.healthScore >= 70 ? '#00d26a' : md.healthScore >= 45 ? '#ffc107' : '#ff6b6b';
+            return `<div style="background:linear-gradient(135deg,#1a2a3a 0%,#162436 100%);border:1px solid #1e3a5f;border-radius:10px;padding:20px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                    <div style="font-size:16px;font-weight:700;color:#fff;">${md.healthIcon} ${md.name}</div>
+                    <span class="badge ${md.healthClass}" style="font-size:12px;">${md.healthGrade} ${md.healthScore}점</span>
+                </div>
+                <div style="height:6px;background:#1a2a3a;border-radius:3px;margin-bottom:14px;">
+                    <div style="height:100%;width:${barWidth}%;background:${barColor};border-radius:3px;"></div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;">
+                    <div style="color:#6b8299;">담당업체 <span style="color:#e0e6ed;font-weight:600;">${md.companies}개</span></div>
+                    <div style="color:#6b8299;">회수완료율 <span style="color:${md.companyRate>=50?'#00d26a':'#ff6b6b'};font-weight:600;">${md.companyRate}%</span></div>
+                    <div style="color:#6b8299;">지급성과급 <span style="color:#e0e6ed;font-weight:600;">${formatMoney(md.bonus)}</span></div>
+                    <div style="color:#6b8299;">누적매출 <span style="color:#4cc9f0;font-weight:600;">${formatMoney(md.revenue)}</span></div>
+                    <div style="color:#6b8299;">순이익 <span style="color:${profitColor};font-weight:700;">${md.netProfit>=0?'+':''}${formatMoney(md.netProfit)}</span></div>
+                    <div style="color:#6b8299;">ROI <span style="color:${md.roi>=100?'#00d26a':md.roi>=0?'#ffc107':'#ff6b6b'};font-weight:700;">${md.roi}%</span></div>
+                    <div style="color:#6b8299;">장기미회수 <span style="color:${md.overdueRate<=30?'#00d26a':'#ff6b6b'};font-weight:600;">${md.overdueRate}%</span></div>
+                    <div style="color:#6b8299;">3개월내 회수율 <span style="color:${md.recentRate>=100?'#00d26a':md.recentRate>=30?'#ffc107':'#ff6b6b'};font-weight:600;">${md.recentRate}%</span></div>
+                </div>
+            </div>`;
+        }).join('');
+
+        // 2. ROI 차트
+        const sorted = [...data].sort((a, b) => b.roi - a.roi);
+        destroyChart('chartHealthROI');
+        chartInstances['chartHealthROI'] = new Chart(document.getElementById('chartHealthROI'), {
+            type: 'bar',
+            data: {
+                labels: sorted.map(m => m.name),
+                datasets: [
+                    { label: '지급성과급', data: sorted.map(m => m.bonus), backgroundColor: '#ff6b6b', borderRadius: 4, stack: 'a' },
+                    { label: '순이익(+)', data: sorted.map(m => Math.max(m.netProfit, 0)), backgroundColor: '#00d26a', borderRadius: 4, stack: 'b' },
+                    { label: '순손실(-)', data: sorted.map(m => Math.abs(Math.min(m.netProfit, 0))), backgroundColor: 'rgba(255,107,107,0.4)', borderRadius: 4, stack: 'b' }
+                ]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: {
+                    legend: { labels: { color: '#e0e6ed', font: { size: 11 } } },
+                    datalabels: { display: false }
+                },
+                scales: {
+                    x: { ticks: { color: '#6b8299' }, grid: { display: false } },
+                    y: { ticks: { color: '#6b8299', callback: v => formatMoney(v) }, grid: { color: '#1e3a5f' } }
+                }
+            }
+        });
+
+        // 3. 건강도 매트릭스 (Bubble)
+        const mdColors = ['#4cc9f0','#00d26a','#ffc107','#ff6b6b','#a78bfa','#f472b6','#fb923c','#94a3b8','#38bdf8','#34d399'];
+        destroyChart('chartHealthMatrix');
+        chartInstances['chartHealthMatrix'] = new Chart(document.getElementById('chartHealthMatrix'), {
+            type: 'bubble',
+            data: {
+                datasets: data.map((md, i) => ({
+                    label: md.name,
+                    data: [{ x: md.rate, y: md.companyRate, r: Math.max(Math.sqrt(md.companies) * 2, 6) }],
+                    backgroundColor: mdColors[i % mdColors.length] + '99',
+                    borderColor: mdColors[i % mdColors.length],
+                    borderWidth: 2
+                }))
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'right', labels: { color: '#e0e6ed', font: { size: 11 }, padding: 8 } },
+                    datalabels: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: ctx => {
+                                const md = data[ctx.datasetIndex];
+                                return `${md.name}: 회수율 ${md.rate}%, 완료율 ${md.companyRate}%, ${md.companies}개 업체`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: '회수율(금액) %', color: '#6b8299' },
+                        ticks: { color: '#6b8299', callback: v => v + '%' },
+                        grid: { color: '#1e3a5f' }
+                    },
+                    y: {
+                        title: { display: true, text: '회수완료율(업체수) %', color: '#6b8299' },
+                        ticks: { color: '#6b8299', callback: v => v + '%' },
+                        grid: { color: '#1e3a5f' }
+                    }
+                }
+            }
+        });
+
+        // 4. MD별 월별 히트맵
+        renderHealthHeatmap(data);
+
+        // 5. 상세 테이블
+        document.getElementById('healthTableBody').innerHTML = data.map(md => {
+            const profitClass = md.netProfit >= 0 ? 'highlight-good' : 'highlight-bad';
+            return `<tr>
+                <td><strong>${md.healthIcon} ${md.name}</strong></td>
+                <td class="num-right">${md.companies}</td>
+                <td class="num-right">${formatFullMoney(md.bonus)}</td>
+                <td class="num-right">${formatFullMoney(md.revenue)}</td>
+                <td class="num-right ${profitClass}">${md.netProfit>=0?'+':''}${formatFullMoney(md.netProfit)}</td>
+                <td class="num-right ${md.roi>=100?'highlight-good':md.roi>=0?'highlight-warn':'highlight-bad'}">${md.roi}%</td>
+                <td class="num-right">${formatMoney(md.avgRevPerCompany)}</td>
+                <td class="num-right ${md.companyRate>=50?'highlight-good':'highlight-bad'}">${md.companyRate}%</td>
+                <td class="num-right">${md.recent}개</td>
+                <td class="num-right ${md.recentRate>=100?'highlight-good':md.recentRate>=30?'highlight-warn':'highlight-bad'}">${md.recentRate}%</td>
+                <td class="num-right ${md.overdueRate<=30?'highlight-good':'highlight-bad'}">${md.overdueRate}%</td>
+                <td><span class="badge ${md.healthClass}">${md.healthGrade} ${md.healthScore}점</span></td>
+            </tr>`;
+        }).join('');
+    }
+
+    function renderHealthHeatmap(healthData) {
+        // Collect all months from allDetailData
+        const monthSet = new Set();
+        const src = detailData.length > 0 ? detailData : allDetailData;
+        src.forEach(d => {
+            if (d.joinYear && d.joinMonth) monthSet.add(d.joinYear + '-' + d.joinMonth.padStart(2, '0'));
+        });
+        const months = [...monthSet].sort().slice(-12); // Last 12 months
+
+        // Build MD x Month profit matrix
+        const mdNames = healthData.map(h => h.name);
+        const matrix = {};
+        mdNames.forEach(md => { matrix[md] = {}; months.forEach(m => { matrix[md][m] = { bonus: 0, revenue: 0 }; }); });
+
+        src.forEach(d => {
+            if (!d.md || !d.joinYear || !d.joinMonth) return;
+            const key = d.joinYear + '-' + d.joinMonth.padStart(2, '0');
+            if (!months.includes(key)) return;
+            if (!matrix[d.md]) return;
+            matrix[d.md][key].bonus += d.bonus;
+            matrix[d.md][key].revenue += d.revenue;
+        });
+
+        // Find max absolute profit for color scaling
+        let maxAbs = 1;
+        mdNames.forEach(md => months.forEach(m => {
+            const profit = matrix[md][m].revenue - matrix[md][m].bonus;
+            maxAbs = Math.max(maxAbs, Math.abs(profit));
+        }));
+
+        const head = document.getElementById('healthHeatmapHead');
+        head.innerHTML = '<tr><th style="min-width:80px;">MD</th>' +
+            months.map(m => {
+                const [y, mo] = m.split('-');
+                return `<th style="text-align:center;min-width:70px;">${y.slice(2)}.${parseInt(mo)}월</th>`;
+            }).join('') +
+            '<th style="text-align:center;min-width:90px;">합계</th></tr>';
+
+        const body = document.getElementById('healthHeatmapBody');
+        body.innerHTML = mdNames.map(md => {
+            let totalProfit = 0;
+            const cells = months.map(m => {
+                const { bonus, revenue } = matrix[md][m];
+                const profit = revenue - bonus;
+                totalProfit += profit;
+                if (bonus === 0 && revenue === 0) {
+                    return '<td style="text-align:center;color:#3a4a5a;">-</td>';
+                }
+                const intensity = Math.min(Math.abs(profit) / maxAbs, 1);
+                const alpha = 0.15 + intensity * 0.55;
+                const bg = profit >= 0
+                    ? `rgba(0,210,106,${alpha})`
+                    : `rgba(255,107,107,${alpha})`;
+                const color = profit >= 0 ? '#00d26a' : '#ff6b6b';
+                return `<td style="text-align:center;background:${bg};color:${color};font-size:11px;font-weight:600;">${profit>=0?'+':''}${formatMoney(profit)}</td>`;
+            }).join('');
+
+            const totalColor = totalProfit >= 0 ? '#00d26a' : '#ff6b6b';
+            const totalBg = totalProfit >= 0 ? 'rgba(0,210,106,0.2)' : 'rgba(255,107,107,0.2)';
+            return `<tr>
+                <td><strong>${md}</strong></td>
+                ${cells}
+                <td style="text-align:center;background:${totalBg};color:${totalColor};font-weight:700;">${totalProfit>=0?'+':''}${formatMoney(totalProfit)}</td>
+            </tr>`;
+        }).join('');
     }
 
     function recalcSummaries() {
