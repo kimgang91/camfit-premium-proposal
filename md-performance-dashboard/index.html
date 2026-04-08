@@ -1070,78 +1070,115 @@
     }
 
     // ==================== GOOGLE SHEETS FETCH ====================
-    async function fetchFromGoogleSheets() {
+    function fetchFromGoogleSheets() {
         const loading = document.getElementById('loading');
         loading.classList.add('show');
         const fetchBtn = document.getElementById('fetchBtn');
         fetchBtn.textContent = '불러오는 중...';
         fetchBtn.disabled = true;
 
-        try {
-            const url = 'https://docs.google.com/spreadsheets/d/1y76NTbpE0lf8hf328tUyZQmRCLPEfk5TBasBemzcgbk/gviz/tq?tqx=out:csv&gid=0';
-            const response = await fetch(url);
-            if (!response.ok) throw new Error('HTTP ' + response.status);
-            const text = await response.text();
+        const callbackName = 'gsheetCb_' + Date.now();
+        const sheetId = '1y76NTbpE0lf8hf328tUyZQmRCLPEfk5TBasBemzcgbk';
+        const script = document.createElement('script');
 
-            const { headers, rows } = parseCSV(text);
-
-            const findCol = (keywords) => headers.find(h => keywords.some(k => h.includes(k))) || '';
-
-            const gradeCol = findCol(['업체등급']);
-            const mdCol = findCol(['담당MD', 'MD', '담당자']);
-            const nameCol = findCol(['업체명', '캠핑장', '업소명']);
-            const planCol = findCol(['플랜명', '플랜']);
-            const joinDateCol = findCol(['입점시기']);
-            const bonusCol = findCol(['지급성과급', '성과급']);
-            const revenueCol = findCol(['현재 누적 수수료매출', '누적매출', '수수료매출', '매출']);
-            const recoveryCol = findCol(['회수금액']);
-            const rateCol = findCol(['회수율']);
-            const monthsCol = findCol(['경과기간', '경과']);
-            const statusCol = findCol(['회수상태', '상태']);
-
-            allDetailData = rows.map(r => {
-                const joinDateStr = r[joinDateCol] || '';
-                let joinYear = '', joinMonth = '';
-                // Parse date format like "2026. 3. 31" or "2026.03.31" or "2026-03-31"
-                const dateMatch = joinDateStr.match(/(\d{4})\s*[\.\-\/]\s*(\d{1,2})/);
-                if (dateMatch) {
-                    joinYear = dateMatch[1];
-                    joinMonth = String(parseInt(dateMatch[2]));
-                }
-
-                return {
-                    grade: r[gradeCol] || '',
-                    md: r[mdCol] || '',
-                    name: r[nameCol] || '',
-                    plan: r[planCol] || '',
-                    joinDate: joinDateStr,
-                    joinYear: joinYear,
-                    joinMonth: joinMonth,
-                    bonus: parseNumber(r[bonusCol]),
-                    revenue: parseNumber(r[revenueCol]),
-                    recovery: parseNumber(r[recoveryCol]),
-                    rate: parsePercent(r[rateCol]),
-                    months: parseNumber(r[monthsCol]),
-                    status: r[statusCol] || '',
-                    note: r[findCol(['비고'])] || ''
-                };
-            }).filter(d => d.name);
-
-            document.getElementById('updateDate').textContent = new Date().toISOString().slice(0, 10).replace(/-/g, '.');
-            document.getElementById('filterInfo').textContent = allDetailData.length + '개 업체 로드 완료';
-
-            applyDateFilter();
-
-        } catch(err) {
-            console.error('Google Sheets fetch error:', err);
-            document.getElementById('filterInfo').textContent = '불러오기 실패 - 기본 데이터 사용중';
-            // Keep default data as fallback
+        // Timeout fallback
+        const timeout = setTimeout(() => {
+            cleanup();
+            console.error('Google Sheets fetch timeout');
+            document.getElementById('filterInfo').textContent = '불러오기 시간초과 - 기본 데이터 사용중';
             renderAll();
+        }, 15000);
+
+        function cleanup() {
+            clearTimeout(timeout);
+            delete window[callbackName];
+            if (script.parentNode) script.parentNode.removeChild(script);
+            fetchBtn.textContent = '📡 구글 시트 불러오기';
+            fetchBtn.disabled = false;
+            loading.classList.remove('show');
         }
 
-        fetchBtn.textContent = '📡 구글 시트 불러오기';
-        fetchBtn.disabled = false;
-        loading.classList.remove('show');
+        window[callbackName] = function(response) {
+            try {
+                if (response.status !== 'ok') throw new Error(response.status);
+
+                const table = response.table;
+                const cols = table.cols.map(c => c.label || '');
+
+                // Find column indices by keyword
+                const findIdx = (keywords) => cols.findIndex(h => keywords.some(k => h.includes(k)));
+
+                const gradeIdx = findIdx(['업체등급']);
+                const mdIdx = findIdx(['담당MD', 'MD', '담당자']);
+                const nameIdx = findIdx(['업체명', '캠핑장', '업소명']);
+                const planIdx = findIdx(['플랜명', '플랜']);
+                const joinDateIdx = findIdx(['입점시기']);
+                const bonusIdx = findIdx(['지급성과급', '성과급']);
+                const revenueIdx = findIdx(['현재 누적', '누적매출', '수수료매출']);
+                const recoveryIdx = findIdx(['회수금액']);
+                const rateIdx = findIdx(['회수율']);
+                const monthsIdx = findIdx(['경과기간', '경과']);
+                const statusIdx = findIdx(['회수상태', '상태']);
+
+                const getVal = (row, idx) => {
+                    if (idx < 0 || !row.c || !row.c[idx]) return '';
+                    const cell = row.c[idx];
+                    // Prefer formatted value (f) for currency/date, fall back to raw value (v)
+                    return cell.f || (cell.v != null ? String(cell.v) : '');
+                };
+
+                allDetailData = table.rows.map(row => {
+                    const name = getVal(row, nameIdx);
+                    if (!name) return null;
+
+                    const joinDateStr = getVal(row, joinDateIdx);
+                    let joinYear = '', joinMonth = '';
+                    const dateMatch = joinDateStr.match(/(\d{4})\s*[\.\-\/]\s*(\d{1,2})/);
+                    if (dateMatch) {
+                        joinYear = dateMatch[1];
+                        joinMonth = String(parseInt(dateMatch[2]));
+                    }
+
+                    return {
+                        grade: getVal(row, gradeIdx),
+                        md: getVal(row, mdIdx),
+                        name: name,
+                        plan: getVal(row, planIdx),
+                        joinDate: joinDateStr,
+                        joinYear: joinYear,
+                        joinMonth: joinMonth,
+                        bonus: parseNumber(getVal(row, bonusIdx)),
+                        revenue: parseNumber(getVal(row, revenueIdx)),
+                        recovery: parseNumber(getVal(row, recoveryIdx)),
+                        rate: parsePercent(getVal(row, rateIdx)),
+                        months: parseNumber(getVal(row, monthsIdx)),
+                        status: getVal(row, statusIdx)
+                    };
+                }).filter(d => d && d.name);
+
+                document.getElementById('updateDate').textContent = new Date().toISOString().slice(0, 10).replace(/-/g, '.');
+                document.getElementById('filterInfo').textContent = allDetailData.length + '개 업체 로드 완료';
+
+                applyDateFilter();
+
+            } catch(err) {
+                console.error('Google Sheets parse error:', err);
+                document.getElementById('filterInfo').textContent = '파싱 실패 - 기본 데이터 사용중';
+                renderAll();
+            }
+
+            cleanup();
+        };
+
+        script.onerror = function() {
+            cleanup();
+            console.error('Google Sheets script load error');
+            document.getElementById('filterInfo').textContent = '불러오기 실패 - 기본 데이터 사용중';
+            renderAll();
+        };
+
+        script.src = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=responseHandler:${callbackName}&gid=0`;
+        document.head.appendChild(script);
     }
 
     // ==================== DATE FILTER ====================
