@@ -12,7 +12,6 @@
             --primary-light: #2E7D32;
             --primary-dark: #0D3B11;
             --accent: #FF6F00;
-            --accent-light: #FFA726;
             --bg: #FAFAF8;
             --card: #FFFFFF;
             --text: #1A1A1A;
@@ -28,15 +27,9 @@
             --vip-accent: #7B1FA2;
             --danger: #FFEBEE;
             --danger-accent: #C62828;
-            --success: #E8F5E9;
-            --success-accent: #2E7D32;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -46,7 +39,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Hero */
         .hero {
             background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
             color: white;
@@ -55,19 +47,14 @@
             position: relative;
             overflow: hidden;
         }
-
         .hero::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 30% 70%, rgba(255,255,255,0.06) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 30%, rgba(255,255,255,0.04) 0%, transparent 50%);
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle at 30% 70%, rgba(255,255,255,0.06) 0%, transparent 50%);
             pointer-events: none;
         }
-
         .hero-badge {
             display: inline-block;
             background: rgba(255,255,255,0.15);
@@ -76,408 +63,109 @@
             border-radius: 100px;
             font-size: 13px;
             font-weight: 500;
-            letter-spacing: 0.5px;
             margin-bottom: 24px;
             border: 1px solid rgba(255,255,255,0.2);
         }
+        .hero h1 { font-size: clamp(32px, 5vw, 48px); font-weight: 800; margin-bottom: 12px; letter-spacing: -1px; }
+        .hero p { font-size: 17px; opacity: 0.85; font-weight: 300; max-width: 500px; margin: 0 auto 32px; }
+        .hero-meta { display: flex; justify-content: center; gap: 32px; font-size: 13px; opacity: 0.7; }
 
-        .hero h1 {
-            font-size: clamp(32px, 5vw, 48px);
-            font-weight: 800;
-            margin-bottom: 12px;
-            letter-spacing: -1px;
-        }
+        .container { max-width: 920px; margin: 0 auto; padding: 0 24px; }
 
-        .hero p {
-            font-size: 17px;
-            opacity: 0.85;
-            font-weight: 300;
-            max-width: 500px;
-            margin: 0 auto 32px;
-        }
+        .section { margin: 48px 0; }
+        .section-label { display: inline-block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--primary); margin-bottom: 8px; }
+        .section-title { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; }
+        .section-desc { font-size: 15px; color: var(--text-light); margin-bottom: 32px; }
 
-        .hero-meta {
-            display: flex;
-            justify-content: center;
-            gap: 32px;
-            font-size: 13px;
-            opacity: 0.7;
-        }
+        .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 32px; margin-bottom: 20px; }
+        .card-sm { padding: 24px; }
+        .divider { height: 1px; background: var(--border); margin: 48px 0; }
 
-        /* Container */
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* Section */
-        .section {
-            margin: 48px 0;
-        }
-
-        .section-label {
-            display: inline-block;
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--primary);
-            margin-bottom: 8px;
-        }
-
-        .section-title {
-            font-size: 28px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            margin-bottom: 8px;
-        }
-
-        .section-desc {
-            font-size: 15px;
-            color: var(--text-light);
-            margin-bottom: 32px;
-        }
-
-        /* Cards */
-        .card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 32px;
-            margin-bottom: 20px;
-        }
-
-        .card-sm {
-            padding: 24px;
-        }
+        /* TOC */
+        .toc { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 28px 32px; margin: -24px auto 48px; position: relative; z-index: 10; }
+        .toc h3 { font-size: 14px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+        .toc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 6px; }
+        .toc-item { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 8px; font-size: 14px; color: var(--text-light); text-decoration: none; transition: all 0.15s; }
+        .toc-item:hover { background: var(--bg); color: var(--primary); }
+        .toc-num { font-weight: 700; color: var(--primary); font-size: 12px; width: 20px; }
 
         /* Problem Cards */
-        .problem-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 16px;
-        }
-
-        .problem-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 28px 24px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .problem-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--danger-accent);
-        }
-
-        .problem-num {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 28px;
-            height: 28px;
-            border-radius: 8px;
-            background: var(--danger);
-            color: var(--danger-accent);
-            font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 14px;
-        }
-
-        .problem-card h4 {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .problem-card p {
-            font-size: 14px;
-            color: var(--text-light);
-            line-height: 1.6;
-        }
+        .problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
+        .problem-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 28px 24px; position: relative; overflow: hidden; }
+        .problem-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--danger-accent); }
+        .problem-num { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 8px; background: var(--danger); color: var(--danger-accent); font-size: 13px; font-weight: 700; margin-bottom: 14px; }
+        .problem-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+        .problem-card p { font-size: 14px; color: var(--text-light); line-height: 1.6; }
 
         /* Model Cards */
-        .model-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 20px;
-        }
-
-        .model-card {
-            background: var(--card);
-            border-radius: 18px;
-            padding: 0;
-            overflow: hidden;
-            border: 2px solid var(--border);
-            position: relative;
-            transition: transform 0.2s;
-        }
-
-        .model-card:hover {
-            transform: translateY(-2px);
-        }
-
-        .model-card.lite {
-            border-color: var(--lite-accent);
-        }
-
-        .model-card.premium {
-            border-color: var(--premium-accent);
-        }
-
-        .model-header {
-            padding: 28px 28px 20px;
-        }
-
-        .model-card.lite .model-header {
-            background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
-        }
-
-        .model-card.premium .model-header {
-            background: linear-gradient(135deg, #FFF3E0, #FFE0B2);
-        }
-
-        .model-tag {
-            display: inline-block;
-            padding: 4px 14px;
-            border-radius: 100px;
-            font-size: 11px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            letter-spacing: 0.5px;
-        }
-
-        .model-card.lite .model-tag {
-            background: var(--lite-accent);
-            color: white;
-        }
-
-        .model-card.premium .model-tag {
-            background: var(--premium-accent);
-            color: white;
-        }
-
-        .model-header h3 {
-            font-size: 22px;
-            font-weight: 800;
-            margin-bottom: 4px;
-        }
-
-        .model-header .subtitle {
-            font-size: 14px;
-            color: var(--text-light);
-        }
-
-        .model-body {
-            padding: 24px 28px 28px;
-        }
-
-        .model-features {
-            list-style: none;
-            margin-bottom: 20px;
-        }
-
-        .model-features li {
-            padding: 8px 0;
-            font-size: 14px;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        .model-features li:last-child {
-            border-bottom: none;
-        }
-
-        .model-features .icon {
-            flex-shrink: 0;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            margin-top: 2px;
-        }
-
-        .model-card.lite .icon {
-            background: var(--lite);
-            color: var(--lite-accent);
-        }
-
-        .model-card.premium .icon {
-            background: var(--premium);
-            color: var(--premium-accent);
-        }
-
-        .model-info {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        .model-info-item {
-            background: var(--bg);
-            border-radius: 10px;
-            padding: 14px 16px;
-        }
-
-        .model-info-item .label {
-            font-size: 11px;
-            color: var(--text-muted);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .model-info-item .value {
-            font-size: 18px;
-            font-weight: 700;
-            margin-top: 2px;
-        }
-
-        .model-card.lite .value { color: var(--lite-accent); }
-        .model-card.premium .value { color: var(--premium-accent); }
-
-        .recommend-badge {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            background: var(--lite-accent);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 100px;
-            font-size: 11px;
-            font-weight: 700;
-        }
+        .model-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 20px; }
+        .model-card { background: var(--card); border-radius: 18px; overflow: hidden; border: 2px solid var(--border); transition: transform 0.2s; }
+        .model-card:hover { transform: translateY(-2px); }
+        .model-card.lite { border-color: var(--lite-accent); }
+        .model-card.premium { border-color: var(--premium-accent); }
+        .model-header { padding: 28px 28px 20px; }
+        .model-card.lite .model-header { background: linear-gradient(135deg, #E8F5E9, #C8E6C9); }
+        .model-card.premium .model-header { background: linear-gradient(135deg, #FFF3E0, #FFE0B2); }
+        .model-tag { display: inline-block; padding: 4px 14px; border-radius: 100px; font-size: 11px; font-weight: 700; margin-bottom: 12px; letter-spacing: 0.5px; }
+        .model-card.lite .model-tag { background: var(--lite-accent); color: white; }
+        .model-card.premium .model-tag { background: var(--premium-accent); color: white; }
+        .model-header h3 { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
+        .model-header .subtitle { font-size: 14px; color: var(--text-light); }
+        .model-body { padding: 24px 28px 28px; }
+        .model-features { list-style: none; margin-bottom: 20px; }
+        .model-features li { padding: 8px 0; font-size: 14px; display: flex; align-items: flex-start; gap: 10px; border-bottom: 1px solid var(--border-light); }
+        .model-features li:last-child { border-bottom: none; }
+        .model-features .icon { flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; margin-top: 2px; }
+        .model-card.lite .icon { background: var(--lite); color: var(--lite-accent); }
+        .model-card.premium .icon { background: var(--premium); color: var(--premium-accent); }
+        .scope-tag { display: inline-block; padding: 3px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; }
+        .scope-tag.yes { background: var(--lite); color: var(--lite-accent); }
+        .scope-tag.no { background: #F5F5F5; color: #BDBDBD; }
 
         /* Tables */
-        .table-wrap {
-            overflow-x: auto;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            margin-bottom: 20px;
-        }
+        .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        thead { background: var(--primary); color: white; }
+        thead.lite-head { background: var(--lite-accent); }
+        thead.premium-head { background: var(--premium-accent); }
+        thead th { padding: 14px 18px; font-weight: 600; text-align: left; font-size: 13px; white-space: nowrap; }
+        thead th:not(:first-child) { text-align: center; }
+        tbody td { padding: 13px 18px; border-bottom: 1px solid var(--border-light); }
+        tbody td:not(:first-child) { text-align: center; font-weight: 600; }
+        tbody tr:last-child td { border-bottom: none; }
+        tbody tr:hover { background: #F9FBF9; }
+        .highlight-row { background: var(--lite) !important; }
+        .highlight-row-p { background: var(--premium) !important; }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
+        /* Waterfall */
+        .waterfall { margin: 20px 0; }
+        .wf-row { display: grid; grid-template-columns: 180px 1fr 100px; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border-light); font-size: 14px; }
+        .wf-row:last-child { border-bottom: none; }
+        .wf-label { font-weight: 500; color: var(--text-light); }
+        .wf-bar-wrap { height: 28px; background: #F5F5F5; border-radius: 6px; overflow: hidden; position: relative; }
+        .wf-bar { height: 100%; border-radius: 6px; display: flex; align-items: center; padding-left: 10px; font-size: 11px; font-weight: 700; color: white; min-width: 30px; transition: width 0.5s; }
+        .wf-value { font-weight: 700; text-align: right; font-size: 14px; }
+        .wf-total { font-weight: 800; font-size: 15px; color: var(--primary); border-top: 2px solid var(--primary); padding-top: 12px; margin-top: 4px; }
+        .wf-total.premium-total { color: var(--premium-accent); border-color: var(--premium-accent); }
 
-        thead {
-            background: var(--primary);
-            color: white;
-        }
+        /* Comparison Table */
+        .compare-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        .compare-table th { background: var(--bg); padding: 14px 16px; font-weight: 700; text-align: center; border-bottom: 2px solid var(--border); }
+        .compare-table th:first-child { text-align: left; }
+        .compare-table td { padding: 14px 16px; border-bottom: 1px solid var(--border-light); text-align: center; }
+        .compare-table td:first-child { text-align: left; font-weight: 500; color: var(--text-light); }
+        .compare-table .col-lite { background: #F1F8E9; }
+        .compare-table .col-premium { background: #FFF8E1; }
+        .compare-table .th-lite { background: var(--lite-accent); color: white; }
+        .compare-table .th-premium { background: var(--premium-accent); color: white; }
 
-        thead th {
-            padding: 14px 18px;
-            font-weight: 600;
-            text-align: left;
-            font-size: 13px;
-            white-space: nowrap;
-        }
-
-        thead th:not(:first-child) {
-            text-align: center;
-        }
-
-        tbody td {
-            padding: 13px 18px;
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        tbody td:not(:first-child) {
-            text-align: center;
-            font-weight: 600;
-        }
-
-        tbody tr:last-child td {
-            border-bottom: none;
-        }
-
-        tbody tr:hover {
-            background: #F9FBF9;
-        }
-
-        .highlight-row {
-            background: var(--lite) !important;
-        }
-
-        .highlight-row td {
-            font-weight: 700 !important;
-        }
-
-        /* Cost Structure */
-        .cost-bar {
-            display: flex;
-            height: 44px;
-            border-radius: 10px;
-            overflow: hidden;
-            margin: 16px 0;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .cost-bar > div {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            white-space: nowrap;
-            padding: 0 8px;
-        }
-
-        .cost-payment { background: #78909C; }
-        .cost-cancel { background: #FF8A65; }
-        .cost-md { background: #66BB6A; }
-        .cost-profit { background: var(--primary); }
-
-        .cost-legend {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin-top: 12px;
-        }
-
-        .cost-legend-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 13px;
-        }
-
-        .cost-legend-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 3px;
-        }
-
-        /* Simulation */
-        .sim-card {
-            background: linear-gradient(135deg, #F1F8E9, #E8F5E9);
-            border: 1px solid #C8E6C9;
-            border-radius: 14px;
-            padding: 28px;
-            margin-bottom: 16px;
-        }
-
-        .sim-card h4 {
-            font-size: 15px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            color: var(--primary-dark);
-        }
+        /* Sim Card */
+        .sim-card { border-radius: 14px; padding: 28px; margin-bottom: 16px; }
+        .sim-card.lite-sim { background: linear-gradient(135deg, #F1F8E9, #E8F5E9); border: 1px solid #C8E6C9; }
+        .sim-card.premium-sim { background: linear-gradient(135deg, #FFF8E1, #FFF3E0); border: 1px solid #FFE0B2; }
+        .sim-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 16px; }
+        .sim-card.lite-sim h4 { color: var(--primary-dark); }
+        .sim-card.premium-sim h4 { color: var(--premium-accent); }
 
         .sim-breakdown {
             font-family: 'Courier New', monospace;
@@ -486,618 +174,140 @@
             background: white;
             border-radius: 10px;
             padding: 20px 24px;
-            border: 1px solid #C8E6C9;
         }
+        .sim-card.lite-sim .sim-breakdown { border: 1px solid #C8E6C9; }
+        .sim-card.premium-sim .sim-breakdown { border: 1px solid #FFE0B2; }
+        .line-value { float: right; font-weight: 700; }
+        .line-total { border-top: 2px solid var(--primary); padding-top: 8px; margin-top: 8px; font-weight: 700; color: var(--primary); }
+        .line-total.pt { border-color: var(--premium-accent); color: var(--premium-accent); }
+        .line-negative { color: var(--danger-accent); }
 
-        .sim-breakdown .line-label {
-            color: var(--text-light);
-        }
-
-        .sim-breakdown .line-value {
-            float: right;
-            font-weight: 700;
-        }
-
-        .sim-breakdown .line-total {
-            border-top: 2px solid var(--primary);
-            padding-top: 8px;
-            margin-top: 8px;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .sim-breakdown .line-negative {
-            color: var(--danger-accent);
-        }
-
-        /* MD Level */
-        .level-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-            gap: 14px;
-        }
-
-        .level-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 24px 20px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .level-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-        }
-
+        /* Level Cards */
+        .level-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; }
+        .level-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px 20px; text-align: center; position: relative; overflow: hidden; }
+        .level-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
         .level-card.l1::before { background: #90A4AE; }
         .level-card.l2::before { background: #66BB6A; }
         .level-card.l3::before { background: var(--accent); }
         .level-card.l4::before { background: var(--vip-accent); }
-
-        .level-emoji {
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
-
-        .level-title {
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .level-sites {
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-bottom: 12px;
-        }
-
-        .level-amount {
-            font-size: 20px;
-            font-weight: 800;
-        }
-
+        .level-emoji { font-size: 28px; margin-bottom: 10px; }
+        .level-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+        .level-sites { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; }
+        .level-amount { font-size: 18px; font-weight: 800; }
+        .level-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
         .level-card.l1 .level-amount { color: #546E7A; }
         .level-card.l2 .level-amount { color: #2E7D32; }
         .level-card.l3 .level-amount { color: var(--accent); }
         .level-card.l4 .level-amount { color: var(--vip-accent); }
-
-        .level-sub {
-            font-size: 11px;
-            color: var(--text-muted);
-            margin-top: 4px;
-        }
+        .level-range { display: flex; gap: 4px; justify-content: center; margin-top: 8px; }
+        .level-range .tag { font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+        .tag-lite { background: var(--lite); color: var(--lite-accent); }
+        .tag-premium { background: var(--premium); color: var(--premium-accent); }
 
         /* Annual */
-        .annual-card {
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-            color: white;
-            border-radius: 16px;
-            padding: 32px;
-            margin-top: 24px;
-        }
+        .annual-card { background: linear-gradient(135deg, var(--primary-dark), var(--primary)); color: white; border-radius: 16px; padding: 32px; margin-top: 24px; }
+        .annual-card h4 { font-size: 14px; font-weight: 500; opacity: 0.8; margin-bottom: 16px; }
+        .annual-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; margin-bottom: 20px; }
+        .annual-item { background: rgba(255,255,255,0.12); border-radius: 12px; padding: 18px 16px; text-align: center; }
+        .annual-item .label { font-size: 12px; opacity: 0.7; margin-bottom: 4px; }
+        .annual-item .months { font-size: 11px; opacity: 0.5; margin-bottom: 8px; }
+        .annual-item .value { font-size: 22px; font-weight: 800; }
+        .annual-total { text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+        .annual-total .label { font-size: 13px; opacity: 0.7; }
+        .annual-total .value { font-size: 36px; font-weight: 900; letter-spacing: -1px; }
 
-        .annual-card h4 {
-            font-size: 14px;
-            font-weight: 500;
-            opacity: 0.8;
-            margin-bottom: 16px;
-        }
-
-        .annual-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 16px;
-            margin-bottom: 20px;
-        }
-
-        .annual-item {
-            background: rgba(255,255,255,0.12);
-            border-radius: 12px;
-            padding: 18px 16px;
-            text-align: center;
-        }
-
-        .annual-item .label {
-            font-size: 12px;
-            opacity: 0.7;
-            margin-bottom: 4px;
-        }
-
-        .annual-item .months {
-            font-size: 11px;
-            opacity: 0.5;
-            margin-bottom: 8px;
-        }
-
-        .annual-item .value {
-            font-size: 22px;
-            font-weight: 800;
-        }
-
-        .annual-total {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .annual-total .label {
-            font-size: 13px;
-            opacity: 0.7;
-        }
-
-        .annual-total .value {
-            font-size: 36px;
-            font-weight: 900;
-            letter-spacing: -1px;
-        }
+        /* Dual Annual */
+        .dual-annual { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+        .dual-annual-card { border-radius: 16px; padding: 28px; color: white; text-align: center; }
+        .dual-annual-card.lite-a { background: linear-gradient(135deg, #2E7D32, #43A047); }
+        .dual-annual-card.premium-a { background: linear-gradient(135deg, #E65100, #EF6C00); }
+        .dual-annual-card .tag { font-size: 11px; font-weight: 700; background: rgba(255,255,255,0.2); display: inline-block; padding: 3px 14px; border-radius: 100px; margin-bottom: 12px; }
+        .dual-annual-card .amount { font-size: 32px; font-weight: 900; letter-spacing: -1px; }
+        .dual-annual-card .sub { font-size: 13px; opacity: 0.7; margin-top: 4px; }
 
         /* S-class */
-        .sclass-card {
-            background: linear-gradient(135deg, #F3E5F5, #EDE7F6);
-            border: 2px solid #CE93D8;
-            border-radius: 16px;
-            padding: 32px;
-        }
-
-        .sclass-card h4 {
-            color: var(--vip-accent);
-            font-size: 18px;
-            font-weight: 800;
-            margin-bottom: 6px;
-        }
-
-        .sclass-card .subtitle {
-            font-size: 14px;
-            color: var(--text-light);
-            margin-bottom: 20px;
-        }
-
-        .sclass-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 12px;
-        }
-
-        .sclass-item {
-            background: white;
-            border-radius: 10px;
-            padding: 18px 16px;
-        }
-
-        .sclass-item .label {
-            font-size: 11px;
-            color: var(--text-muted);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .sclass-item .value {
-            font-size: 17px;
-            font-weight: 700;
-            color: var(--vip-accent);
-            margin-top: 4px;
-        }
-
-        .sclass-item .note {
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-top: 2px;
-        }
+        .sclass-card { background: linear-gradient(135deg, #F3E5F5, #EDE7F6); border: 2px solid #CE93D8; border-radius: 16px; padding: 32px; }
+        .sclass-card h4 { color: var(--vip-accent); font-size: 18px; font-weight: 800; margin-bottom: 6px; }
+        .sclass-card .subtitle { font-size: 14px; color: var(--text-light); margin-bottom: 20px; }
+        .sclass-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+        .sclass-item { background: white; border-radius: 10px; padding: 18px 16px; }
+        .sclass-item .label { font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .sclass-item .value { font-size: 17px; font-weight: 700; color: var(--vip-accent); margin-top: 4px; }
+        .sclass-item .note { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 
         /* Services */
-        .service-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 16px;
-        }
-
-        .service-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 28px 24px;
-            text-align: center;
-            position: relative;
-        }
-
-        .service-tier {
-            display: inline-block;
-            padding: 4px 14px;
-            border-radius: 100px;
-            font-size: 11px;
-            font-weight: 700;
-            margin-bottom: 14px;
-        }
-
+        .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
+        .service-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 28px 24px; text-align: center; }
+        .service-tier { display: inline-block; padding: 4px 14px; border-radius: 100px; font-size: 11px; font-weight: 700; margin-bottom: 14px; }
         .service-card.tier-low .service-tier { background: #E3F2FD; color: #1565C0; }
         .service-card.tier-mid .service-tier { background: var(--lite); color: var(--lite-accent); }
         .service-card.tier-high .service-tier { background: var(--premium); color: var(--premium-accent); }
-
-        .service-price {
-            font-size: 28px;
-            font-weight: 800;
-            margin-bottom: 4px;
-        }
-
-        .service-unit {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 16px;
-        }
-
-        .service-list {
-            list-style: none;
-            text-align: left;
-        }
-
-        .service-list li {
-            padding: 6px 0;
-            font-size: 13px;
-            color: var(--text-light);
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        .service-list li:last-child {
-            border-bottom: none;
-        }
+        .service-price { font-size: 28px; font-weight: 800; margin-bottom: 4px; }
+        .service-unit { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
+        .service-list { list-style: none; text-align: left; }
+        .service-list li { padding: 6px 0; font-size: 13px; color: var(--text-light); border-bottom: 1px solid var(--border-light); }
+        .service-list li:last-child { border-bottom: none; }
 
         /* Roadmap */
-        .roadmap {
-            position: relative;
-        }
-
-        .roadmap::before {
-            content: '';
-            position: absolute;
-            left: 20px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: var(--border);
-        }
-
-        .roadmap-phase {
-            position: relative;
-            padding-left: 56px;
-            padding-bottom: 36px;
-        }
-
-        .roadmap-phase:last-child {
-            padding-bottom: 0;
-        }
-
-        .roadmap-dot {
-            position: absolute;
-            left: 10px;
-            top: 4px;
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            border: 3px solid var(--primary);
-            background: white;
-        }
-
-        .roadmap-phase.active .roadmap-dot {
-            background: var(--primary);
-        }
-
-        .roadmap-time {
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 8px;
-        }
-
-        .roadmap-title {
-            font-size: 17px;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        .roadmap-tasks {
-            list-style: none;
-        }
-
-        .roadmap-tasks li {
-            padding: 6px 0;
-            font-size: 14px;
-            color: var(--text-light);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .task-check {
-            width: 18px;
-            height: 18px;
-            border-radius: 4px;
-            border: 2px solid var(--border);
-            flex-shrink: 0;
-        }
+        .roadmap { position: relative; }
+        .roadmap::before { content: ''; position: absolute; left: 20px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+        .roadmap-phase { position: relative; padding-left: 56px; padding-bottom: 36px; }
+        .roadmap-phase:last-child { padding-bottom: 0; }
+        .roadmap-dot { position: absolute; left: 10px; top: 4px; width: 22px; height: 22px; border-radius: 50%; border: 3px solid var(--primary); background: white; }
+        .roadmap-phase.active .roadmap-dot { background: var(--primary); }
+        .roadmap-time { font-size: 12px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+        .roadmap-title { font-size: 17px; font-weight: 700; margin-bottom: 12px; }
+        .roadmap-tasks { list-style: none; }
+        .roadmap-tasks li { padding: 6px 0; font-size: 14px; color: var(--text-light); display: flex; align-items: center; gap: 8px; }
+        .task-check { width: 18px; height: 18px; border-radius: 4px; border: 2px solid var(--border); flex-shrink: 0; }
 
         /* Risk */
-        .risk-item {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            padding: 18px 0;
-            border-bottom: 1px solid var(--border-light);
-            font-size: 14px;
-        }
-
-        .risk-item:last-child {
-            border-bottom: none;
-        }
-
-        .risk-label {
-            font-weight: 600;
-            color: var(--danger-accent);
-        }
-
-        .risk-solution {
-            color: var(--text-light);
-        }
+        .risk-item { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--border-light); font-size: 14px; }
+        .risk-item:last-child { border-bottom: none; }
+        .risk-label { font-weight: 600; color: var(--danger-accent); }
+        .risk-solution { color: var(--text-light); }
 
         /* Decision */
-        .decision-grid {
-            display: grid;
-            gap: 12px;
-        }
+        .decision-grid { display: grid; gap: 12px; }
+        .decision-item { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; display: grid; grid-template-columns: 36px 1fr; align-items: center; gap: 16px; }
+        .decision-num { width: 36px; height: 36px; border-radius: 10px; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; }
+        .decision-text { font-size: 14px; font-weight: 600; }
+        .decision-options { font-size: 13px; color: var(--text-muted); }
 
-        .decision-item {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 20px 24px;
-            display: grid;
-            grid-template-columns: 36px 1fr auto;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .decision-num {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
-            background: var(--primary);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            font-weight: 700;
-        }
-
-        .decision-text {
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .decision-options {
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-
-        /* Company Revenue */
-        .company-sim {
-            background: linear-gradient(135deg, #E3F2FD, #E8EAF6);
-            border: 1px solid #BBDEFB;
-            border-radius: 14px;
-            padding: 28px;
-        }
-
-        .company-sim h4 {
-            color: #1565C0;
-            font-size: 15px;
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
-
-        /* Divider */
-        .divider {
-            height: 1px;
-            background: var(--border);
-            margin: 48px 0;
-        }
-
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 48px 24px;
-            color: var(--text-muted);
-            font-size: 13px;
-            border-top: 1px solid var(--border);
-        }
+        /* Company Sim */
+        .company-sim { background: linear-gradient(135deg, #E3F2FD, #E8EAF6); border: 1px solid #BBDEFB; border-radius: 14px; padding: 28px; }
+        .company-sim h4 { color: #1565C0; font-size: 15px; font-weight: 700; margin-bottom: 16px; }
 
         /* Comment Section */
-        .comment-section {
-            background: #FFF8E1;
-            border: 2px solid #FFE082;
-            border-radius: 16px;
-            padding: 32px;
-            margin-top: 48px;
-        }
+        .comment-section { background: #FFF8E1; border: 2px solid #FFE082; border-radius: 16px; padding: 32px; margin-top: 48px; }
+        .comment-section h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+        .comment-section p { font-size: 14px; color: var(--text-light); margin-bottom: 20px; }
+        .comment-box { width: 100%; min-height: 120px; border: 1px solid #E0E0E0; border-radius: 10px; padding: 16px; font-family: 'Noto Sans KR', sans-serif; font-size: 14px; resize: vertical; outline: none; }
+        .comment-box:focus { border-color: var(--primary); }
+        .comment-name { width: 200px; border: 1px solid #E0E0E0; border-radius: 8px; padding: 10px 14px; font-family: 'Noto Sans KR', sans-serif; font-size: 14px; outline: none; margin-top: 12px; }
+        .comment-name:focus { border-color: var(--primary); }
+        .comment-btn { display: inline-block; background: var(--primary); color: white; border: none; border-radius: 8px; padding: 10px 28px; font-family: 'Noto Sans KR', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; margin-top: 12px; margin-left: 8px; }
+        .comment-btn:hover { background: var(--primary-dark); }
+        .comments-list { margin-top: 24px; }
+        .comment-entry { background: white; border-radius: 10px; padding: 16px 20px; margin-bottom: 10px; border: 1px solid #F0E6C0; }
+        .comment-entry .author { font-weight: 700; font-size: 13px; color: var(--primary); }
+        .comment-entry .time { font-size: 11px; color: var(--text-muted); margin-left: 8px; }
+        .comment-entry .body { font-size: 14px; color: var(--text); margin-top: 6px; white-space: pre-wrap; }
 
-        .comment-section h3 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
+        .footer { text-align: center; padding: 48px 24px; color: var(--text-muted); font-size: 13px; border-top: 1px solid var(--border); }
 
-        .comment-section p {
-            font-size: 14px;
-            color: var(--text-light);
-            margin-bottom: 20px;
-        }
+        /* Helper */
+        .info-box { padding: 16px 20px; background: var(--bg); border-radius: 10px; font-size: 13px; color: var(--text-light); border: 1px solid var(--border); margin-top: 16px; }
+        .badge-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
 
-        .comment-box {
-            width: 100%;
-            min-height: 120px;
-            border: 1px solid #E0E0E0;
-            border-radius: 10px;
-            padding: 16px;
-            font-family: 'Noto Sans KR', sans-serif;
-            font-size: 14px;
-            resize: vertical;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        .comment-box:focus {
-            border-color: var(--primary);
-        }
-
-        .comment-name {
-            width: 200px;
-            border: 1px solid #E0E0E0;
-            border-radius: 8px;
-            padding: 10px 14px;
-            font-family: 'Noto Sans KR', sans-serif;
-            font-size: 14px;
-            outline: none;
-            margin-top: 12px;
-        }
-
-        .comment-name:focus {
-            border-color: var(--primary);
-        }
-
-        .comment-btn {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 10px 28px;
-            font-family: 'Noto Sans KR', sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 12px;
-            margin-left: 8px;
-            transition: background 0.2s;
-        }
-
-        .comment-btn:hover {
-            background: var(--primary-dark);
-        }
-
-        .comments-list {
-            margin-top: 24px;
-        }
-
-        .comment-entry {
-            background: white;
-            border-radius: 10px;
-            padding: 16px 20px;
-            margin-bottom: 10px;
-            border: 1px solid #F0E6C0;
-        }
-
-        .comment-entry .author {
-            font-weight: 700;
-            font-size: 13px;
-            color: var(--primary);
-        }
-
-        .comment-entry .time {
-            font-size: 11px;
-            color: var(--text-muted);
-            margin-left: 8px;
-        }
-
-        .comment-entry .body {
-            font-size: 14px;
-            color: var(--text);
-            margin-top: 6px;
-            white-space: pre-wrap;
-        }
-
-        /* TOC */
-        .toc {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 28px 32px;
-            margin: -24px auto 48px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .toc h3 {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 16px;
-        }
-
-        .toc-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 6px;
-        }
-
-        .toc-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 14px;
-            color: var(--text-light);
-            text-decoration: none;
-            transition: all 0.15s;
-        }
-
-        .toc-item:hover {
-            background: var(--bg);
-            color: var(--primary);
-        }
-
-        .toc-num {
-            font-weight: 700;
-            color: var(--primary);
-            font-size: 12px;
-            width: 20px;
-        }
-
-        /* Responsive */
         @media (max-width: 700px) {
-            .model-grid {
-                grid-template-columns: 1fr;
-            }
-            .risk-item {
-                grid-template-columns: 1fr;
-                gap: 6px;
-            }
-            .decision-item {
-                grid-template-columns: 36px 1fr;
-            }
-            .decision-options {
-                grid-column: 2;
-            }
-            .annual-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .hero-meta {
-                flex-direction: column;
-                gap: 4px;
-            }
+            .model-grid { grid-template-columns: 1fr; }
+            .risk-item { grid-template-columns: 1fr; gap: 6px; }
+            .dual-annual { grid-template-columns: 1fr; }
+            .hero-meta { flex-direction: column; gap: 4px; }
+            .wf-row { grid-template-columns: 120px 1fr 80px; }
         }
 
-        /* Print */
         @media print {
             .hero { padding: 40px 24px; }
             .comment-section { display: none; }
@@ -1107,7 +317,6 @@
 </head>
 <body>
 
-<!-- Hero -->
 <div class="hero">
     <div class="hero-badge">INTERNAL STRATEGY DOCUMENT</div>
     <h1>캠핏 파트너스</h1>
@@ -1118,14 +327,13 @@
     </div>
 </div>
 
-<!-- TOC -->
 <div class="container">
     <div class="toc">
         <h3>목차</h3>
         <div class="toc-grid">
             <a href="#diagnosis" class="toc-item"><span class="toc-num">01</span> 현황 진단</a>
-            <a href="#models" class="toc-item"><span class="toc-num">02</span> 영업 모델</a>
-            <a href="#commission" class="toc-item"><span class="toc-num">03</span> 수수료 정책</a>
+            <a href="#models" class="toc-item"><span class="toc-num">02</span> MD 라이트 / 프리미엄</a>
+            <a href="#commission" class="toc-item"><span class="toc-num">03</span> 수수료 체계 + 원가</a>
             <a href="#simulation" class="toc-item"><span class="toc-num">04</span> MD 수익 시뮬레이션</a>
             <a href="#company" class="toc-item"><span class="toc-num">05</span> 회사 수익 시뮬레이션</a>
             <a href="#sclass" class="toc-item"><span class="toc-num">06</span> S급 펜션 전략</a>
@@ -1169,36 +377,29 @@
     <div class="section" id="models">
         <div class="section-label">02 — 영업 모델</div>
         <div class="section-title">MD 라이트 & MD 프리미엄</div>
-        <div class="section-desc">모델 A(라이트)를 우선 런칭하여 빠르게 검증하고, 모델 B(프리미엄)는 성과 확인 후 단계적으로 확장합니다.</div>
+        <div class="section-desc">MD가 제공하는 서비스 범위에 따라 두 가지 등급으로 운영합니다. 더 많은 서비스를 제공하는 MD에게 더 높은 보상을 지급합니다.</div>
+
         <div class="model-grid">
-            <!-- Lite -->
             <div class="model-card lite">
-                <div class="recommend-badge">우선 런칭</div>
                 <div class="model-header">
                     <div class="model-tag">MD LITE</div>
                     <h3>MD 라이트</h3>
-                    <div class="subtitle">예약 관리 지원</div>
+                    <div class="subtitle">예약 관리</div>
                 </div>
                 <div class="model-body">
                     <ul class="model-features">
-                        <li><span class="icon">&#10003;</span> 업주 자가 관리 + MD 중복예약 방지 지원</li>
-                        <li><span class="icon">&#10003;</span> 예약 확정 기능 (개발 전 슬랙 알림 대체)</li>
+                        <li><span class="icon">&#10003;</span> 예약 현황 모니터링 및 중복예약 방지</li>
+                        <li><span class="icon">&#10003;</span> 예약 확정/거절 처리</li>
                         <li><span class="icon">&#10003;</span> 안심취소 기본 포함</li>
-                        <li><span class="icon">&#10003;</span> 운영 인력 불필요, 즉시 시작 가능</li>
+                        <li><span class="icon">&#10003;</span> 슬랙 알림 기반 실시간 관리</li>
                     </ul>
-                    <div class="model-info">
-                        <div class="model-info-item">
-                            <div class="label">수수료</div>
-                            <div class="value">7.7~15%</div>
-                        </div>
-                        <div class="model-info-item">
-                            <div class="label">MD 보상</div>
-                            <div class="value">1~2.5%</div>
-                        </div>
+                    <div style="background:var(--lite); border-radius:10px; padding:14px 16px; text-align:center;">
+                        <div style="font-size:12px; color:var(--lite-accent); font-weight:600;">MD 서비스 범위</div>
+                        <div style="font-size:16px; font-weight:800; color:var(--lite-accent); margin-top:4px;">예약 관리</div>
                     </div>
                 </div>
             </div>
-            <!-- Premium -->
+
             <div class="model-card premium">
                 <div class="model-header">
                     <div class="model-tag">MD PREMIUM</div>
@@ -1207,92 +408,297 @@
                 </div>
                 <div class="model-body">
                     <ul class="model-features">
-                        <li><span class="icon">&#10003;</span> 회사가 전화응대·예약관리·타사채널 통합 전담</li>
-                        <li><span class="icon">&#10003;</span> 안심취소 + 홈페이지 제작 결합</li>
-                        <li><span class="icon">&#10003;</span> 업주 편의성 극대화 프리미엄 서비스</li>
-                        <li><span class="icon">&#10003;</span> 모델 A 성과 확인 후 도입</li>
+                        <li><span class="icon">&#10003;</span> 라이트의 모든 서비스 포함</li>
+                        <li><span class="icon">&#10003;</span> 고객 전화 응대 및 상담</li>
+                        <li><span class="icon">&#10003;</span> 타사 채널 예약 통합 관리</li>
+                        <li><span class="icon">&#10003;</span> 업주 대신 전체 CS 처리</li>
                     </ul>
-                    <div class="model-info">
-                        <div class="model-info-item">
-                            <div class="label">수수료</div>
-                            <div class="value">~15%</div>
-                        </div>
-                        <div class="model-info-item">
-                            <div class="label">포함 서비스</div>
-                            <div class="value">올인원</div>
-                        </div>
+                    <div style="background:var(--premium); border-radius:10px; padding:14px 16px; text-align:center;">
+                        <div style="font-size:12px; color:var(--premium-accent); font-weight:600;">MD 서비스 범위</div>
+                        <div style="font-size:16px; font-weight:800; color:var(--premium-accent); margin-top:4px;">예약 관리 + 전화 응대</div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- 서비스 범위 비교 -->
+        <div class="card" style="margin-top:20px;">
+            <h4 style="font-size:16px; font-weight:700; margin-bottom:16px;">서비스 범위 비교</h4>
+            <div class="table-wrap" style="margin-bottom:0;">
+                <table class="compare-table">
+                    <thead>
+                        <tr>
+                            <th style="background:var(--bg);">MD 서비스 항목</th>
+                            <th class="th-lite">라이트</th>
+                            <th class="th-premium">프리미엄</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>예약 현황 모니터링</td>
+                            <td class="col-lite"><span class="scope-tag yes">&#10003;</span></td>
+                            <td class="col-premium"><span class="scope-tag yes">&#10003;</span></td>
+                        </tr>
+                        <tr>
+                            <td>중복예약 방지 (확정/거절)</td>
+                            <td class="col-lite"><span class="scope-tag yes">&#10003;</span></td>
+                            <td class="col-premium"><span class="scope-tag yes">&#10003;</span></td>
+                        </tr>
+                        <tr>
+                            <td>안심취소 운영</td>
+                            <td class="col-lite"><span class="scope-tag yes">&#10003;</span></td>
+                            <td class="col-premium"><span class="scope-tag yes">&#10003;</span></td>
+                        </tr>
+                        <tr>
+                            <td>고객 전화 응대 / 상담</td>
+                            <td class="col-lite"><span class="scope-tag no">—</span></td>
+                            <td class="col-premium"><span class="scope-tag yes">&#10003;</span></td>
+                        </tr>
+                        <tr>
+                            <td>타사 채널 예약 통합 관리</td>
+                            <td class="col-lite"><span class="scope-tag no">—</span></td>
+                            <td class="col-premium"><span class="scope-tag yes">&#10003;</span></td>
+                        </tr>
+                        <tr>
+                            <td>업주 대행 전체 CS</td>
+                            <td class="col-lite"><span class="scope-tag no">—</span></td>
+                            <td class="col-premium"><span class="scope-tag yes">&#10003;</span></td>
+                        </tr>
+                        <tr style="background:#F5F5F5;">
+                            <td style="font-weight:700; color:var(--text);">MD 수수료 (보상)</td>
+                            <td class="col-lite" style="font-weight:800; color:var(--lite-accent);">기본 수수료</td>
+                            <td class="col-premium" style="font-weight:800; color:var(--premium-accent);">상향 수수료</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 
     <div class="divider"></div>
 
-    <!-- 3. 수수료 정책 -->
+    <!-- 3. 수수료 체계 + 원가 -->
     <div class="section" id="commission">
-        <div class="section-label">03 — 수수료 정책</div>
-        <div class="section-title">MD 수수료 체계</div>
-        <div class="section-desc">업체 계약 수수료율이 높을수록 MD 수수료율도 상승하는 연동 구조</div>
+        <div class="section-label">03 — 수수료 체계 + 원가</div>
+        <div class="section-title">캠핏 원가 기반 수수료 설계</div>
+        <div class="section-desc">회사 원가를 먼저 확인하고, 그 위에 MD 보상을 설계합니다. 서비스 범위가 넓은 프리미엄 MD에게 더 높은 수수료를 지급합니다.</div>
 
+        <!-- 원가 구조 -->
         <div class="card">
-            <h4 style="font-size:16px; font-weight:700; margin-bottom:16px;">수수료율 테이블</h4>
-            <div class="table-wrap">
+            <h4 style="font-size:16px; font-weight:700; margin-bottom:20px;">캠핏 원가 구조</h4>
+            <div class="table-wrap" style="margin-bottom:16px;">
                 <table>
                     <thead>
                         <tr>
-                            <th>업체 계약 수수료</th>
-                            <th>MD 정상</th>
-                            <th>MD 프로모션 (3개월)</th>
+                            <th>원가 항목</th>
+                            <th>비율</th>
+                            <th>비고</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>7.7%</td>
-                            <td>1.0%</td>
-                            <td>1.5%</td>
-                        </tr>
-                        <tr class="highlight-row">
-                            <td>11%</td>
-                            <td>2.0%</td>
-                            <td>2.5%</td>
+                            <td>PG 결제 수수료</td>
+                            <td>3.3%</td>
+                            <td style="text-align:left; font-weight:400; color:var(--text-muted);">PG사 결제 처리 비용</td>
                         </tr>
                         <tr>
-                            <td>15%</td>
-                            <td>2.5%</td>
-                            <td>3.0%</td>
+                            <td>안심취소 비용</td>
+                            <td>2.15%</td>
+                            <td style="text-align:left; font-weight:400; color:var(--text-muted);">취소 보장 비용</td>
+                        </tr>
+                        <tr style="background:#FFF3E0;">
+                            <td style="font-weight:700;">기본 원가 합계</td>
+                            <td style="font-weight:800; color:var(--accent);">5.45%</td>
+                            <td style="text-align:left; font-weight:400; color:var(--text-muted);">모든 계약에 공통 적용</td>
+                        </tr>
+                        <tr>
+                            <td>네이버 연동 추가 비용</td>
+                            <td>+3.5%</td>
+                            <td style="text-align:left; font-weight:400; color:var(--text-muted);">네이버 연동 시에만 추가</td>
+                        </tr>
+                        <tr style="background:#FFEBEE;">
+                            <td style="font-weight:700;">네이버 포함 원가</td>
+                            <td style="font-weight:800; color:var(--danger-accent);">8.95%</td>
+
+                            <td style="text-align:left; font-weight:400; color:var(--text-muted);">네이버 연동 업체 적용</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <div class="card card-sm">
-            <h4 style="font-size:16px; font-weight:700; margin-bottom:16px;">회사 원가 구조 (11% 계약 기준)</h4>
-            <div class="cost-bar">
-                <div class="cost-payment" style="width:19.5%">결제 2.15%</div>
-                <div class="cost-cancel" style="width:30%">안심취소 3.3%</div>
-                <div class="cost-md" style="width:18.2%">MD 2%</div>
-                <div class="cost-profit" style="width:32.3%">순수익 3.55%</div>
+        <!-- MD 수수료 비교 -->
+        <div class="card">
+            <h4 style="font-size:16px; font-weight:700; margin-bottom:8px;">MD 수수료 비교 — 라이트 vs 프리미엄</h4>
+            <p style="font-size:13px; color:var(--text-muted); margin-bottom:20px;">동일한 업체 계약 수수료에서, 서비스 범위가 넓은 프리미엄 MD가 더 높은 보상을 받습니다.</p>
+
+            <div class="table-wrap" style="margin-bottom:0;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>업체 계약<br>수수료</th>
+                            <th style="background:var(--lite-accent);">라이트 MD<br>(정상)</th>
+                            <th style="background:#388E3C;">라이트 MD<br>(프로모션)</th>
+                            <th style="background:var(--premium-accent);">프리미엄 MD<br>(정상)</th>
+                            <th style="background:#E65100;">프리미엄 MD<br>(프로모션)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>7.7%</td>
+                            <td style="color:var(--lite-accent);">1.0%</td>
+                            <td style="color:var(--lite-accent);">1.5%</td>
+                            <td style="color:var(--premium-accent);">1.5%</td>
+                            <td style="color:var(--premium-accent);">2.0%</td>
+                        </tr>
+                        <tr class="highlight-row">
+                            <td>11%</td>
+                            <td style="color:var(--lite-accent);">2.0%</td>
+                            <td style="color:var(--lite-accent);">2.5%</td>
+                            <td style="color:var(--premium-accent);">3.0%</td>
+                            <td style="color:var(--premium-accent);">3.5%</td>
+                        </tr>
+                        <tr>
+                            <td>15%</td>
+                            <td style="color:var(--lite-accent);">2.5%</td>
+                            <td style="color:var(--lite-accent);">3.0%</td>
+                            <td style="color:var(--premium-accent);">4.0%</td>
+                            <td style="color:var(--premium-accent);">4.5%</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="cost-legend">
-                <div class="cost-legend-item"><div class="cost-legend-dot" style="background:#78909C"></div>결제 수수료 2.15%</div>
-                <div class="cost-legend-item"><div class="cost-legend-dot" style="background:#FF8A65"></div>안심취소 3.3%</div>
-                <div class="cost-legend-item"><div class="cost-legend-dot" style="background:#66BB6A"></div>MD 수수료 2%</div>
-                <div class="cost-legend-item"><div class="cost-legend-dot" style="background:var(--primary)"></div>회사 순수익 3.55%</div>
-            </div>
-            <div style="margin-top:16px; padding:14px 16px; background:var(--bg); border-radius:8px; font-size:13px; color:var(--text-light);">
-                <strong>네이버 연동 포함 시 원가:</strong> 5.5% + 3.5% = 9.0% → 11% 계약 시 MD 수수료 지급 여력 축소
+            <div class="info-box" style="margin-top:16px;">
+                <strong>프로모션:</strong> 런칭 후 3개월, MD별 신규 5개소 이상 유치 시 연장 자격 부여
             </div>
         </div>
 
-        <div class="card card-sm" style="background: #FFF8E1; border-color: #FFE082;">
-            <h4 style="font-size:16px; font-weight:700; margin-bottom:8px;">프로모션 운영 방안</h4>
-            <ul style="font-size:14px; color:var(--text-light); padding-left:20px; line-height:2;">
-                <li>기간: 런칭 후 <strong>3개월</strong></li>
-                <li>연장 조건: MD별 신규 <strong>5개소 이상</strong> 유치 시 프로모션 연장 자격 부여</li>
-                <li>목적: 초기 모멘텀 확보 및 MD 적극 참여 유도</li>
-            </ul>
+        <!-- 원가 + 수수료 워터폴 -->
+        <h4 style="font-size:16px; font-weight:700; margin:28px 0 16px;">수수료 11% 계약 기준 — 원가와 MD 수수료 한눈에 보기</h4>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <!-- Lite Waterfall -->
+            <div class="sim-card lite-sim">
+                <h4 style="display:flex; align-items:center; gap:8px;">
+                    <span class="scope-tag yes" style="font-size:12px;">LITE</span>
+                    MD 라이트
+                </h4>
+                <div class="waterfall">
+                    <div class="wf-row">
+                        <div class="wf-label">수수료 수입</div>
+                        <div class="wf-bar-wrap"><div class="wf-bar" style="width:100%; background:var(--primary);">11%</div></div>
+                        <div class="wf-value">11%</div>
+                    </div>
+                    <div class="wf-row">
+                        <div class="wf-label">PG 결제 수수료</div>
+                        <div class="wf-bar-wrap"><div class="wf-bar" style="width:30%; background:#78909C;">3.3%</div></div>
+                        <div class="wf-value" style="color:var(--danger-accent);">-3.3%</div>
+                    </div>
+                    <div class="wf-row">
+                        <div class="wf-label">안심취소</div>
+                        <div class="wf-bar-wrap"><div class="wf-bar" style="width:19.5%; background:#FF8A65;">2.15%</div></div>
+                        <div class="wf-value" style="color:var(--danger-accent);">-2.15%</div>
+                    </div>
+                    <div class="wf-row">
+                        <div class="wf-label" style="font-weight:700; color:var(--lite-accent);">MD 수수료</div>
+                        <div class="wf-bar-wrap"><div class="wf-bar" style="width:18.2%; background:var(--lite-accent);">2%</div></div>
+                        <div class="wf-value" style="color:var(--lite-accent);">-2.0%</div>
+                    </div>
+                    <div class="wf-row wf-total">
+                        <div class="wf-label" style="font-weight:800; color:var(--primary);">회사 순수익</div>
+                        <div class="wf-bar-wrap"><div class="wf-bar" style="width:32.3%; background:var(--primary);">3.55%</div></div>
+                        <div class="wf-value" style="color:var(--primary); font-size:16px;">3.55%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Premium Waterfall -->
+            <div class="sim-card premium-sim">
+                <h4 style="display:flex; align-items:center; gap:8px;">
+                    <span style="background:var(--premium); color:var(--premium-accent); font-size:12px; padding:3px 10px; border-radius:6px; font-weight:700;">PREMIUM</span>
+                    MD 프리미엄
+                </h4>
+                <div class="waterfall">
+                    <div class="wf-row">
+                        <div class="wf-label">수수료 수입</div>
+                        <div class="wf-bar-wrap"><div class="wf-bar" style="width:100%; background:var(--premium-accent);">11%</div></div>
+                        <div class="wf-value">11%</div>
+                    </div>
+                    <div class="wf-row">
+                        <div class="wf-label">PG 결제 수수료</div>
+                        <div class="wf-bar-wrap"><div class="wf-bar" style="width:30%; background:#78909C;">3.3%</div></div>
+                        <div class="wf-value" style="color:var(--danger-accent);">-3.3%</div>
+                    </div>
+                    <div class="wf-row">
+                        <div class="wf-label">안심취소</div>
+                        <div class="wf-bar-wrap"><div class="wf-bar" style="width:19.5%; background:#FF8A65;">2.15%</div></div>
+                        <div class="wf-value" style="color:var(--danger-accent);">-2.15%</div>
+                    </div>
+                    <div class="wf-row">
+                        <div class="wf-label" style="font-weight:700; color:var(--premium-accent);">MD 수수료</div>
+                        <div class="wf-bar-wrap"><div class="wf-bar" style="width:27.3%; background:var(--premium-accent);">3%</div></div>
+                        <div class="wf-value" style="color:var(--premium-accent);">-3.0%</div>
+                    </div>
+                    <div class="wf-row wf-total premium-total">
+                        <div class="wf-label" style="font-weight:800; color:var(--premium-accent);">회사 순수익</div>
+                        <div class="wf-bar-wrap"><div class="wf-bar" style="width:23.2%; background:var(--premium-accent);">2.55%</div></div>
+                        <div class="wf-value" style="color:var(--premium-accent); font-size:16px;">2.55%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <strong>핵심 원리:</strong> 동일한 업체 수수료(11%)에서, MD가 전화응대까지 담당하면(프리미엄) MD 몫이 커지고 회사 몫이 줄어듭니다. 대신 회사는 전화응대 운영 비용을 절감합니다.
+        </div>
+
+        <!-- 전체 수수료율별 정리 -->
+        <div class="card" style="margin-top:20px;">
+            <h4 style="font-size:16px; font-weight:700; margin-bottom:8px;">전체 수수료율별 원가·MD·순수익 분해 (정상 기준)</h4>
+            <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">네이버 미연동 기준 (기본 원가 5.45%)</p>
+            <div class="table-wrap" style="margin-bottom:0;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>업체 수수료</th>
+                            <th>원가</th>
+                            <th>MD 라이트</th>
+                            <th>회사 순수익</th>
+                            <th>MD 프리미엄</th>
+                            <th>회사 순수익</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>7.7%</td>
+                            <td>5.45%</td>
+                            <td style="color:var(--lite-accent);">1.0%</td>
+                            <td><strong>1.25%</strong></td>
+                            <td style="color:var(--premium-accent);">1.5%</td>
+                            <td><strong>0.75%</strong></td>
+                        </tr>
+                        <tr class="highlight-row">
+                            <td>11%</td>
+                            <td>5.45%</td>
+                            <td style="color:var(--lite-accent);">2.0%</td>
+                            <td><strong>3.55%</strong></td>
+                            <td style="color:var(--premium-accent);">3.0%</td>
+                            <td><strong>2.55%</strong></td>
+                        </tr>
+                        <tr>
+                            <td>15%</td>
+                            <td>5.45%</td>
+                            <td style="color:var(--lite-accent);">2.5%</td>
+                            <td><strong>7.05%</strong></td>
+                            <td style="color:var(--premium-accent);">4.0%</td>
+                            <td><strong>5.55%</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="info-box">
+                <strong>네이버 연동 시:</strong> 원가가 8.95%로 상승 → 7.7% 계약은 역마진 발생. 네이버 연동 업체는 <strong>최소 11% 이상 계약</strong> 필요.
+            </div>
         </div>
     </div>
 
@@ -1302,21 +708,15 @@
     <div class="section" id="simulation">
         <div class="section-label">04 — MD 수익 시뮬레이션</div>
         <div class="section-title">MD가 실제로 수령하는 금액</div>
-        <div class="section-desc">업체 규모, 계약 수수료율, 관리 업체 수에 따른 MD 월 수령액 시뮬레이션</div>
+        <div class="section-desc">업체 규모, 계약 수수료율, 서비스 등급(라이트/프리미엄)에 따른 시뮬레이션</div>
 
         <!-- 업체 규모 -->
         <div class="card">
             <h4 style="font-size:16px; font-weight:700; margin-bottom:16px;">업체 규모별 월 매출 기준</h4>
-            <div class="table-wrap">
+            <div class="table-wrap" style="margin-bottom:0;">
                 <table>
                     <thead>
-                        <tr>
-                            <th>구분</th>
-                            <th>객실수</th>
-                            <th>월 예약건수</th>
-                            <th>평균 객단가</th>
-                            <th>월 매출</th>
-                        </tr>
+                        <tr><th>구분</th><th>객실수</th><th>월 예약건수</th><th>평균 객단가</th><th>월 매출</th></tr>
                     </thead>
                     <tbody>
                         <tr><td>소형</td><td>5~8실</td><td>약 15건</td><td>18만원</td><td><strong>270만원</strong></td></tr>
@@ -1327,95 +727,75 @@
             </div>
         </div>
 
-        <!-- 업체 1개소 당 -->
+        <!-- 1개소당 수령액 비교 -->
         <div class="card">
-            <h4 style="font-size:16px; font-weight:700; margin-bottom:4px;">업체 1개소당 MD 월 수령액</h4>
-            <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">정상 수수료 기준</p>
-            <div class="table-wrap">
+            <h4 style="font-size:16px; font-weight:700; margin-bottom:8px;">업체 1개소당 MD 월 수령액</h4>
+            <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">정상 수수료 기준, 라이트 vs 프리미엄</p>
+            <div class="table-wrap" style="margin-bottom:0;">
                 <table>
                     <thead>
                         <tr>
-                            <th>계약 조건</th>
+                            <th>계약 / 등급</th>
                             <th>소형 (270만)</th>
                             <th>중형 (500만)</th>
                             <th>대형 (880만)</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>7.7% → MD 1.0%</td><td>27,000원</td><td>50,000원</td><td>88,000원</td></tr>
-                        <tr class="highlight-row"><td>11% → MD 2.0%</td><td>54,000원</td><td>100,000원</td><td>176,000원</td></tr>
-                        <tr><td>15% → MD 2.5%</td><td>67,500원</td><td>125,000원</td><td>220,000원</td></tr>
-                    </tbody>
-                </table>
-            </div>
-            <p style="font-size:13px; color:var(--text-muted); margin:16px 0 16px;">프로모션 기간 (3개월)</p>
-            <div class="table-wrap">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>계약 조건</th>
-                            <th>소형 (270만)</th>
-                            <th>중형 (500만)</th>
-                            <th>대형 (880만)</th>
+                        <tr style="background:#F1F8E9;">
+                            <td><span class="scope-tag yes" style="margin-right:4px;">L</span> 7.7% → 1.0%</td>
+                            <td>27,000원</td><td>50,000원</td><td>88,000원</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>7.7% → MD 1.5%</td><td>40,500원</td><td>75,000원</td><td>132,000원</td></tr>
-                        <tr class="highlight-row"><td>11% → MD 2.5%</td><td>67,500원</td><td>125,000원</td><td>220,000원</td></tr>
-                        <tr><td>15% → MD 3.0%</td><td>81,000원</td><td>150,000원</td><td>264,000원</td></tr>
+                        <tr style="background:#FFF8E1;">
+                            <td><span style="background:var(--premium); color:var(--premium-accent); padding:3px 8px; border-radius:6px; font-size:11px; font-weight:700; margin-right:4px;">P</span> 7.7% → 1.5%</td>
+                            <td>40,500원</td><td>75,000원</td><td>132,000원</td>
+                        </tr>
+                        <tr style="background:#F1F8E9;">
+                            <td><span class="scope-tag yes" style="margin-right:4px;">L</span> 11% → 2.0%</td>
+                            <td>54,000원</td><td>100,000원</td><td>176,000원</td>
+                        </tr>
+                        <tr style="background:#FFF8E1;">
+                            <td><span style="background:var(--premium); color:var(--premium-accent); padding:3px 8px; border-radius:6px; font-size:11px; font-weight:700; margin-right:4px;">P</span> 11% → 3.0%</td>
+                            <td>81,000원</td><td>150,000원</td><td>264,000원</td>
+                        </tr>
+                        <tr style="background:#F1F8E9;">
+                            <td><span class="scope-tag yes" style="margin-right:4px;">L</span> 15% → 2.5%</td>
+                            <td>67,500원</td><td>125,000원</td><td>220,000원</td>
+                        </tr>
+                        <tr style="background:#FFF8E1;">
+                            <td><span style="background:var(--premium); color:var(--premium-accent); padding:3px 8px; border-radius:6px; font-size:11px; font-weight:700; margin-right:4px;">P</span> 15% → 4.0%</td>
+                            <td>108,000원</td><td>200,000원</td><td>352,000원</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <!-- 관리 업체 수별 -->
-        <div class="card">
-            <h4 style="font-size:16px; font-weight:700; margin-bottom:4px;">관리 업체 수별 MD 월 총수령액</h4>
-            <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">11% 계약, 중형 업체 기준 (업체당 월 500만원)</p>
-            <div class="table-wrap">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>관리 업체 수</th>
-                            <th>정상 (MD 2%)</th>
-                            <th>프로모션 (MD 2.5%)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>5개소</td><td>50만원</td><td>62.5만원</td></tr>
-                        <tr><td>10개소</td><td>100만원</td><td>125만원</td></tr>
-                        <tr class="highlight-row"><td>15개소</td><td>150만원</td><td>187.5만원</td></tr>
-                        <tr><td>20개소</td><td>200만원</td><td>250만원</td></tr>
-                        <tr><td>30개소</td><td>300만원</td><td>375만원</td></tr>
-                    </tbody>
-                </table>
+        <!-- 혼합 포트폴리오 비교 -->
+        <h4 style="font-size:16px; font-weight:700; margin:28px 0 16px;">MD 1인 15개소 관리 — 혼합 포트폴리오 (정상 기간)</h4>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <div class="sim-card lite-sim">
+                <h4><span class="scope-tag yes" style="margin-right:6px;">LITE</span> 예약 관리만</h4>
+                <div class="sim-breakdown">
+                    <div><span>소형 5곳 (7.7%, 1.0%)</span><span class="line-value">135,000원</span></div><div style="clear:both"></div>
+                    <div><span>중형 7곳 (11%, 2.0%)</span><span class="line-value">700,000원</span></div><div style="clear:both"></div>
+                    <div><span>대형 3곳 (15%, 2.5%)</span><span class="line-value">660,000원</span></div><div style="clear:both"></div>
+                    <div class="line-total"><span>월 합계</span><span class="line-value">1,495,000원</span></div><div style="clear:both"></div>
+                </div>
+            </div>
+            <div class="sim-card premium-sim">
+                <h4><span style="background:var(--premium); color:var(--premium-accent); padding:3px 10px; border-radius:6px; font-size:12px; font-weight:700; margin-right:6px;">PREMIUM</span> 예약관리 + 전화응대</h4>
+                <div class="sim-breakdown">
+                    <div><span>소형 5곳 (7.7%, 1.5%)</span><span class="line-value">202,500원</span></div><div style="clear:both"></div>
+                    <div><span>중형 7곳 (11%, 3.0%)</span><span class="line-value">1,050,000원</span></div><div style="clear:both"></div>
+                    <div><span>대형 3곳 (15%, 4.0%)</span><span class="line-value">1,056,000원</span></div><div style="clear:both"></div>
+                    <div class="line-total pt"><span>월 합계</span><span class="line-value">2,308,500원</span></div><div style="clear:both"></div>
+                </div>
             </div>
         </div>
 
-        <!-- 혼합 포트폴리오 -->
-        <div class="sim-card">
-            <h4>현실적 혼합 포트폴리오 — MD 1인 15개소 관리</h4>
-            <div class="sim-breakdown">
-                <div style="font-weight:700; margin-bottom:12px; color:var(--primary-dark);">[ 정상 기간 ]</div>
-                <div><span class="line-label">소형 5개소 (7.7%, MD 1.0%)</span><span class="line-value">135,000원</span></div>
-                <div style="clear:both"></div>
-                <div><span class="line-label">중형 7개소 (11%, MD 2.0%)</span><span class="line-value">700,000원</span></div>
-                <div style="clear:both"></div>
-                <div><span class="line-label">대형 3개소 (15%, MD 2.5%)</span><span class="line-value">660,000원</span></div>
-                <div style="clear:both"></div>
-                <div class="line-total"><span>월 합계</span><span class="line-value">1,495,000원</span></div>
-                <div style="clear:both"></div>
-
-                <div style="font-weight:700; margin:20px 0 12px; color:var(--premium-accent);">[ 프로모션 기간 ]</div>
-                <div><span class="line-label">소형 5개소 (7.7%, MD 1.5%)</span><span class="line-value">202,500원</span></div>
-                <div style="clear:both"></div>
-                <div><span class="line-label">중형 7개소 (11%, MD 2.5%)</span><span class="line-value">875,000원</span></div>
-                <div style="clear:both"></div>
-                <div><span class="line-label">대형 3개소 (15%, MD 3.0%)</span><span class="line-value">792,000원</span></div>
-                <div style="clear:both"></div>
-                <div class="line-total"><span>월 합계</span><span class="line-value" style="color:var(--premium-accent);">1,869,500원</span></div>
-                <div style="clear:both"></div>
-            </div>
+        <div class="info-box">
+            <strong>프리미엄 선택 시 +81만원/월 추가 수령.</strong> 전화응대 업무를 맡는 대가로 동일 업체에서 더 높은 수수료를 받습니다.
         </div>
 
         <!-- MD 역량별 -->
@@ -1425,55 +805,61 @@
                 <div class="level-emoji">&#127793;</div>
                 <div class="level-title">신입 MD</div>
                 <div class="level-sites">5~8개소 관리</div>
-                <div class="level-amount">50~80만원</div>
+                <div class="level-amount">50~130만원</div>
                 <div class="level-sub">/월</div>
+                <div class="level-range">
+                    <span class="tag tag-lite">L 50~80만</span>
+                    <span class="tag tag-premium">P 75~130만</span>
+                </div>
             </div>
             <div class="level-card l2">
                 <div class="level-emoji">&#127795;</div>
                 <div class="level-title">중간 MD</div>
                 <div class="level-sites">10~15개소 관리</div>
-                <div class="level-amount">100~150만원</div>
+                <div class="level-amount">100~230만원</div>
                 <div class="level-sub">/월</div>
+                <div class="level-range">
+                    <span class="tag tag-lite">L 100~150만</span>
+                    <span class="tag tag-premium">P 150~230만</span>
+                </div>
             </div>
             <div class="level-card l3">
                 <div class="level-emoji">&#11088;</div>
                 <div class="level-title">우수 MD</div>
                 <div class="level-sites">20~30개소 관리</div>
-                <div class="level-amount">200~375만원</div>
+                <div class="level-amount">200~460만원</div>
                 <div class="level-sub">/월</div>
+                <div class="level-range">
+                    <span class="tag tag-lite">L 200~375만</span>
+                    <span class="tag tag-premium">P 300~460만</span>
+                </div>
             </div>
             <div class="level-card l4">
                 <div class="level-emoji">&#128142;</div>
                 <div class="level-title">탑 MD</div>
-                <div class="level-sites">20개소 + S급 2~3곳</div>
-                <div class="level-amount">300~500만원+</div>
+                <div class="level-sites">20개소 + S급</div>
+                <div class="level-amount">300~600만원+</div>
                 <div class="level-sub">/월</div>
+                <div class="level-range">
+                    <span class="tag tag-lite">L 300~500만</span>
+                    <span class="tag tag-premium">P 400~600만+</span>
+                </div>
             </div>
         </div>
 
-        <!-- 연간 전망 -->
-        <div class="annual-card">
-            <h4>MD 연간 수령액 전망 — 15개소 혼합 포트폴리오 기준</h4>
-            <div class="annual-grid">
-                <div class="annual-item">
-                    <div class="label">프로모션</div>
-                    <div class="months">3개월 × 1.0배</div>
-                    <div class="value">561만원</div>
-                </div>
-                <div class="annual-item">
-                    <div class="label">성수기</div>
-                    <div class="months">4개월 × 1.5배</div>
-                    <div class="value">896만원</div>
-                </div>
-                <div class="annual-item">
-                    <div class="label">비수기</div>
-                    <div class="months">5개월 × 0.7배</div>
-                    <div class="value">525만원</div>
-                </div>
+        <!-- 연간 비교 -->
+        <div class="dual-annual">
+            <div class="dual-annual-card lite-a">
+                <div class="tag">LITE 연간</div>
+                <div style="font-size:13px; opacity:0.8; margin-bottom:8px;">15개소 혼합 포트폴리오</div>
+                <div class="amount">약 1,982만원</div>
+                <div class="sub">프로모션 3개월 + 성수기/비수기 보정</div>
             </div>
-            <div class="annual-total">
-                <div class="label">연간 합계</div>
-                <div class="value">약 1,982만원</div>
+            <div class="dual-annual-card premium-a">
+                <div class="tag">PREMIUM 연간</div>
+                <div style="font-size:13px; opacity:0.8; margin-bottom:8px;">15개소 혼합 포트폴리오</div>
+                <div class="amount">약 2,965만원</div>
+                <div class="sub">프로모션 3개월 + 성수기/비수기 보정</div>
             </div>
         </div>
     </div>
@@ -1484,32 +870,42 @@
     <div class="section" id="company">
         <div class="section-label">05 — 회사 수익 시뮬레이션</div>
         <div class="section-title">회사 순수익 구조</div>
-        <div class="section-desc">11% 계약, 중형 업체 기준 (월 매출 500만원)</div>
+        <div class="section-desc">11% 계약, 중형 업체 기준 (월 매출 500만원), 라이트 vs 프리미엄</div>
 
-        <div class="company-sim">
-            <h4>업체 1개소당 회사 월 순수익</h4>
-            <div class="sim-breakdown" style="border-color:#BBDEFB;">
-                <div><span class="line-label">수수료 수입 (11%)</span><span class="line-value">550,000원</span></div>
-                <div style="clear:both"></div>
-                <div class="line-negative"><span class="line-label">결제 수수료 (2.15%)</span><span class="line-value">-107,500원</span></div>
-                <div style="clear:both"></div>
-                <div class="line-negative"><span class="line-label">안심취소 (3.3%)</span><span class="line-value">-165,000원</span></div>
-                <div style="clear:both"></div>
-                <div class="line-negative"><span class="line-label">MD 수수료 (2%)</span><span class="line-value">-100,000원</span></div>
-                <div style="clear:both"></div>
-                <div class="line-total"><span>회사 순수익 (3.55%)</span><span class="line-value">177,500원</span></div>
-                <div style="clear:both"></div>
-            </div>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px;">
-                <div style="background:white; border-radius:10px; padding:18px; text-align:center; border:1px solid #BBDEFB;">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <div class="company-sim" style="background:linear-gradient(135deg, #E8F5E9, #F1F8E9); border-color:#C8E6C9;">
+                <h4 style="color:var(--primary-dark);">라이트 — 회사 순수익</h4>
+                <div class="sim-breakdown" style="border-color:#C8E6C9;">
+                    <div><span>수수료 수입 (11%)</span><span class="line-value">550,000원</span></div><div style="clear:both"></div>
+                    <div class="line-negative"><span>PG 결제 수수료 (3.3%)</span><span class="line-value">-165,000원</span></div><div style="clear:both"></div>
+                    <div class="line-negative"><span>안심취소 (2.15%)</span><span class="line-value">-107,500원</span></div><div style="clear:both"></div>
+                    <div class="line-negative"><span>MD 수수료 (2%)</span><span class="line-value">-100,000원</span></div><div style="clear:both"></div>
+                    <div class="line-total"><span>회사 순수익</span><span class="line-value">177,500원</span></div><div style="clear:both"></div>
+                </div>
+                <div style="text-align:center; margin-top:16px; padding:12px; background:white; border-radius:8px; border:1px solid #C8E6C9;">
                     <div style="font-size:12px; color:var(--text-muted);">MD 1인 15개소 관리 시</div>
-                    <div style="font-size:24px; font-weight:800; color:#1565C0; margin-top:4px;">월 266만원</div>
-                </div>
-                <div style="background:white; border-radius:10px; padding:18px; text-align:center; border:1px solid #BBDEFB;">
-                    <div style="font-size:12px; color:var(--text-muted);">MD 10인 운영 시</div>
-                    <div style="font-size:24px; font-weight:800; color:#1565C0; margin-top:4px;">월 2,660만원</div>
+                    <div style="font-size:22px; font-weight:800; color:var(--primary);">월 266만원</div>
                 </div>
             </div>
+            <div class="company-sim" style="background:linear-gradient(135deg, #FFF8E1, #FFF3E0); border-color:#FFE0B2;">
+                <h4 style="color:var(--premium-accent);">프리미엄 — 회사 순수익</h4>
+                <div class="sim-breakdown" style="border-color:#FFE0B2;">
+                    <div><span>수수료 수입 (11%)</span><span class="line-value">550,000원</span></div><div style="clear:both"></div>
+                    <div class="line-negative"><span>PG 결제 수수료 (3.3%)</span><span class="line-value">-165,000원</span></div><div style="clear:both"></div>
+                    <div class="line-negative"><span>안심취소 (2.15%)</span><span class="line-value">-107,500원</span></div><div style="clear:both"></div>
+                    <div class="line-negative"><span>MD 수수료 (3%)</span><span class="line-value">-150,000원</span></div><div style="clear:both"></div>
+                    <div class="line-total pt"><span>회사 순수익</span><span class="line-value">127,500원</span></div><div style="clear:both"></div>
+                </div>
+                <div style="text-align:center; margin-top:16px; padding:12px; background:white; border-radius:8px; border:1px solid #FFE0B2;">
+                    <div style="font-size:12px; color:var(--text-muted);">MD 1인 15개소 관리 시</div>
+                    <div style="font-size:22px; font-weight:800; color:var(--premium-accent);">월 191만원</div>
+                    <div style="font-size:11px; color:var(--text-muted);">전화응대 운영비 절감 효과 별도</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box" style="margin-top:16px;">
+            <strong>프리미엄 모델의 회사 순수익이 낮지만,</strong> 회사가 직접 전화응대 인력을 운영하지 않아도 되므로 운영비 절감 효과가 있습니다. MD가 CS까지 담당하는 만큼 회사 운영 부담이 줄어드는 구조입니다.
         </div>
     </div>
 
@@ -1587,7 +983,7 @@
                 </ul>
             </div>
         </div>
-        <div style="margin-top:16px; padding:16px 20px; background:var(--bg); border-radius:10px; font-size:13px; color:var(--text-light); border:1px solid var(--border);">
+        <div class="info-box">
             <strong>운영 원칙:</strong> 홈페이지 제작 시 <strong>최소 6개월 예약 서비스 이용 의무</strong> 조건 부여. 사진 미보유 업체는 30~50만원 원가 수준으로 촬영 서비스 연계.
         </div>
     </div>
@@ -1598,14 +994,13 @@
     <div class="section" id="roadmap">
         <div class="section-label">08 — 실행 로드맵</div>
         <div class="section-title">3단계 실행 계획</div>
-        <div class="section-desc"></div>
         <div class="roadmap">
             <div class="roadmap-phase active">
                 <div class="roadmap-dot"></div>
                 <div class="roadmap-time">Phase 1 — 즉시 실행 (1~2주)</div>
                 <div class="roadmap-title">Quick Win으로 MD 동력 점화</div>
                 <ul class="roadmap-tasks">
-                    <li><div class="task-check"></div>모델 A 수수료 테이블 확정 및 MD 브리핑 자료 작성</li>
+                    <li><div class="task-check"></div>라이트/프리미엄 수수료 테이블 확정 및 MD 브리핑 자료 작성</li>
                     <li><div class="task-check"></div>슬랙 예약 알림 봇 세팅 (예약 확정 기능 개발 전 임시)</li>
                     <li><div class="task-check"></div>MD 대상 프로모션 킥오프 미팅 진행</li>
                 </ul>
@@ -1626,10 +1021,10 @@
                 <div class="roadmap-time">Phase 3 — 중기 확장 (3~6개월)</div>
                 <div class="roadmap-title">검증 후 확장</div>
                 <ul class="roadmap-tasks">
-                    <li><div class="task-check"></div>모델 A 성과 평가 (업체당 월 예약 5건 이상 여부)</li>
-                    <li><div class="task-check"></div>모델 B(MD 프리미엄) 도입 검토</li>
+                    <li><div class="task-check"></div>라이트/프리미엄 모델 성과 비교 평가</li>
                     <li><div class="task-check"></div>부가서비스 상품 정식 런칭</li>
                     <li><div class="task-check"></div>월 5만원 저가 홈페이지 상품 영업 적용</li>
+                    <li><div class="task-check"></div>수수료 테이블 실적 기반 조정</li>
                 </ul>
             </div>
         </div>
@@ -1655,8 +1050,8 @@
                 <div class="risk-solution">최소 6개월 이용 의무 조건 + 전환율 모니터링</div>
             </div>
             <div class="risk-item">
-                <div class="risk-label">MD 예약 관리 업무 부담</div>
-                <div class="risk-solution">알림 자동화 + 대시보드 제공으로 관리 시간 최소화</div>
+                <div class="risk-label">프리미엄 MD 전화응대 품질</div>
+                <div class="risk-solution">응대 매뉴얼 제공 + 정기 품질 모니터링</div>
             </div>
             <div class="risk-item">
                 <div class="risk-label">프로모션 후 MD 이탈</div>
@@ -1675,13 +1070,12 @@
     <div class="section" id="decisions">
         <div class="section-label">10 — 의사결정 사항</div>
         <div class="section-title">내부 논의 후 결정 필요</div>
-        <div class="section-desc"></div>
         <div class="decision-grid">
             <div class="decision-item">
                 <div class="decision-num">1</div>
                 <div>
-                    <div class="decision-text">모델 A 수수료율 최종 확정</div>
-                    <div class="decision-options">7.7% / 11% / 15% 3단계가 적절한지</div>
+                    <div class="decision-text">라이트/프리미엄 수수료율 최종 확정</div>
+                    <div class="decision-options">현재 제안 수치 적정한지, 프리미엄 가산폭 조정 여부</div>
                 </div>
             </div>
             <div class="decision-item">
@@ -1708,8 +1102,8 @@
             <div class="decision-item">
                 <div class="decision-num">5</div>
                 <div>
-                    <div class="decision-text">저가 홈페이지 상품 출시 시점</div>
-                    <div class="decision-options">Phase 2에서 앞당길 수 있는지</div>
+                    <div class="decision-text">프리미엄 MD 전화응대 기준</div>
+                    <div class="decision-options">응대 시간, 품질 기준, 매뉴얼 범위</div>
                 </div>
             </div>
             <div class="decision-item">
@@ -1736,7 +1130,6 @@
 
 </div>
 
-<!-- Footer -->
 <div class="footer">
     <p>캠핏 파트너스 — MD 펜션 영업 전략(안)</p>
     <p style="margin-top:4px;">본 문서는 내부 검토용 초안이며, 논의를 거쳐 최종 확정됩니다.</p>
@@ -1744,12 +1137,10 @@
 </div>
 
 <script>
-    // Simple local comment system
     let comments = JSON.parse(localStorage.getItem('camfit-partners-comments') || '[]');
-
     function renderComments() {
         const list = document.getElementById('commentsList');
-        list.innerHTML = comments.map((c, i) => `
+        list.innerHTML = comments.map(c => `
             <div class="comment-entry">
                 <span class="author">${c.author}</span>
                 <span class="time">${c.time}</span>
@@ -1757,26 +1148,20 @@
             </div>
         `).join('');
     }
-
     function addComment() {
         const box = document.querySelector('.comment-box');
         const name = document.querySelector('.comment-name');
         const body = box.value.trim();
         const author = name.value.trim() || '익명';
         if (!body) return;
-
         const now = new Date();
         const time = `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
-
         comments.unshift({ author, body, time });
         localStorage.setItem('camfit-partners-comments', JSON.stringify(comments));
         box.value = '';
         renderComments();
     }
-
     renderComments();
-
-    // Smooth scroll
     document.querySelectorAll('.toc-item').forEach(a => {
         a.addEventListener('click', e => {
             e.preventDefault();
