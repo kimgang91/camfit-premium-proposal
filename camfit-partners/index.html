@@ -421,23 +421,32 @@
             <div style="font-size:13px; font-weight:600; color:var(--text-light); margin-bottom:8px;">수익 쉐어 구조</div>
             <div class="share-bar">
                 <div class="bar-cost" style="width:74%;">원가 8.95%</div>
-                <div class="bar-md-l" style="width:8%;">MD</div>
-                <div class="bar-camfit-p" style="width:18%;">캠핏</div>
+                <div class="bar-md-l" style="width:10%;">MD</div>
+                <div class="bar-camfit-p" style="width:16%;">캠핏</div>
             </div>
 
-            <div style="text-align:center; margin-bottom:16px;">
-                <div style="font-size:12px; font-weight:700; color:#1565C0; margin-bottom:8px;">라이트 / 프리미엄 공통</div>
-            </div>
             <div class="share-detail">
-                <div class="share-detail-item" style="border:2px solid #90CAF9;">
-                    <div class="label">MD 수익</div>
-                    <div class="pct" style="color:#1565C0;">1.0%</div>
-                    <div class="note">라이트 / 프리미엄 동일</div>
+                <div>
+                    <div style="font-size:12px; font-weight:700; color:var(--lite-accent); margin-bottom:8px; text-align:center;">라이트 (예약관리)</div>
+                    <div class="share-detail-item" style="border:2px solid #90CAF9;">
+                        <div class="label">MD 수익</div>
+                        <div class="pct" style="color:#1565C0;">1.0%</div>
+                    </div>
+                    <div class="share-detail-item" style="margin-top:8px; border:2px solid #90CAF9;">
+                        <div class="label">캠핏 수익</div>
+                        <div class="pct" style="color:#1565C0;">2.0%</div>
+                    </div>
                 </div>
-                <div class="share-detail-item" style="border:2px solid #90CAF9;">
-                    <div class="label">캠핏 수익</div>
-                    <div class="pct" style="color:#1565C0;">2.0%</div>
-                    <div class="note">네이버 연동 원가 반영</div>
+                <div>
+                    <div style="font-size:12px; font-weight:700; color:var(--premium-accent); margin-bottom:8px; text-align:center;">프리미엄 (예약관리+전화응대)</div>
+                    <div class="share-detail-item" style="border:2px solid #FFE0B2;">
+                        <div class="label">MD 수익</div>
+                        <div class="pct" style="color:var(--premium-accent);">1.5%</div>
+                    </div>
+                    <div class="share-detail-item" style="margin-top:8px; border:2px solid #FFE0B2;">
+                        <div class="label">캠핏 수익</div>
+                        <div class="pct" style="color:var(--premium-accent);">1.5%</div>
+                    </div>
                 </div>
             </div>
 
@@ -477,11 +486,18 @@
                             <td style="padding:14px 16px; text-align:center; font-weight:700; color:var(--primary);">2.5%</td>
                         </tr>
                         <tr style="background:#E3F2FD;">
-                            <td style="padding:14px 16px; font-weight:600;">안심취소 + 네이버</td>
+                            <td style="padding:14px 16px; font-weight:600;">안심취소 + 네이버 — 라이트</td>
                             <td style="padding:14px 16px; text-align:center; font-weight:700;">12.1%</td>
                             <td style="padding:14px 16px; text-align:center;">8.95%</td>
                             <td style="padding:14px 16px; text-align:center; font-weight:700; color:#1565C0;">1.0%</td>
                             <td style="padding:14px 16px; text-align:center; font-weight:700; color:#1565C0;">2.0%</td>
+                        </tr>
+                        <tr style="background:#BBDEFB;">
+                            <td style="padding:14px 16px; font-weight:600;">안심취소 + 네이버 — 프리미엄</td>
+                            <td style="padding:14px 16px; text-align:center; font-weight:700;">12.1%</td>
+                            <td style="padding:14px 16px; text-align:center;">8.95%</td>
+                            <td style="padding:14px 16px; text-align:center; font-weight:700; color:var(--premium-accent);">1.5%</td>
+                            <td style="padding:14px 16px; text-align:center; font-weight:700; color:var(--premium-accent);">1.5%</td>
                         </tr>
                     </tbody>
                 </table>
@@ -531,14 +547,25 @@
 
         <!-- 네이버 12.1% -->
         <h4 style="font-size:16px; font-weight:700; margin-bottom:16px;">안심취소 + 네이버 (12.1%) — 업체 1곳 기준</h4>
-        <div class="sim-box" style="border-color:#90CAF9; max-width:460px; margin-bottom:24px;">
-            <h5><span style="background:#E3F2FD; color:#1565C0; padding:3px 10px; border-radius:6px; font-size:11px; font-weight:700;">네이버</span> 라이트/프리미엄 공통</h5>
-            <div class="sim-row"><span>수수료 수입 (12.1%)</span><span><strong>605,000원</strong></span></div>
-            <div class="sim-row"><span>PG 결제 (3.3%)</span><span class="neg">-165,000원</span></div>
-            <div class="sim-row"><span>안심취소 (2.15%)</span><span class="neg">-107,500원</span></div>
-            <div class="sim-row"><span>네이버 연동 (3.5%)</span><span class="neg">-175,000원</span></div>
-            <div class="sim-row"><span>MD 수익 (1.0%)</span><span class="blue"><strong>50,000원</strong></span></div>
-            <div class="sim-row total" style="border-color:#1565C0;"><span>캠핏 수익 (2.0%)</span><span class="blue">100,000원</span></div>
+        <div class="sim-grid" style="margin-bottom:24px;">
+            <div class="sim-box" style="border-color:#90CAF9;">
+                <h5><span class="scope-tag yes">LITE</span> 라이트 + 네이버</h5>
+                <div class="sim-row"><span>수수료 수입 (12.1%)</span><span><strong>605,000원</strong></span></div>
+                <div class="sim-row"><span>PG 결제 (3.3%)</span><span class="neg">-165,000원</span></div>
+                <div class="sim-row"><span>안심취소 (2.15%)</span><span class="neg">-107,500원</span></div>
+                <div class="sim-row"><span>네이버 연동 (3.5%)</span><span class="neg">-175,000원</span></div>
+                <div class="sim-row"><span>MD 수익 (1.0%)</span><span class="blue"><strong>50,000원</strong></span></div>
+                <div class="sim-row total" style="border-color:#1565C0;"><span>캠핏 수익 (2.0%)</span><span class="blue">100,000원</span></div>
+            </div>
+            <div class="sim-box" style="border-color:#FFE0B2;">
+                <h5><span style="background:var(--premium); color:var(--premium-accent); padding:3px 10px; border-radius:6px; font-size:11px; font-weight:700;">PREMIUM</span> 프리미엄 + 네이버</h5>
+                <div class="sim-row"><span>수수료 수입 (12.1%)</span><span><strong>605,000원</strong></span></div>
+                <div class="sim-row"><span>PG 결제 (3.3%)</span><span class="neg">-165,000원</span></div>
+                <div class="sim-row"><span>안심취소 (2.15%)</span><span class="neg">-107,500원</span></div>
+                <div class="sim-row"><span>네이버 연동 (3.5%)</span><span class="neg">-175,000원</span></div>
+                <div class="sim-row"><span>MD 수익 (1.5%)</span><span class="orange"><strong>75,000원</strong></span></div>
+                <div class="sim-row total pt"><span>캠핏 수익 (1.5%)</span><span class="orange">75,000원</span></div>
+            </div>
         </div>
 
         <!-- MD 관리 업체 수별 -->
