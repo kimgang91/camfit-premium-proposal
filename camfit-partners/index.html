@@ -6,312 +6,215 @@
     <title>캠핏 파트너스 — MD 펜션 영업 전략</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap');
-
         :root {
-            --primary: #1B5E20;
-            --primary-light: #2E7D32;
-            --primary-dark: #0D3B11;
-            --accent: #FF6F00;
-            --bg: #FAFAF8;
-            --card: #FFFFFF;
-            --text: #1A1A1A;
-            --text-light: #5A5A5A;
-            --text-muted: #8A8A8A;
-            --border: #E8E8E4;
-            --border-light: #F0F0EC;
-            --lite: #E8F5E9;
-            --lite-accent: #43A047;
-            --premium: #FFF3E0;
-            --premium-accent: #EF6C00;
-            --vip: #F3E5F5;
-            --vip-accent: #7B1FA2;
-            --danger: #FFEBEE;
-            --danger-accent: #C62828;
+            --primary: #1B5E20; --primary-light: #2E7D32; --primary-dark: #0D3B11;
+            --accent: #FF6F00; --bg: #FAFAF8; --card: #FFFFFF;
+            --text: #1A1A1A; --text-light: #5A5A5A; --text-muted: #8A8A8A;
+            --border: #E8E8E4; --border-light: #F0F0EC;
+            --lite: #E8F5E9; --lite-accent: #43A047;
+            --premium: #FFF3E0; --premium-accent: #EF6C00;
+            --danger: #FFEBEE; --danger-accent: #C62828;
+            --vip: #F3E5F5; --vip-accent: #7B1FA2;
         }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Noto Sans KR',-apple-system,sans-serif; background:var(--bg); color:var(--text); line-height:1.7; -webkit-font-smoothing:antialiased; }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* Hero */
+        .hero { background:linear-gradient(135deg,var(--primary-dark),var(--primary),var(--primary-light)); color:white; padding:80px 24px 60px; text-align:center; }
+        .hero-badge { display:inline-block; background:rgba(255,255,255,0.15); padding:6px 20px; border-radius:100px; font-size:13px; font-weight:500; margin-bottom:24px; border:1px solid rgba(255,255,255,0.2); }
+        .hero h1 { font-size:clamp(32px,5vw,48px); font-weight:800; margin-bottom:12px; letter-spacing:-1px; }
+        .hero p { font-size:17px; opacity:0.85; font-weight:300; max-width:500px; margin:0 auto 32px; }
+        .hero-meta { display:flex; justify-content:center; gap:32px; font-size:13px; opacity:0.7; }
 
-        body {
-            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.7;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .hero {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
-            color: white;
-            padding: 80px 24px 60px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: radial-gradient(circle at 30% 70%, rgba(255,255,255,0.06) 0%, transparent 50%);
-            pointer-events: none;
-        }
-        .hero-badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(10px);
-            padding: 6px 20px;
-            border-radius: 100px;
-            font-size: 13px;
-            font-weight: 500;
-            margin-bottom: 24px;
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        .hero h1 { font-size: clamp(32px, 5vw, 48px); font-weight: 800; margin-bottom: 12px; letter-spacing: -1px; }
-        .hero p { font-size: 17px; opacity: 0.85; font-weight: 300; max-width: 500px; margin: 0 auto 32px; }
-        .hero-meta { display: flex; justify-content: center; gap: 32px; font-size: 13px; opacity: 0.7; }
-
-        .container { max-width: 920px; margin: 0 auto; padding: 0 24px; }
-
-        .section { margin: 48px 0; }
-        .section-label { display: inline-block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--primary); margin-bottom: 8px; }
-        .section-title { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; }
-        .section-desc { font-size: 15px; color: var(--text-light); margin-bottom: 32px; }
-
-        .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 32px; margin-bottom: 20px; }
-        .card-sm { padding: 24px; }
-        .divider { height: 1px; background: var(--border); margin: 48px 0; }
+        .container { max-width:900px; margin:0 auto; padding:0 24px; }
+        .section { margin:48px 0; }
+        .section-label { display:inline-block; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--primary); margin-bottom:8px; }
+        .section-title { font-size:28px; font-weight:800; letter-spacing:-0.5px; margin-bottom:8px; }
+        .section-desc { font-size:15px; color:var(--text-light); margin-bottom:32px; }
+        .divider { height:1px; background:var(--border); margin:48px 0; }
+        .card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:32px; margin-bottom:20px; }
+        .info-box { padding:16px 20px; background:var(--bg); border-radius:10px; font-size:13px; color:var(--text-light); border:1px solid var(--border); margin-top:16px; }
 
         /* TOC */
-        .toc { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 28px 32px; margin: -24px auto 48px; position: relative; z-index: 10; }
-        .toc h3 { font-size: 14px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
-        .toc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 6px; }
-        .toc-item { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 8px; font-size: 14px; color: var(--text-light); text-decoration: none; transition: all 0.15s; }
-        .toc-item:hover { background: var(--bg); color: var(--primary); }
-        .toc-num { font-weight: 700; color: var(--primary); font-size: 12px; width: 20px; }
+        .toc { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:28px 32px; margin:-24px auto 48px; position:relative; z-index:10; }
+        .toc h3 { font-size:14px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:16px; }
+        .toc-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:6px; }
+        .toc-item { display:flex; align-items:center; gap:8px; padding:8px 12px; border-radius:8px; font-size:14px; color:var(--text-light); text-decoration:none; }
+        .toc-item:hover { background:var(--bg); color:var(--primary); }
+        .toc-num { font-weight:700; color:var(--primary); font-size:12px; width:20px; }
 
-        /* Problem Cards */
-        .problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
-        .problem-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 28px 24px; position: relative; overflow: hidden; }
-        .problem-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--danger-accent); }
-        .problem-num { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 8px; background: var(--danger); color: var(--danger-accent); font-size: 13px; font-weight: 700; margin-bottom: 14px; }
-        .problem-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
-        .problem-card p { font-size: 14px; color: var(--text-light); line-height: 1.6; }
+        /* Problem */
+        .problem-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:16px; }
+        .problem-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:28px 24px; position:relative; overflow:hidden; }
+        .problem-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--danger-accent); }
+        .problem-num { display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:8px; background:var(--danger); color:var(--danger-accent); font-size:13px; font-weight:700; margin-bottom:14px; }
+        .problem-card h4 { font-size:16px; font-weight:700; margin-bottom:8px; }
+        .problem-card p { font-size:14px; color:var(--text-light); line-height:1.6; }
 
-        /* Model Cards */
-        .model-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 20px; }
-        .model-card { background: var(--card); border-radius: 18px; overflow: hidden; border: 2px solid var(--border); transition: transform 0.2s; }
-        .model-card:hover { transform: translateY(-2px); }
-        .model-card.lite { border-color: var(--lite-accent); }
-        .model-card.premium { border-color: var(--premium-accent); }
-        .model-header { padding: 28px 28px 20px; }
-        .model-card.lite .model-header { background: linear-gradient(135deg, #E8F5E9, #C8E6C9); }
-        .model-card.premium .model-header { background: linear-gradient(135deg, #FFF3E0, #FFE0B2); }
-        .model-tag { display: inline-block; padding: 4px 14px; border-radius: 100px; font-size: 11px; font-weight: 700; margin-bottom: 12px; letter-spacing: 0.5px; }
-        .model-card.lite .model-tag { background: var(--lite-accent); color: white; }
-        .model-card.premium .model-tag { background: var(--premium-accent); color: white; }
-        .model-header h3 { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
-        .model-header .subtitle { font-size: 14px; color: var(--text-light); }
-        .model-body { padding: 24px 28px 28px; }
-        .model-features { list-style: none; margin-bottom: 20px; }
-        .model-features li { padding: 8px 0; font-size: 14px; display: flex; align-items: flex-start; gap: 10px; border-bottom: 1px solid var(--border-light); }
-        .model-features li:last-child { border-bottom: none; }
-        .model-features .icon { flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; margin-top: 2px; }
-        .model-card.lite .icon { background: var(--lite); color: var(--lite-accent); }
-        .model-card.premium .icon { background: var(--premium); color: var(--premium-accent); }
-        .scope-tag { display: inline-block; padding: 3px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; }
-        .scope-tag.yes { background: var(--lite); color: var(--lite-accent); }
-        .scope-tag.no { background: #F5F5F5; color: #BDBDBD; }
+        /* Model */
+        .model-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(380px,1fr)); gap:20px; }
+        .model-card { background:var(--card); border-radius:18px; overflow:hidden; border:2px solid var(--border); }
+        .model-card.lite { border-color:var(--lite-accent); }
+        .model-card.premium { border-color:var(--premium-accent); }
+        .model-header { padding:28px 28px 20px; }
+        .model-card.lite .model-header { background:linear-gradient(135deg,#E8F5E9,#C8E6C9); }
+        .model-card.premium .model-header { background:linear-gradient(135deg,#FFF3E0,#FFE0B2); }
+        .model-tag { display:inline-block; padding:4px 14px; border-radius:100px; font-size:11px; font-weight:700; margin-bottom:12px; color:white; }
+        .model-card.lite .model-tag { background:var(--lite-accent); }
+        .model-card.premium .model-tag { background:var(--premium-accent); }
+        .model-header h3 { font-size:22px; font-weight:800; margin-bottom:4px; }
+        .model-header .subtitle { font-size:14px; color:var(--text-light); }
+        .model-body { padding:24px 28px 28px; }
+        .model-features { list-style:none; margin-bottom:20px; }
+        .model-features li { padding:8px 0; font-size:14px; display:flex; align-items:flex-start; gap:10px; border-bottom:1px solid var(--border-light); }
+        .model-features li:last-child { border-bottom:none; }
+        .model-features .icon { flex-shrink:0; width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; margin-top:2px; }
+        .model-card.lite .icon { background:var(--lite); color:var(--lite-accent); }
+        .model-card.premium .icon { background:var(--premium); color:var(--premium-accent); }
 
-        /* Tables */
-        .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 20px; }
-        table { width: 100%; border-collapse: collapse; font-size: 14px; }
-        thead { background: var(--primary); color: white; }
-        thead.lite-head { background: var(--lite-accent); }
-        thead.premium-head { background: var(--premium-accent); }
-        thead th { padding: 14px 18px; font-weight: 600; text-align: left; font-size: 13px; white-space: nowrap; }
-        thead th:not(:first-child) { text-align: center; }
-        tbody td { padding: 13px 18px; border-bottom: 1px solid var(--border-light); }
-        tbody td:not(:first-child) { text-align: center; font-weight: 600; }
-        tbody tr:last-child td { border-bottom: none; }
-        tbody tr:hover { background: #F9FBF9; }
-        .highlight-row { background: var(--lite) !important; }
-        .highlight-row-p { background: var(--premium) !important; }
+        /* Scope Table */
+        .scope-tag { display:inline-block; padding:3px 10px; border-radius:6px; font-size:11px; font-weight:700; }
+        .scope-tag.yes { background:var(--lite); color:var(--lite-accent); }
+        .scope-tag.no { background:#F5F5F5; color:#BDBDBD; }
+        .compare-table { width:100%; border-collapse:collapse; font-size:14px; }
+        .compare-table th { background:var(--bg); padding:14px 16px; font-weight:700; text-align:center; border-bottom:2px solid var(--border); }
+        .compare-table th:first-child { text-align:left; }
+        .compare-table td { padding:14px 16px; border-bottom:1px solid var(--border-light); text-align:center; }
+        .compare-table td:first-child { text-align:left; font-weight:500; color:var(--text-light); }
+        .compare-table .col-lite { background:#F1F8E9; }
+        .compare-table .col-premium { background:#FFF8E1; }
+        .compare-table .th-lite { background:var(--lite-accent); color:white; }
+        .compare-table .th-premium { background:var(--premium-accent); color:white; }
 
-        /* Waterfall */
-        .waterfall { margin: 20px 0; }
-        .wf-row { display: grid; grid-template-columns: 180px 1fr 100px; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border-light); font-size: 14px; }
-        .wf-row:last-child { border-bottom: none; }
-        .wf-label { font-weight: 500; color: var(--text-light); }
-        .wf-bar-wrap { height: 28px; background: #F5F5F5; border-radius: 6px; overflow: hidden; position: relative; }
-        .wf-bar { height: 100%; border-radius: 6px; display: flex; align-items: center; padding-left: 10px; font-size: 11px; font-weight: 700; color: white; min-width: 30px; transition: width 0.5s; }
-        .wf-value { font-weight: 700; text-align: right; font-size: 14px; }
-        .wf-total { font-weight: 800; font-size: 15px; color: var(--primary); border-top: 2px solid var(--primary); padding-top: 12px; margin-top: 4px; }
-        .wf-total.premium-total { color: var(--premium-accent); border-color: var(--premium-accent); }
+        /* Share Box */
+        .share-box { border-radius:16px; padding:32px; margin-bottom:20px; }
+        .share-box.type-a { background:linear-gradient(135deg,#E8F5E9,#F1F8E9); border:2px solid #A5D6A7; }
+        .share-box.type-b { background:linear-gradient(135deg,#E3F2FD,#E8EAF6); border:2px solid #90CAF9; }
+        .share-box h4 { font-size:18px; font-weight:800; margin-bottom:6px; }
+        .share-box .fee { font-size:14px; color:var(--text-light); margin-bottom:20px; }
+        .share-bar { display:flex; height:52px; border-radius:12px; overflow:hidden; margin-bottom:16px; font-size:13px; font-weight:700; }
+        .share-bar > div { display:flex; align-items:center; justify-content:center; color:white; }
+        .bar-cost { background:#78909C; }
+        .bar-md-l { background:var(--lite-accent); }
+        .bar-md-p { background:var(--premium-accent); }
+        .bar-camfit-l { background:var(--primary); }
+        .bar-camfit-p { background:#1565C0; }
+        .share-legend { display:flex; flex-wrap:wrap; gap:16px; margin-bottom:16px; }
+        .share-legend-item { display:flex; align-items:center; gap:6px; font-size:13px; }
+        .share-legend-dot { width:12px; height:12px; border-radius:3px; }
+        .share-detail { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+        .share-detail-item { background:white; border-radius:10px; padding:16px; text-align:center; }
+        .share-detail-item .label { font-size:12px; color:var(--text-muted); font-weight:600; }
+        .share-detail-item .pct { font-size:24px; font-weight:800; margin:4px 0; }
+        .share-detail-item .note { font-size:11px; color:var(--text-muted); }
+        .share-extra { background:white; border-radius:10px; padding:14px 16px; margin-top:12px; font-size:13px; color:var(--text-light); display:flex; align-items:center; gap:8px; }
+        .share-extra .badge { background:var(--accent); color:white; padding:3px 10px; border-radius:6px; font-size:11px; font-weight:700; flex-shrink:0; }
 
-        /* Comparison Table */
-        .compare-table { width: 100%; border-collapse: collapse; font-size: 14px; }
-        .compare-table th { background: var(--bg); padding: 14px 16px; font-weight: 700; text-align: center; border-bottom: 2px solid var(--border); }
-        .compare-table th:first-child { text-align: left; }
-        .compare-table td { padding: 14px 16px; border-bottom: 1px solid var(--border-light); text-align: center; }
-        .compare-table td:first-child { text-align: left; font-weight: 500; color: var(--text-light); }
-        .compare-table .col-lite { background: #F1F8E9; }
-        .compare-table .col-premium { background: #FFF8E1; }
-        .compare-table .th-lite { background: var(--lite-accent); color: white; }
-        .compare-table .th-premium { background: var(--premium-accent); color: white; }
+        /* Sim */
+        .sim-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+        .sim-box { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:24px; }
+        .sim-box h5 { font-size:14px; font-weight:700; margin-bottom:16px; display:flex; align-items:center; gap:8px; }
+        .sim-row { display:flex; justify-content:space-between; padding:8px 0; font-size:14px; border-bottom:1px solid var(--border-light); }
+        .sim-row:last-child { border-bottom:none; }
+        .sim-row.total { border-top:2px solid var(--primary); padding-top:12px; margin-top:4px; font-weight:800; font-size:15px; }
+        .sim-row.total.pt { border-color:var(--premium-accent); }
+        .sim-row .neg { color:var(--danger-accent); }
+        .sim-row .green { color:var(--primary); }
+        .sim-row .orange { color:var(--premium-accent); }
+        .sim-row .blue { color:#1565C0; }
 
-        /* Sim Card */
-        .sim-card { border-radius: 14px; padding: 28px; margin-bottom: 16px; }
-        .sim-card.lite-sim { background: linear-gradient(135deg, #F1F8E9, #E8F5E9); border: 1px solid #C8E6C9; }
-        .sim-card.premium-sim { background: linear-gradient(135deg, #FFF8E1, #FFF3E0); border: 1px solid #FFE0B2; }
-        .sim-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 16px; }
-        .sim-card.lite-sim h4 { color: var(--primary-dark); }
-        .sim-card.premium-sim h4 { color: var(--premium-accent); }
-
-        .sim-breakdown {
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            line-height: 1.8;
-            background: white;
-            border-radius: 10px;
-            padding: 20px 24px;
-        }
-        .sim-card.lite-sim .sim-breakdown { border: 1px solid #C8E6C9; }
-        .sim-card.premium-sim .sim-breakdown { border: 1px solid #FFE0B2; }
-        .line-value { float: right; font-weight: 700; }
-        .line-total { border-top: 2px solid var(--primary); padding-top: 8px; margin-top: 8px; font-weight: 700; color: var(--primary); }
-        .line-total.pt { border-color: var(--premium-accent); color: var(--premium-accent); }
-        .line-negative { color: var(--danger-accent); }
-
-        /* Level Cards */
-        .level-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; }
-        .level-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px 20px; text-align: center; position: relative; overflow: hidden; }
-        .level-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
-        .level-card.l1::before { background: #90A4AE; }
-        .level-card.l2::before { background: #66BB6A; }
-        .level-card.l3::before { background: var(--accent); }
-        .level-card.l4::before { background: var(--vip-accent); }
-        .level-emoji { font-size: 28px; margin-bottom: 10px; }
-        .level-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
-        .level-sites { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; }
-        .level-amount { font-size: 18px; font-weight: 800; }
-        .level-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
-        .level-card.l1 .level-amount { color: #546E7A; }
-        .level-card.l2 .level-amount { color: #2E7D32; }
-        .level-card.l3 .level-amount { color: var(--accent); }
-        .level-card.l4 .level-amount { color: var(--vip-accent); }
-        .level-range { display: flex; gap: 4px; justify-content: center; margin-top: 8px; }
-        .level-range .tag { font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 600; }
-        .tag-lite { background: var(--lite); color: var(--lite-accent); }
-        .tag-premium { background: var(--premium); color: var(--premium-accent); }
-
-        /* Annual */
-        .annual-card { background: linear-gradient(135deg, var(--primary-dark), var(--primary)); color: white; border-radius: 16px; padding: 32px; margin-top: 24px; }
-        .annual-card h4 { font-size: 14px; font-weight: 500; opacity: 0.8; margin-bottom: 16px; }
-        .annual-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; margin-bottom: 20px; }
-        .annual-item { background: rgba(255,255,255,0.12); border-radius: 12px; padding: 18px 16px; text-align: center; }
-        .annual-item .label { font-size: 12px; opacity: 0.7; margin-bottom: 4px; }
-        .annual-item .months { font-size: 11px; opacity: 0.5; margin-bottom: 8px; }
-        .annual-item .value { font-size: 22px; font-weight: 800; }
-        .annual-total { text-align: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
-        .annual-total .label { font-size: 13px; opacity: 0.7; }
-        .annual-total .value { font-size: 36px; font-weight: 900; letter-spacing: -1px; }
-
-        /* Dual Annual */
-        .dual-annual { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
-        .dual-annual-card { border-radius: 16px; padding: 28px; color: white; text-align: center; }
-        .dual-annual-card.lite-a { background: linear-gradient(135deg, #2E7D32, #43A047); }
-        .dual-annual-card.premium-a { background: linear-gradient(135deg, #E65100, #EF6C00); }
-        .dual-annual-card .tag { font-size: 11px; font-weight: 700; background: rgba(255,255,255,0.2); display: inline-block; padding: 3px 14px; border-radius: 100px; margin-bottom: 12px; }
-        .dual-annual-card .amount { font-size: 32px; font-weight: 900; letter-spacing: -1px; }
-        .dual-annual-card .sub { font-size: 13px; opacity: 0.7; margin-top: 4px; }
+        /* Level */
+        .level-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:14px; margin-top:24px; }
+        .level-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:24px 20px; text-align:center; overflow:hidden; position:relative; }
+        .level-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
+        .level-card.l1::before { background:#90A4AE; }
+        .level-card.l2::before { background:#66BB6A; }
+        .level-card.l3::before { background:var(--accent); }
+        .level-card.l4::before { background:var(--vip-accent); }
+        .level-emoji { font-size:28px; margin-bottom:10px; }
+        .level-title { font-size:14px; font-weight:700; margin-bottom:4px; }
+        .level-sites { font-size:12px; color:var(--text-muted); margin-bottom:12px; }
+        .level-amount { font-size:18px; font-weight:800; }
+        .level-sub { font-size:11px; color:var(--text-muted); margin-top:2px; }
+        .level-card.l1 .level-amount { color:#546E7A; }
+        .level-card.l2 .level-amount { color:#2E7D32; }
+        .level-card.l3 .level-amount { color:var(--accent); }
+        .level-card.l4 .level-amount { color:var(--vip-accent); }
+        .level-range { display:flex; gap:4px; justify-content:center; margin-top:8px; }
+        .level-range .tag { font-size:10px; padding:2px 8px; border-radius:4px; font-weight:600; }
+        .tag-lite { background:var(--lite); color:var(--lite-accent); }
+        .tag-premium { background:var(--premium); color:var(--premium-accent); }
 
         /* S-class */
-        .sclass-card { background: linear-gradient(135deg, #F3E5F5, #EDE7F6); border: 2px solid #CE93D8; border-radius: 16px; padding: 32px; }
-        .sclass-card h4 { color: var(--vip-accent); font-size: 18px; font-weight: 800; margin-bottom: 6px; }
-        .sclass-card .subtitle { font-size: 14px; color: var(--text-light); margin-bottom: 20px; }
-        .sclass-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
-        .sclass-item { background: white; border-radius: 10px; padding: 18px 16px; }
-        .sclass-item .label { font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-        .sclass-item .value { font-size: 17px; font-weight: 700; color: var(--vip-accent); margin-top: 4px; }
-        .sclass-item .note { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+        .sclass-card { background:linear-gradient(135deg,#F3E5F5,#EDE7F6); border:2px solid #CE93D8; border-radius:16px; padding:32px; }
+        .sclass-card h4 { color:var(--vip-accent); font-size:18px; font-weight:800; margin-bottom:6px; }
+        .sclass-card .subtitle { font-size:14px; color:var(--text-light); margin-bottom:20px; }
+        .sclass-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; }
+        .sclass-item { background:white; border-radius:10px; padding:18px 16px; }
+        .sclass-item .label { font-size:11px; color:var(--text-muted); font-weight:600; text-transform:uppercase; letter-spacing:0.5px; }
+        .sclass-item .value { font-size:17px; font-weight:700; color:var(--vip-accent); margin-top:4px; }
+        .sclass-item .note { font-size:12px; color:var(--text-muted); margin-top:2px; }
 
         /* Services */
-        .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
-        .service-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 28px 24px; text-align: center; }
-        .service-tier { display: inline-block; padding: 4px 14px; border-radius: 100px; font-size: 11px; font-weight: 700; margin-bottom: 14px; }
-        .service-card.tier-low .service-tier { background: #E3F2FD; color: #1565C0; }
-        .service-card.tier-mid .service-tier { background: var(--lite); color: var(--lite-accent); }
-        .service-card.tier-high .service-tier { background: var(--premium); color: var(--premium-accent); }
-        .service-price { font-size: 28px; font-weight: 800; margin-bottom: 4px; }
-        .service-unit { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
-        .service-list { list-style: none; text-align: left; }
-        .service-list li { padding: 6px 0; font-size: 13px; color: var(--text-light); border-bottom: 1px solid var(--border-light); }
-        .service-list li:last-child { border-bottom: none; }
+        .service-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:16px; }
+        .service-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:28px 24px; text-align:center; }
+        .service-tier { display:inline-block; padding:4px 14px; border-radius:100px; font-size:11px; font-weight:700; margin-bottom:14px; }
+        .service-card.tier-low .service-tier { background:#E3F2FD; color:#1565C0; }
+        .service-card.tier-mid .service-tier { background:var(--lite); color:var(--lite-accent); }
+        .service-card.tier-high .service-tier { background:var(--premium); color:var(--premium-accent); }
+        .service-price { font-size:28px; font-weight:800; margin-bottom:4px; }
+        .service-unit { font-size:13px; color:var(--text-muted); margin-bottom:16px; }
+        .service-list { list-style:none; text-align:left; }
+        .service-list li { padding:6px 0; font-size:13px; color:var(--text-light); border-bottom:1px solid var(--border-light); }
+        .service-list li:last-child { border-bottom:none; }
 
         /* Roadmap */
-        .roadmap { position: relative; }
-        .roadmap::before { content: ''; position: absolute; left: 20px; top: 0; bottom: 0; width: 2px; background: var(--border); }
-        .roadmap-phase { position: relative; padding-left: 56px; padding-bottom: 36px; }
-        .roadmap-phase:last-child { padding-bottom: 0; }
-        .roadmap-dot { position: absolute; left: 10px; top: 4px; width: 22px; height: 22px; border-radius: 50%; border: 3px solid var(--primary); background: white; }
-        .roadmap-phase.active .roadmap-dot { background: var(--primary); }
-        .roadmap-time { font-size: 12px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
-        .roadmap-title { font-size: 17px; font-weight: 700; margin-bottom: 12px; }
-        .roadmap-tasks { list-style: none; }
-        .roadmap-tasks li { padding: 6px 0; font-size: 14px; color: var(--text-light); display: flex; align-items: center; gap: 8px; }
-        .task-check { width: 18px; height: 18px; border-radius: 4px; border: 2px solid var(--border); flex-shrink: 0; }
+        .roadmap { position:relative; }
+        .roadmap::before { content:''; position:absolute; left:20px; top:0; bottom:0; width:2px; background:var(--border); }
+        .roadmap-phase { position:relative; padding-left:56px; padding-bottom:36px; }
+        .roadmap-phase:last-child { padding-bottom:0; }
+        .roadmap-dot { position:absolute; left:10px; top:4px; width:22px; height:22px; border-radius:50%; border:3px solid var(--primary); background:white; }
+        .roadmap-phase.active .roadmap-dot { background:var(--primary); }
+        .roadmap-time { font-size:12px; font-weight:700; color:var(--primary); letter-spacing:0.5px; margin-bottom:8px; }
+        .roadmap-title { font-size:17px; font-weight:700; margin-bottom:12px; }
+        .roadmap-tasks { list-style:none; }
+        .roadmap-tasks li { padding:6px 0; font-size:14px; color:var(--text-light); display:flex; align-items:center; gap:8px; }
+        .task-check { width:18px; height:18px; border-radius:4px; border:2px solid var(--border); flex-shrink:0; }
 
         /* Risk */
-        .risk-item { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--border-light); font-size: 14px; }
-        .risk-item:last-child { border-bottom: none; }
-        .risk-label { font-weight: 600; color: var(--danger-accent); }
-        .risk-solution { color: var(--text-light); }
+        .risk-item { display:grid; grid-template-columns:1fr 1fr; gap:16px; padding:18px 0; border-bottom:1px solid var(--border-light); font-size:14px; }
+        .risk-item:last-child { border-bottom:none; }
+        .risk-label { font-weight:600; color:var(--danger-accent); }
+        .risk-solution { color:var(--text-light); }
 
         /* Decision */
-        .decision-grid { display: grid; gap: 12px; }
-        .decision-item { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; display: grid; grid-template-columns: 36px 1fr; align-items: center; gap: 16px; }
-        .decision-num { width: 36px; height: 36px; border-radius: 10px; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; }
-        .decision-text { font-size: 14px; font-weight: 600; }
-        .decision-options { font-size: 13px; color: var(--text-muted); }
+        .decision-grid { display:grid; gap:12px; }
+        .decision-item { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px 24px; display:grid; grid-template-columns:36px 1fr; align-items:center; gap:16px; }
+        .decision-num { width:36px; height:36px; border-radius:10px; background:var(--primary); color:white; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; }
+        .decision-text { font-size:14px; font-weight:600; }
+        .decision-options { font-size:13px; color:var(--text-muted); }
 
-        /* Company Sim */
-        .company-sim { background: linear-gradient(135deg, #E3F2FD, #E8EAF6); border: 1px solid #BBDEFB; border-radius: 14px; padding: 28px; }
-        .company-sim h4 { color: #1565C0; font-size: 15px; font-weight: 700; margin-bottom: 16px; }
+        /* Comment */
+        .comment-section { background:#FFF8E1; border:2px solid #FFE082; border-radius:16px; padding:32px; margin-top:48px; }
+        .comment-section h3 { font-size:18px; font-weight:700; margin-bottom:8px; }
+        .comment-section p { font-size:14px; color:var(--text-light); margin-bottom:20px; }
+        .comment-box { width:100%; min-height:120px; border:1px solid #E0E0E0; border-radius:10px; padding:16px; font-family:'Noto Sans KR',sans-serif; font-size:14px; resize:vertical; outline:none; }
+        .comment-box:focus { border-color:var(--primary); }
+        .comment-name { width:200px; border:1px solid #E0E0E0; border-radius:8px; padding:10px 14px; font-family:'Noto Sans KR',sans-serif; font-size:14px; outline:none; margin-top:12px; }
+        .comment-btn { display:inline-block; background:var(--primary); color:white; border:none; border-radius:8px; padding:10px 28px; font-family:'Noto Sans KR',sans-serif; font-size:14px; font-weight:600; cursor:pointer; margin-top:12px; margin-left:8px; }
+        .comment-btn:hover { background:var(--primary-dark); }
+        .comments-list { margin-top:24px; }
+        .comment-entry { background:white; border-radius:10px; padding:16px 20px; margin-bottom:10px; border:1px solid #F0E6C0; }
+        .comment-entry .author { font-weight:700; font-size:13px; color:var(--primary); }
+        .comment-entry .time { font-size:11px; color:var(--text-muted); margin-left:8px; }
+        .comment-entry .body { font-size:14px; color:var(--text); margin-top:6px; white-space:pre-wrap; }
+        .footer { text-align:center; padding:48px 24px; color:var(--text-muted); font-size:13px; border-top:1px solid var(--border); }
 
-        /* Comment Section */
-        .comment-section { background: #FFF8E1; border: 2px solid #FFE082; border-radius: 16px; padding: 32px; margin-top: 48px; }
-        .comment-section h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
-        .comment-section p { font-size: 14px; color: var(--text-light); margin-bottom: 20px; }
-        .comment-box { width: 100%; min-height: 120px; border: 1px solid #E0E0E0; border-radius: 10px; padding: 16px; font-family: 'Noto Sans KR', sans-serif; font-size: 14px; resize: vertical; outline: none; }
-        .comment-box:focus { border-color: var(--primary); }
-        .comment-name { width: 200px; border: 1px solid #E0E0E0; border-radius: 8px; padding: 10px 14px; font-family: 'Noto Sans KR', sans-serif; font-size: 14px; outline: none; margin-top: 12px; }
-        .comment-name:focus { border-color: var(--primary); }
-        .comment-btn { display: inline-block; background: var(--primary); color: white; border: none; border-radius: 8px; padding: 10px 28px; font-family: 'Noto Sans KR', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; margin-top: 12px; margin-left: 8px; }
-        .comment-btn:hover { background: var(--primary-dark); }
-        .comments-list { margin-top: 24px; }
-        .comment-entry { background: white; border-radius: 10px; padding: 16px 20px; margin-bottom: 10px; border: 1px solid #F0E6C0; }
-        .comment-entry .author { font-weight: 700; font-size: 13px; color: var(--primary); }
-        .comment-entry .time { font-size: 11px; color: var(--text-muted); margin-left: 8px; }
-        .comment-entry .body { font-size: 14px; color: var(--text); margin-top: 6px; white-space: pre-wrap; }
-
-        .footer { text-align: center; padding: 48px 24px; color: var(--text-muted); font-size: 13px; border-top: 1px solid var(--border); }
-
-        /* Helper */
-        .info-box { padding: 16px 20px; background: var(--bg); border-radius: 10px; font-size: 13px; color: var(--text-light); border: 1px solid var(--border); margin-top: 16px; }
-        .badge-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
-
-        @media (max-width: 700px) {
-            .model-grid { grid-template-columns: 1fr; }
-            .risk-item { grid-template-columns: 1fr; gap: 6px; }
-            .dual-annual { grid-template-columns: 1fr; }
-            .hero-meta { flex-direction: column; gap: 4px; }
-            .wf-row { grid-template-columns: 120px 1fr 80px; }
-        }
-
-        @media print {
-            .hero { padding: 40px 24px; }
-            .comment-section { display: none; }
-            .card, .model-card { break-inside: avoid; }
+        @media (max-width:700px) {
+            .model-grid, .sim-grid { grid-template-columns:1fr; }
+            .risk-item { grid-template-columns:1fr; gap:6px; }
+            .share-detail { grid-template-columns:1fr; }
+            .hero-meta { flex-direction:column; gap:4px; }
         }
     </style>
 </head>
@@ -333,14 +236,12 @@
         <div class="toc-grid">
             <a href="#diagnosis" class="toc-item"><span class="toc-num">01</span> 현황 진단</a>
             <a href="#models" class="toc-item"><span class="toc-num">02</span> MD 라이트 / 프리미엄</a>
-            <a href="#commission" class="toc-item"><span class="toc-num">03</span> 수수료 체계 + 원가</a>
-            <a href="#simulation" class="toc-item"><span class="toc-num">04</span> MD 수익 시뮬레이션</a>
-            <a href="#company" class="toc-item"><span class="toc-num">05</span> 회사 수익 시뮬레이션</a>
-            <a href="#sclass" class="toc-item"><span class="toc-num">06</span> S급 펜션 전략</a>
-            <a href="#services" class="toc-item"><span class="toc-num">07</span> 부가서비스</a>
-            <a href="#roadmap" class="toc-item"><span class="toc-num">08</span> 실행 로드맵</a>
-            <a href="#risk" class="toc-item"><span class="toc-num">09</span> 리스크 관리</a>
-            <a href="#decisions" class="toc-item"><span class="toc-num">10</span> 의사결정 사항</a>
+            <a href="#commission" class="toc-item"><span class="toc-num">03</span> 수수료 + 수익 쉐어</a>
+            <a href="#simulation" class="toc-item"><span class="toc-num">04</span> 수익 시뮬레이션</a>
+            <a href="#sclass" class="toc-item"><span class="toc-num">05</span> S급 펜션 전략</a>
+            <a href="#services" class="toc-item"><span class="toc-num">06</span> 부가서비스</a>
+            <a href="#roadmap" class="toc-item"><span class="toc-num">07</span> 실행 로드맵</a>
+            <a href="#decisions" class="toc-item"><span class="toc-num">08</span> 의사결정 사항</a>
         </div>
     </div>
 </div>
@@ -349,9 +250,8 @@
 
     <!-- 1. 현황 진단 -->
     <div class="section" id="diagnosis">
-        <div class="section-label">01 — 현황 진단</div>
-        <div class="section-title">해결해야 할 핵심 문제</div>
-        <div class="section-desc">기존 모델의 구조적 한계를 진단하고, 이를 기반으로 신규 전략을 수립합니다.</div>
+        <div class="section-label">01</div>
+        <div class="section-title">현황 진단</div>
         <div class="problem-grid">
             <div class="problem-card">
                 <div class="problem-num">1</div>
@@ -375,9 +275,9 @@
 
     <!-- 2. 영업 모델 -->
     <div class="section" id="models">
-        <div class="section-label">02 — 영업 모델</div>
+        <div class="section-label">02</div>
         <div class="section-title">MD 라이트 & MD 프리미엄</div>
-        <div class="section-desc">MD가 제공하는 서비스 범위에 따라 두 가지 등급으로 운영합니다. 더 많은 서비스를 제공하는 MD에게 더 높은 보상을 지급합니다.</div>
+        <div class="section-desc">MD가 제공하는 서비스 범위에 따라 두 등급으로 운영. 더 많은 서비스를 제공하는 MD에게 더 높은 보상.</div>
 
         <div class="model-grid">
             <div class="model-card lite">
@@ -393,13 +293,8 @@
                         <li><span class="icon">&#10003;</span> 안심취소 기본 포함</li>
                         <li><span class="icon">&#10003;</span> 슬랙 알림 기반 실시간 관리</li>
                     </ul>
-                    <div style="background:var(--lite); border-radius:10px; padding:14px 16px; text-align:center;">
-                        <div style="font-size:12px; color:var(--lite-accent); font-weight:600;">MD 서비스 범위</div>
-                        <div style="font-size:16px; font-weight:800; color:var(--lite-accent); margin-top:4px;">예약 관리</div>
-                    </div>
                 </div>
             </div>
-
             <div class="model-card premium">
                 <div class="model-header">
                     <div class="model-tag">MD PREMIUM</div>
@@ -413,10 +308,6 @@
                         <li><span class="icon">&#10003;</span> 타사 채널 예약 통합 관리</li>
                         <li><span class="icon">&#10003;</span> 업주 대신 전체 CS 처리</li>
                     </ul>
-                    <div style="background:var(--premium); border-radius:10px; padding:14px 16px; text-align:center;">
-                        <div style="font-size:12px; color:var(--premium-accent); font-weight:600;">MD 서비스 범위</div>
-                        <div style="font-size:16px; font-weight:800; color:var(--premium-accent); margin-top:4px;">예약 관리 + 전화 응대</div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -424,7 +315,7 @@
         <!-- 서비스 범위 비교 -->
         <div class="card" style="margin-top:20px;">
             <h4 style="font-size:16px; font-weight:700; margin-bottom:16px;">서비스 범위 비교</h4>
-            <div class="table-wrap" style="margin-bottom:0;">
+            <div style="overflow-x:auto; border-radius:12px; border:1px solid var(--border);">
                 <table class="compare-table">
                     <thead>
                         <tr>
@@ -434,41 +325,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>예약 현황 모니터링</td>
-                            <td class="col-lite"><span class="scope-tag yes">&#10003;</span></td>
-                            <td class="col-premium"><span class="scope-tag yes">&#10003;</span></td>
-                        </tr>
-                        <tr>
-                            <td>중복예약 방지 (확정/거절)</td>
-                            <td class="col-lite"><span class="scope-tag yes">&#10003;</span></td>
-                            <td class="col-premium"><span class="scope-tag yes">&#10003;</span></td>
-                        </tr>
-                        <tr>
-                            <td>안심취소 운영</td>
-                            <td class="col-lite"><span class="scope-tag yes">&#10003;</span></td>
-                            <td class="col-premium"><span class="scope-tag yes">&#10003;</span></td>
-                        </tr>
-                        <tr>
-                            <td>고객 전화 응대 / 상담</td>
-                            <td class="col-lite"><span class="scope-tag no">—</span></td>
-                            <td class="col-premium"><span class="scope-tag yes">&#10003;</span></td>
-                        </tr>
-                        <tr>
-                            <td>타사 채널 예약 통합 관리</td>
-                            <td class="col-lite"><span class="scope-tag no">—</span></td>
-                            <td class="col-premium"><span class="scope-tag yes">&#10003;</span></td>
-                        </tr>
-                        <tr>
-                            <td>업주 대행 전체 CS</td>
-                            <td class="col-lite"><span class="scope-tag no">—</span></td>
-                            <td class="col-premium"><span class="scope-tag yes">&#10003;</span></td>
-                        </tr>
-                        <tr style="background:#F5F5F5;">
-                            <td style="font-weight:700; color:var(--text);">MD 수수료 (보상)</td>
-                            <td class="col-lite" style="font-weight:800; color:var(--lite-accent);">기본 수수료</td>
-                            <td class="col-premium" style="font-weight:800; color:var(--premium-accent);">상향 수수료</td>
-                        </tr>
+                        <tr><td>예약 현황 모니터링</td><td class="col-lite"><span class="scope-tag yes">&#10003;</span></td><td class="col-premium"><span class="scope-tag yes">&#10003;</span></td></tr>
+                        <tr><td>중복예약 방지 (확정/거절)</td><td class="col-lite"><span class="scope-tag yes">&#10003;</span></td><td class="col-premium"><span class="scope-tag yes">&#10003;</span></td></tr>
+                        <tr><td>안심취소 운영</td><td class="col-lite"><span class="scope-tag yes">&#10003;</span></td><td class="col-premium"><span class="scope-tag yes">&#10003;</span></td></tr>
+                        <tr><td>고객 전화 응대 / 상담</td><td class="col-lite"><span class="scope-tag no">—</span></td><td class="col-premium"><span class="scope-tag yes">&#10003;</span></td></tr>
+                        <tr><td>타사 채널 예약 통합 관리</td><td class="col-lite"><span class="scope-tag no">—</span></td><td class="col-premium"><span class="scope-tag yes">&#10003;</span></td></tr>
+                        <tr><td>업주 대행 전체 CS</td><td class="col-lite"><span class="scope-tag no">—</span></td><td class="col-premium"><span class="scope-tag yes">&#10003;</span></td></tr>
                     </tbody>
                 </table>
             </div>
@@ -477,480 +339,296 @@
 
     <div class="divider"></div>
 
-    <!-- 3. 수수료 체계 + 원가 -->
+    <!-- 3. 수수료 + 수익 쉐어 -->
     <div class="section" id="commission">
-        <div class="section-label">03 — 수수료 체계 + 원가</div>
-        <div class="section-title">캠핏 원가 기반 수수료 설계</div>
-        <div class="section-desc">회사 원가를 먼저 확인하고, 그 위에 MD 보상을 설계합니다. 서비스 범위가 넓은 프리미엄 MD에게 더 높은 수수료를 지급합니다.</div>
+        <div class="section-label">03</div>
+        <div class="section-title">수수료 체계 + 수익 쉐어</div>
+        <div class="section-desc">캠핏 원가를 먼저 빼고, 남은 수익을 MD와 캠핏이 나누는 구조입니다.</div>
 
-        <!-- 원가 구조 -->
-        <div class="card">
-            <h4 style="font-size:16px; font-weight:700; margin-bottom:20px;">캠핏 원가 구조</h4>
-            <div class="table-wrap" style="margin-bottom:16px;">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>원가 항목</th>
-                            <th>비율</th>
-                            <th>비고</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>PG 결제 수수료</td>
-                            <td>3.3%</td>
-                            <td style="text-align:left; font-weight:400; color:var(--text-muted);">PG사 결제 처리 비용</td>
-                        </tr>
-                        <tr>
-                            <td>안심취소 비용</td>
-                            <td>2.15%</td>
-                            <td style="text-align:left; font-weight:400; color:var(--text-muted);">취소 보장 비용</td>
-                        </tr>
-                        <tr style="background:#FFF3E0;">
-                            <td style="font-weight:700;">기본 원가 합계</td>
-                            <td style="font-weight:800; color:var(--accent);">5.45%</td>
-                            <td style="text-align:left; font-weight:400; color:var(--text-muted);">모든 계약에 공통 적용</td>
-                        </tr>
-                        <tr>
-                            <td>네이버 연동 추가 비용</td>
-                            <td>+3.5%</td>
-                            <td style="text-align:left; font-weight:400; color:var(--text-muted);">네이버 연동 시에만 추가</td>
-                        </tr>
-                        <tr style="background:#FFEBEE;">
-                            <td style="font-weight:700;">네이버 포함 원가</td>
-                            <td style="font-weight:800; color:var(--danger-accent);">8.95%</td>
+        <!-- 타입 A: 안심취소 -->
+        <div class="share-box type-a">
+            <h4 style="color:var(--primary-dark);">안심취소 서비스</h4>
+            <div class="fee">판매 수수료 <strong style="font-size:20px; color:var(--primary);">9.9%</strong></div>
 
-                            <td style="text-align:left; font-weight:400; color:var(--text-muted);">네이버 연동 업체 적용</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <!-- 원가 -->
+            <div style="background:white; border-radius:10px; padding:16px 20px; margin-bottom:16px;">
+                <div style="font-size:12px; color:var(--text-muted); font-weight:600; margin-bottom:8px;">캠핏 원가</div>
+                <div style="display:flex; gap:24px; font-size:14px;">
+                    <span>PG 결제 <strong>3.3%</strong></span>
+                    <span>+ 안심취소 <strong>2.15%</strong></span>
+                    <span>= <strong style="color:var(--accent);">원가 5.45%</strong></span>
+                </div>
+                <div style="font-size:13px; color:var(--text-muted); margin-top:6px;">남은 수익: 9.9% - 5.45% = <strong style="color:var(--primary);">4.45%</strong></div>
             </div>
-        </div>
 
-        <!-- MD 수수료 비교 -->
-        <div class="card">
-            <h4 style="font-size:16px; font-weight:700; margin-bottom:8px;">MD 수수료 비교 — 라이트 vs 프리미엄</h4>
-            <p style="font-size:13px; color:var(--text-muted); margin-bottom:20px;">동일한 업체 계약 수수료에서, 서비스 범위가 넓은 프리미엄 MD가 더 높은 보상을 받습니다.</p>
-
-            <div class="table-wrap" style="margin-bottom:0;">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>업체 계약<br>수수료</th>
-                            <th style="background:var(--lite-accent);">라이트 MD<br>(정상)</th>
-                            <th style="background:#388E3C;">라이트 MD<br>(프로모션)</th>
-                            <th style="background:var(--premium-accent);">프리미엄 MD<br>(정상)</th>
-                            <th style="background:#E65100;">프리미엄 MD<br>(프로모션)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>7.7%</td>
-                            <td style="color:var(--lite-accent);">1.0%</td>
-                            <td style="color:var(--lite-accent);">1.5%</td>
-                            <td style="color:var(--premium-accent);">1.5%</td>
-                            <td style="color:var(--premium-accent);">2.0%</td>
-                        </tr>
-                        <tr class="highlight-row">
-                            <td>11%</td>
-                            <td style="color:var(--lite-accent);">2.0%</td>
-                            <td style="color:var(--lite-accent);">2.5%</td>
-                            <td style="color:var(--premium-accent);">3.0%</td>
-                            <td style="color:var(--premium-accent);">3.5%</td>
-                        </tr>
-                        <tr>
-                            <td>15%</td>
-                            <td style="color:var(--lite-accent);">2.5%</td>
-                            <td style="color:var(--lite-accent);">3.0%</td>
-                            <td style="color:var(--premium-accent);">4.0%</td>
-                            <td style="color:var(--premium-accent);">4.5%</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <!-- 쉐어 바 -->
+            <div style="font-size:13px; font-weight:600; color:var(--text-light); margin-bottom:8px;">수익 쉐어 구조</div>
+            <div class="share-bar">
+                <div class="bar-cost" style="width:55%;">원가 5.45%</div>
+                <div class="bar-md-l" style="width:10%;">MD</div>
+                <div class="bar-camfit-l" style="width:35%;">캠핏</div>
             </div>
-            <div class="info-box" style="margin-top:16px;">
-                <strong>프로모션:</strong> 런칭 후 3개월, MD별 신규 5개소 이상 유치 시 연장 자격 부여
-            </div>
-        </div>
 
-        <!-- 원가 + 수수료 워터폴 -->
-        <h4 style="font-size:16px; font-weight:700; margin:28px 0 16px;">수수료 11% 계약 기준 — 원가와 MD 수수료 한눈에 보기</h4>
-
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
-            <!-- Lite Waterfall -->
-            <div class="sim-card lite-sim">
-                <h4 style="display:flex; align-items:center; gap:8px;">
-                    <span class="scope-tag yes" style="font-size:12px;">LITE</span>
-                    MD 라이트
-                </h4>
-                <div class="waterfall">
-                    <div class="wf-row">
-                        <div class="wf-label">수수료 수입</div>
-                        <div class="wf-bar-wrap"><div class="wf-bar" style="width:100%; background:var(--primary);">11%</div></div>
-                        <div class="wf-value">11%</div>
+            <div class="share-detail">
+                <div>
+                    <div style="font-size:12px; font-weight:700; color:var(--lite-accent); margin-bottom:8px; text-align:center;">라이트 (예약관리)</div>
+                    <div class="share-detail-item" style="border:2px solid #C8E6C9;">
+                        <div class="label">MD 수익</div>
+                        <div class="pct" style="color:var(--lite-accent);">1.0%</div>
                     </div>
-                    <div class="wf-row">
-                        <div class="wf-label">PG 결제 수수료</div>
-                        <div class="wf-bar-wrap"><div class="wf-bar" style="width:30%; background:#78909C;">3.3%</div></div>
-                        <div class="wf-value" style="color:var(--danger-accent);">-3.3%</div>
+                    <div class="share-detail-item" style="margin-top:8px; border:2px solid #C8E6C9;">
+                        <div class="label">캠핏 수익</div>
+                        <div class="pct" style="color:var(--primary);">3.0%</div>
                     </div>
-                    <div class="wf-row">
-                        <div class="wf-label">안심취소</div>
-                        <div class="wf-bar-wrap"><div class="wf-bar" style="width:19.5%; background:#FF8A65;">2.15%</div></div>
-                        <div class="wf-value" style="color:var(--danger-accent);">-2.15%</div>
+                </div>
+                <div>
+                    <div style="font-size:12px; font-weight:700; color:var(--premium-accent); margin-bottom:8px; text-align:center;">프리미엄 (예약관리+전화응대)</div>
+                    <div class="share-detail-item" style="border:2px solid #FFE0B2;">
+                        <div class="label">MD 수익</div>
+                        <div class="pct" style="color:var(--premium-accent);">1.5%</div>
                     </div>
-                    <div class="wf-row">
-                        <div class="wf-label" style="font-weight:700; color:var(--lite-accent);">MD 수수료</div>
-                        <div class="wf-bar-wrap"><div class="wf-bar" style="width:18.2%; background:var(--lite-accent);">2%</div></div>
-                        <div class="wf-value" style="color:var(--lite-accent);">-2.0%</div>
-                    </div>
-                    <div class="wf-row wf-total">
-                        <div class="wf-label" style="font-weight:800; color:var(--primary);">회사 순수익</div>
-                        <div class="wf-bar-wrap"><div class="wf-bar" style="width:32.3%; background:var(--primary);">3.55%</div></div>
-                        <div class="wf-value" style="color:var(--primary); font-size:16px;">3.55%</div>
+                    <div class="share-detail-item" style="margin-top:8px; border:2px solid #FFE0B2;">
+                        <div class="label">캠핏 수익</div>
+                        <div class="pct" style="color:var(--primary);">2.5%</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Premium Waterfall -->
-            <div class="sim-card premium-sim">
-                <h4 style="display:flex; align-items:center; gap:8px;">
-                    <span style="background:var(--premium); color:var(--premium-accent); font-size:12px; padding:3px 10px; border-radius:6px; font-weight:700;">PREMIUM</span>
-                    MD 프리미엄
-                </h4>
-                <div class="waterfall">
-                    <div class="wf-row">
-                        <div class="wf-label">수수료 수입</div>
-                        <div class="wf-bar-wrap"><div class="wf-bar" style="width:100%; background:var(--premium-accent);">11%</div></div>
-                        <div class="wf-value">11%</div>
-                    </div>
-                    <div class="wf-row">
-                        <div class="wf-label">PG 결제 수수료</div>
-                        <div class="wf-bar-wrap"><div class="wf-bar" style="width:30%; background:#78909C;">3.3%</div></div>
-                        <div class="wf-value" style="color:var(--danger-accent);">-3.3%</div>
-                    </div>
-                    <div class="wf-row">
-                        <div class="wf-label">안심취소</div>
-                        <div class="wf-bar-wrap"><div class="wf-bar" style="width:19.5%; background:#FF8A65;">2.15%</div></div>
-                        <div class="wf-value" style="color:var(--danger-accent);">-2.15%</div>
-                    </div>
-                    <div class="wf-row">
-                        <div class="wf-label" style="font-weight:700; color:var(--premium-accent);">MD 수수료</div>
-                        <div class="wf-bar-wrap"><div class="wf-bar" style="width:27.3%; background:var(--premium-accent);">3%</div></div>
-                        <div class="wf-value" style="color:var(--premium-accent);">-3.0%</div>
-                    </div>
-                    <div class="wf-row wf-total premium-total">
-                        <div class="wf-label" style="font-weight:800; color:var(--premium-accent);">회사 순수익</div>
-                        <div class="wf-bar-wrap"><div class="wf-bar" style="width:23.2%; background:var(--premium-accent);">2.55%</div></div>
-                        <div class="wf-value" style="color:var(--premium-accent); font-size:16px;">2.55%</div>
-                    </div>
-                </div>
+            <div class="share-extra">
+                <span class="badge">참고</span>
+                9.9%보다 높은 수수료로 계약 시, 별도 협의를 통해 수익 쉐어 비율 조정 가능
             </div>
         </div>
 
-        <div class="info-box">
-            <strong>핵심 원리:</strong> 동일한 업체 수수료(11%)에서, MD가 전화응대까지 담당하면(프리미엄) MD 몫이 커지고 회사 몫이 줄어듭니다. 대신 회사는 전화응대 운영 비용을 절감합니다.
+        <!-- 타입 B: 안심취소 + 네이버 -->
+        <div class="share-box type-b">
+            <h4 style="color:#1565C0;">안심취소 + 네이버 연동</h4>
+            <div class="fee">판매 수수료 <strong style="font-size:20px; color:#1565C0;">12.1%</strong></div>
+
+            <!-- 원가 -->
+            <div style="background:white; border-radius:10px; padding:16px 20px; margin-bottom:16px;">
+                <div style="font-size:12px; color:var(--text-muted); font-weight:600; margin-bottom:8px;">캠핏 원가</div>
+                <div style="display:flex; gap:24px; font-size:14px; flex-wrap:wrap;">
+                    <span>PG 결제 <strong>3.3%</strong></span>
+                    <span>+ 안심취소 <strong>2.15%</strong></span>
+                    <span>+ 네이버 <strong>3.5%</strong></span>
+                    <span>= <strong style="color:var(--danger-accent);">원가 8.95%</strong></span>
+                </div>
+                <div style="font-size:13px; color:var(--text-muted); margin-top:6px;">남은 수익: 12.1% - 8.95% = <strong style="color:#1565C0;">3.15%</strong></div>
+            </div>
+
+            <!-- 쉐어 바 -->
+            <div style="font-size:13px; font-weight:600; color:var(--text-light); margin-bottom:8px;">수익 쉐어 구조</div>
+            <div class="share-bar">
+                <div class="bar-cost" style="width:74%;">원가 8.95%</div>
+                <div class="bar-md-l" style="width:8%;">MD</div>
+                <div class="bar-camfit-p" style="width:18%;">캠핏</div>
+            </div>
+
+            <div style="text-align:center; margin-bottom:16px;">
+                <div style="font-size:12px; font-weight:700; color:#1565C0; margin-bottom:8px;">라이트 / 프리미엄 공통</div>
+            </div>
+            <div class="share-detail">
+                <div class="share-detail-item" style="border:2px solid #90CAF9;">
+                    <div class="label">MD 수익</div>
+                    <div class="pct" style="color:#1565C0;">1.0%</div>
+                    <div class="note">라이트 / 프리미엄 동일</div>
+                </div>
+                <div class="share-detail-item" style="border:2px solid #90CAF9;">
+                    <div class="label">캠핏 수익</div>
+                    <div class="pct" style="color:#1565C0;">2.0%</div>
+                    <div class="note">네이버 연동 원가 반영</div>
+                </div>
+            </div>
+
+            <div class="share-extra">
+                <span class="badge">참고</span>
+                12.1%보다 높은 수수료로 계약 시, 별도 협의를 통해 수익 쉐어 비율 조정 가능
+            </div>
         </div>
 
-        <!-- 전체 수수료율별 정리 -->
-        <div class="card" style="margin-top:20px;">
-            <h4 style="font-size:16px; font-weight:700; margin-bottom:8px;">전체 수수료율별 원가·MD·순수익 분해 (정상 기준)</h4>
-            <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">네이버 미연동 기준 (기본 원가 5.45%)</p>
-            <div class="table-wrap" style="margin-bottom:0;">
-                <table>
-                    <thead>
+        <!-- 요약 -->
+        <div class="card" style="background:#F5F5F5; border:none;">
+            <h4 style="font-size:16px; font-weight:700; margin-bottom:16px;">수익 쉐어 한눈에 보기</h4>
+            <div style="overflow-x:auto; border-radius:12px; border:1px solid var(--border);">
+                <table style="width:100%; border-collapse:collapse; font-size:14px;">
+                    <thead style="background:var(--primary); color:white;">
                         <tr>
-                            <th>업체 수수료</th>
-                            <th>원가</th>
-                            <th>MD 라이트</th>
-                            <th>회사 순수익</th>
-                            <th>MD 프리미엄</th>
-                            <th>회사 순수익</th>
+                            <th style="padding:14px 16px; text-align:left;">서비스</th>
+                            <th style="padding:14px 16px; text-align:center;">판매 수수료</th>
+                            <th style="padding:14px 16px; text-align:center;">원가</th>
+                            <th style="padding:14px 16px; text-align:center;">MD</th>
+                            <th style="padding:14px 16px; text-align:center;">캠핏</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>7.7%</td>
-                            <td>5.45%</td>
-                            <td style="color:var(--lite-accent);">1.0%</td>
-                            <td><strong>1.25%</strong></td>
-                            <td style="color:var(--premium-accent);">1.5%</td>
-                            <td><strong>0.75%</strong></td>
+                        <tr style="background:#F1F8E9;">
+                            <td style="padding:14px 16px; font-weight:600;">안심취소 — 라이트</td>
+                            <td style="padding:14px 16px; text-align:center; font-weight:700;">9.9%</td>
+                            <td style="padding:14px 16px; text-align:center;">5.45%</td>
+                            <td style="padding:14px 16px; text-align:center; font-weight:700; color:var(--lite-accent);">1.0%</td>
+                            <td style="padding:14px 16px; text-align:center; font-weight:700; color:var(--primary);">3.0%</td>
                         </tr>
-                        <tr class="highlight-row">
-                            <td>11%</td>
-                            <td>5.45%</td>
-                            <td style="color:var(--lite-accent);">2.0%</td>
-                            <td><strong>3.55%</strong></td>
-                            <td style="color:var(--premium-accent);">3.0%</td>
-                            <td><strong>2.55%</strong></td>
+                        <tr style="background:#FFF8E1;">
+                            <td style="padding:14px 16px; font-weight:600;">안심취소 — 프리미엄</td>
+                            <td style="padding:14px 16px; text-align:center; font-weight:700;">9.9%</td>
+                            <td style="padding:14px 16px; text-align:center;">5.45%</td>
+                            <td style="padding:14px 16px; text-align:center; font-weight:700; color:var(--premium-accent);">1.5%</td>
+                            <td style="padding:14px 16px; text-align:center; font-weight:700; color:var(--primary);">2.5%</td>
                         </tr>
-                        <tr>
-                            <td>15%</td>
-                            <td>5.45%</td>
-                            <td style="color:var(--lite-accent);">2.5%</td>
-                            <td><strong>7.05%</strong></td>
-                            <td style="color:var(--premium-accent);">4.0%</td>
-                            <td><strong>5.55%</strong></td>
+                        <tr style="background:#E3F2FD;">
+                            <td style="padding:14px 16px; font-weight:600;">안심취소 + 네이버</td>
+                            <td style="padding:14px 16px; text-align:center; font-weight:700;">12.1%</td>
+                            <td style="padding:14px 16px; text-align:center;">8.95%</td>
+                            <td style="padding:14px 16px; text-align:center; font-weight:700; color:#1565C0;">1.0%</td>
+                            <td style="padding:14px 16px; text-align:center; font-weight:700; color:#1565C0;">2.0%</td>
                         </tr>
                     </tbody>
                 </table>
-            </div>
-            <div class="info-box">
-                <strong>네이버 연동 시:</strong> 원가가 8.95%로 상승 → 7.7% 계약은 역마진 발생. 네이버 연동 업체는 <strong>최소 11% 이상 계약</strong> 필요.
             </div>
         </div>
     </div>
 
     <div class="divider"></div>
 
-    <!-- 4. MD 수익 시뮬레이션 -->
+    <!-- 4. 수익 시뮬레이션 -->
     <div class="section" id="simulation">
-        <div class="section-label">04 — MD 수익 시뮬레이션</div>
-        <div class="section-title">MD가 실제로 수령하는 금액</div>
-        <div class="section-desc">업체 규모, 계약 수수료율, 서비스 등급(라이트/프리미엄)에 따른 시뮬레이션</div>
+        <div class="section-label">04</div>
+        <div class="section-title">수익 시뮬레이션</div>
+        <div class="section-desc">중형 업체 (월 매출 500만원) 기준, 실제 금액으로 확인</div>
 
-        <!-- 업체 규모 -->
-        <div class="card">
-            <h4 style="font-size:16px; font-weight:700; margin-bottom:16px;">업체 규모별 월 매출 기준</h4>
-            <div class="table-wrap" style="margin-bottom:0;">
-                <table>
-                    <thead>
-                        <tr><th>구분</th><th>객실수</th><th>월 예약건수</th><th>평균 객단가</th><th>월 매출</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>소형</td><td>5~8실</td><td>약 15건</td><td>18만원</td><td><strong>270만원</strong></td></tr>
-                        <tr><td>중형</td><td>10~15실</td><td>약 25건</td><td>20만원</td><td><strong>500만원</strong></td></tr>
-                        <tr><td>대형</td><td>20실+</td><td>약 40건</td><td>22만원</td><td><strong>880만원</strong></td></tr>
-                    </tbody>
-                </table>
+        <!-- 업체 기준 -->
+        <div class="card" style="padding:20px 24px; margin-bottom:24px;">
+            <div style="font-size:13px; color:var(--text-muted); font-weight:600; margin-bottom:8px;">시뮬레이션 기준</div>
+            <div style="display:flex; gap:32px; flex-wrap:wrap; font-size:14px;">
+                <span>중형 업체 <strong>10~15실</strong></span>
+                <span>월 예약 <strong>약 25건</strong></span>
+                <span>평균 객단가 <strong>20만원</strong></span>
+                <span>월 매출 <strong style="color:var(--primary); font-size:16px;">500만원</strong></span>
             </div>
         </div>
 
-        <!-- 1개소당 수령액 비교 -->
+        <!-- 안심취소 9.9% -->
+        <h4 style="font-size:16px; font-weight:700; margin-bottom:16px;">안심취소 서비스 (9.9%) — 업체 1곳 기준</h4>
+        <div class="sim-grid" style="margin-bottom:24px;">
+            <div class="sim-box" style="border-color:#C8E6C9;">
+                <h5><span class="scope-tag yes">LITE</span> 라이트</h5>
+                <div class="sim-row"><span>수수료 수입 (9.9%)</span><span><strong>495,000원</strong></span></div>
+                <div class="sim-row"><span>PG 결제 (3.3%)</span><span class="neg">-165,000원</span></div>
+                <div class="sim-row"><span>안심취소 (2.15%)</span><span class="neg">-107,500원</span></div>
+                <div class="sim-row"><span>MD 수익 (1.0%)</span><span class="green"><strong>50,000원</strong></span></div>
+                <div class="sim-row total"><span>캠핏 수익 (3.0%)</span><span class="green">150,000원</span></div>
+            </div>
+            <div class="sim-box" style="border-color:#FFE0B2;">
+                <h5><span style="background:var(--premium); color:var(--premium-accent); padding:3px 10px; border-radius:6px; font-size:11px; font-weight:700;">PREMIUM</span> 프리미엄</h5>
+                <div class="sim-row"><span>수수료 수입 (9.9%)</span><span><strong>495,000원</strong></span></div>
+                <div class="sim-row"><span>PG 결제 (3.3%)</span><span class="neg">-165,000원</span></div>
+                <div class="sim-row"><span>안심취소 (2.15%)</span><span class="neg">-107,500원</span></div>
+                <div class="sim-row"><span>MD 수익 (1.5%)</span><span class="orange"><strong>75,000원</strong></span></div>
+                <div class="sim-row total pt"><span>캠핏 수익 (2.5%)</span><span class="orange">125,000원</span></div>
+            </div>
+        </div>
+
+        <!-- 네이버 12.1% -->
+        <h4 style="font-size:16px; font-weight:700; margin-bottom:16px;">안심취소 + 네이버 (12.1%) — 업체 1곳 기준</h4>
+        <div class="sim-box" style="border-color:#90CAF9; max-width:460px; margin-bottom:24px;">
+            <h5><span style="background:#E3F2FD; color:#1565C0; padding:3px 10px; border-radius:6px; font-size:11px; font-weight:700;">네이버</span> 라이트/프리미엄 공통</h5>
+            <div class="sim-row"><span>수수료 수입 (12.1%)</span><span><strong>605,000원</strong></span></div>
+            <div class="sim-row"><span>PG 결제 (3.3%)</span><span class="neg">-165,000원</span></div>
+            <div class="sim-row"><span>안심취소 (2.15%)</span><span class="neg">-107,500원</span></div>
+            <div class="sim-row"><span>네이버 연동 (3.5%)</span><span class="neg">-175,000원</span></div>
+            <div class="sim-row"><span>MD 수익 (1.0%)</span><span class="blue"><strong>50,000원</strong></span></div>
+            <div class="sim-row total" style="border-color:#1565C0;"><span>캠핏 수익 (2.0%)</span><span class="blue">100,000원</span></div>
+        </div>
+
+        <!-- MD 관리 업체 수별 -->
+        <h4 style="font-size:16px; font-weight:700; margin-bottom:16px;">MD가 여러 업체를 관리하면?</h4>
         <div class="card">
-            <h4 style="font-size:16px; font-weight:700; margin-bottom:8px;">업체 1개소당 MD 월 수령액</h4>
-            <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">정상 수수료 기준, 라이트 vs 프리미엄</p>
-            <div class="table-wrap" style="margin-bottom:0;">
-                <table>
-                    <thead>
+            <div style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">안심취소 9.9% 기준, 업체당 월 매출 500만원</div>
+            <div style="overflow-x:auto; border-radius:12px; border:1px solid var(--border);">
+                <table style="width:100%; border-collapse:collapse; font-size:14px;">
+                    <thead style="background:var(--primary); color:white;">
                         <tr>
-                            <th>계약 / 등급</th>
-                            <th>소형 (270만)</th>
-                            <th>중형 (500만)</th>
-                            <th>대형 (880만)</th>
+                            <th style="padding:14px 16px; text-align:left;">관리 업체 수</th>
+                            <th style="padding:14px 16px; text-align:center;">MD 라이트<br><span style="font-weight:400; font-size:12px;">월 수령액</span></th>
+                            <th style="padding:14px 16px; text-align:center;">MD 프리미엄<br><span style="font-weight:400; font-size:12px;">월 수령액</span></th>
+                            <th style="padding:14px 16px; text-align:center;">캠핏 수익<br><span style="font-weight:400; font-size:12px;">(라이트 기준)</span></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr style="background:#F1F8E9;">
-                            <td><span class="scope-tag yes" style="margin-right:4px;">L</span> 7.7% → 1.0%</td>
-                            <td>27,000원</td><td>50,000원</td><td>88,000원</td>
-                        </tr>
-                        <tr style="background:#FFF8E1;">
-                            <td><span style="background:var(--premium); color:var(--premium-accent); padding:3px 8px; border-radius:6px; font-size:11px; font-weight:700; margin-right:4px;">P</span> 7.7% → 1.5%</td>
-                            <td>40,500원</td><td>75,000원</td><td>132,000원</td>
-                        </tr>
-                        <tr style="background:#F1F8E9;">
-                            <td><span class="scope-tag yes" style="margin-right:4px;">L</span> 11% → 2.0%</td>
-                            <td>54,000원</td><td>100,000원</td><td>176,000원</td>
-                        </tr>
-                        <tr style="background:#FFF8E1;">
-                            <td><span style="background:var(--premium); color:var(--premium-accent); padding:3px 8px; border-radius:6px; font-size:11px; font-weight:700; margin-right:4px;">P</span> 11% → 3.0%</td>
-                            <td>81,000원</td><td>150,000원</td><td>264,000원</td>
-                        </tr>
-                        <tr style="background:#F1F8E9;">
-                            <td><span class="scope-tag yes" style="margin-right:4px;">L</span> 15% → 2.5%</td>
-                            <td>67,500원</td><td>125,000원</td><td>220,000원</td>
-                        </tr>
-                        <tr style="background:#FFF8E1;">
-                            <td><span style="background:var(--premium); color:var(--premium-accent); padding:3px 8px; border-radius:6px; font-size:11px; font-weight:700; margin-right:4px;">P</span> 15% → 4.0%</td>
-                            <td>108,000원</td><td>200,000원</td><td>352,000원</td>
-                        </tr>
+                        <tr><td style="padding:13px 16px;">5개소</td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--lite-accent);">25만원</td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--premium-accent);">37.5만원</td><td style="padding:13px 16px; text-align:center; font-weight:700;">75만원</td></tr>
+                        <tr><td style="padding:13px 16px;">10개소</td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--lite-accent);">50만원</td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--premium-accent);">75만원</td><td style="padding:13px 16px; text-align:center; font-weight:700;">150만원</td></tr>
+                        <tr style="background:var(--lite);"><td style="padding:13px 16px; font-weight:700;">15개소</td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--lite-accent);">75만원</td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--premium-accent);">112.5만원</td><td style="padding:13px 16px; text-align:center; font-weight:700;">225만원</td></tr>
+                        <tr><td style="padding:13px 16px;">20개소</td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--lite-accent);">100만원</td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--premium-accent);">150만원</td><td style="padding:13px 16px; text-align:center; font-weight:700;">300만원</td></tr>
+                        <tr><td style="padding:13px 16px;">30개소</td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--lite-accent);">150만원</td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--premium-accent);">225만원</td><td style="padding:13px 16px; text-align:center; font-weight:700;">450만원</td></tr>
                     </tbody>
                 </table>
             </div>
-        </div>
-
-        <!-- 혼합 포트폴리오 비교 -->
-        <h4 style="font-size:16px; font-weight:700; margin:28px 0 16px;">MD 1인 15개소 관리 — 혼합 포트폴리오 (정상 기간)</h4>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
-            <div class="sim-card lite-sim">
-                <h4><span class="scope-tag yes" style="margin-right:6px;">LITE</span> 예약 관리만</h4>
-                <div class="sim-breakdown">
-                    <div><span>소형 5곳 (7.7%, 1.0%)</span><span class="line-value">135,000원</span></div><div style="clear:both"></div>
-                    <div><span>중형 7곳 (11%, 2.0%)</span><span class="line-value">700,000원</span></div><div style="clear:both"></div>
-                    <div><span>대형 3곳 (15%, 2.5%)</span><span class="line-value">660,000원</span></div><div style="clear:both"></div>
-                    <div class="line-total"><span>월 합계</span><span class="line-value">1,495,000원</span></div><div style="clear:both"></div>
-                </div>
-            </div>
-            <div class="sim-card premium-sim">
-                <h4><span style="background:var(--premium); color:var(--premium-accent); padding:3px 10px; border-radius:6px; font-size:12px; font-weight:700; margin-right:6px;">PREMIUM</span> 예약관리 + 전화응대</h4>
-                <div class="sim-breakdown">
-                    <div><span>소형 5곳 (7.7%, 1.5%)</span><span class="line-value">202,500원</span></div><div style="clear:both"></div>
-                    <div><span>중형 7곳 (11%, 3.0%)</span><span class="line-value">1,050,000원</span></div><div style="clear:both"></div>
-                    <div><span>대형 3곳 (15%, 4.0%)</span><span class="line-value">1,056,000원</span></div><div style="clear:both"></div>
-                    <div class="line-total pt"><span>월 합계</span><span class="line-value">2,308,500원</span></div><div style="clear:both"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="info-box">
-            <strong>프리미엄 선택 시 +81만원/월 추가 수령.</strong> 전화응대 업무를 맡는 대가로 동일 업체에서 더 높은 수수료를 받습니다.
         </div>
 
         <!-- MD 역량별 -->
-        <h4 style="font-size:16px; font-weight:700; margin:28px 0 16px;">MD 역량별 월 수령액 요약</h4>
+        <h4 style="font-size:16px; font-weight:700; margin:8px 0 4px;">MD 역량별 월 수령액</h4>
         <div class="level-grid">
             <div class="level-card l1">
                 <div class="level-emoji">&#127793;</div>
                 <div class="level-title">신입 MD</div>
-                <div class="level-sites">5~8개소 관리</div>
-                <div class="level-amount">50~130만원</div>
+                <div class="level-sites">5~8개소</div>
+                <div class="level-amount">25~60만원</div>
                 <div class="level-sub">/월</div>
-                <div class="level-range">
-                    <span class="tag tag-lite">L 50~80만</span>
-                    <span class="tag tag-premium">P 75~130만</span>
-                </div>
+                <div class="level-range"><span class="tag tag-lite">L 25~40만</span><span class="tag tag-premium">P 37~60만</span></div>
             </div>
             <div class="level-card l2">
                 <div class="level-emoji">&#127795;</div>
                 <div class="level-title">중간 MD</div>
-                <div class="level-sites">10~15개소 관리</div>
-                <div class="level-amount">100~230만원</div>
+                <div class="level-sites">10~15개소</div>
+                <div class="level-amount">50~112만원</div>
                 <div class="level-sub">/월</div>
-                <div class="level-range">
-                    <span class="tag tag-lite">L 100~150만</span>
-                    <span class="tag tag-premium">P 150~230만</span>
-                </div>
+                <div class="level-range"><span class="tag tag-lite">L 50~75만</span><span class="tag tag-premium">P 75~112만</span></div>
             </div>
             <div class="level-card l3">
                 <div class="level-emoji">&#11088;</div>
                 <div class="level-title">우수 MD</div>
-                <div class="level-sites">20~30개소 관리</div>
-                <div class="level-amount">200~460만원</div>
+                <div class="level-sites">20~30개소</div>
+                <div class="level-amount">100~225만원</div>
                 <div class="level-sub">/월</div>
-                <div class="level-range">
-                    <span class="tag tag-lite">L 200~375만</span>
-                    <span class="tag tag-premium">P 300~460만</span>
-                </div>
+                <div class="level-range"><span class="tag tag-lite">L 100~150만</span><span class="tag tag-premium">P 150~225만</span></div>
             </div>
             <div class="level-card l4">
                 <div class="level-emoji">&#128142;</div>
                 <div class="level-title">탑 MD</div>
-                <div class="level-sites">20개소 + S급</div>
-                <div class="level-amount">300~600만원+</div>
+                <div class="level-sites">30개소 + S급</div>
+                <div class="level-amount">200만원+</div>
                 <div class="level-sub">/월</div>
-                <div class="level-range">
-                    <span class="tag tag-lite">L 300~500만</span>
-                    <span class="tag tag-premium">P 400~600만+</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 연간 비교 -->
-        <div class="dual-annual">
-            <div class="dual-annual-card lite-a">
-                <div class="tag">LITE 연간</div>
-                <div style="font-size:13px; opacity:0.8; margin-bottom:8px;">15개소 혼합 포트폴리오</div>
-                <div class="amount">약 1,982만원</div>
-                <div class="sub">프로모션 3개월 + 성수기/비수기 보정</div>
-            </div>
-            <div class="dual-annual-card premium-a">
-                <div class="tag">PREMIUM 연간</div>
-                <div style="font-size:13px; opacity:0.8; margin-bottom:8px;">15개소 혼합 포트폴리오</div>
-                <div class="amount">약 2,965만원</div>
-                <div class="sub">프로모션 3개월 + 성수기/비수기 보정</div>
+                <div class="level-range"><span class="tag tag-lite">L 150만+</span><span class="tag tag-premium">P 225만+</span></div>
             </div>
         </div>
     </div>
 
     <div class="divider"></div>
 
-    <!-- 5. 회사 수익 시뮬레이션 -->
-    <div class="section" id="company">
-        <div class="section-label">05 — 회사 수익 시뮬레이션</div>
-        <div class="section-title">회사 순수익 구조</div>
-        <div class="section-desc">11% 계약, 중형 업체 기준 (월 매출 500만원), 라이트 vs 프리미엄</div>
-
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
-            <div class="company-sim" style="background:linear-gradient(135deg, #E8F5E9, #F1F8E9); border-color:#C8E6C9;">
-                <h4 style="color:var(--primary-dark);">라이트 — 회사 순수익</h4>
-                <div class="sim-breakdown" style="border-color:#C8E6C9;">
-                    <div><span>수수료 수입 (11%)</span><span class="line-value">550,000원</span></div><div style="clear:both"></div>
-                    <div class="line-negative"><span>PG 결제 수수료 (3.3%)</span><span class="line-value">-165,000원</span></div><div style="clear:both"></div>
-                    <div class="line-negative"><span>안심취소 (2.15%)</span><span class="line-value">-107,500원</span></div><div style="clear:both"></div>
-                    <div class="line-negative"><span>MD 수수료 (2%)</span><span class="line-value">-100,000원</span></div><div style="clear:both"></div>
-                    <div class="line-total"><span>회사 순수익</span><span class="line-value">177,500원</span></div><div style="clear:both"></div>
-                </div>
-                <div style="text-align:center; margin-top:16px; padding:12px; background:white; border-radius:8px; border:1px solid #C8E6C9;">
-                    <div style="font-size:12px; color:var(--text-muted);">MD 1인 15개소 관리 시</div>
-                    <div style="font-size:22px; font-weight:800; color:var(--primary);">월 266만원</div>
-                </div>
-            </div>
-            <div class="company-sim" style="background:linear-gradient(135deg, #FFF8E1, #FFF3E0); border-color:#FFE0B2;">
-                <h4 style="color:var(--premium-accent);">프리미엄 — 회사 순수익</h4>
-                <div class="sim-breakdown" style="border-color:#FFE0B2;">
-                    <div><span>수수료 수입 (11%)</span><span class="line-value">550,000원</span></div><div style="clear:both"></div>
-                    <div class="line-negative"><span>PG 결제 수수료 (3.3%)</span><span class="line-value">-165,000원</span></div><div style="clear:both"></div>
-                    <div class="line-negative"><span>안심취소 (2.15%)</span><span class="line-value">-107,500원</span></div><div style="clear:both"></div>
-                    <div class="line-negative"><span>MD 수수료 (3%)</span><span class="line-value">-150,000원</span></div><div style="clear:both"></div>
-                    <div class="line-total pt"><span>회사 순수익</span><span class="line-value">127,500원</span></div><div style="clear:both"></div>
-                </div>
-                <div style="text-align:center; margin-top:16px; padding:12px; background:white; border-radius:8px; border:1px solid #FFE0B2;">
-                    <div style="font-size:12px; color:var(--text-muted);">MD 1인 15개소 관리 시</div>
-                    <div style="font-size:22px; font-weight:800; color:var(--premium-accent);">월 191만원</div>
-                    <div style="font-size:11px; color:var(--text-muted);">전화응대 운영비 절감 효과 별도</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="info-box" style="margin-top:16px;">
-            <strong>프리미엄 모델의 회사 순수익이 낮지만,</strong> 회사가 직접 전화응대 인력을 운영하지 않아도 되므로 운영비 절감 효과가 있습니다. MD가 CS까지 담당하는 만큼 회사 운영 부담이 줄어드는 구조입니다.
-        </div>
-    </div>
-
-    <div class="divider"></div>
-
-    <!-- 6. S급 펜션 전략 -->
+    <!-- 5. S급 펜션 전략 -->
     <div class="section" id="sclass">
-        <div class="section-label">06 — S급 펜션 전략</div>
-        <div class="section-title">파트너스 VIP</div>
+        <div class="section-label">05</div>
+        <div class="section-title">S급 펜션 전략 — 파트너스 VIP</div>
         <div class="section-desc">S급 1곳 입점 → 레퍼런스 효과 → 주변 B/C급 펜션 도미노 유치</div>
         <div class="sclass-card">
             <h4>S급 펜션 유치 조건</h4>
             <div class="subtitle">최상위 등급 업체를 위한 차별화된 파트너십</div>
             <div class="sclass-grid">
-                <div class="sclass-item">
-                    <div class="label">수수료</div>
-                    <div class="value">3.3%</div>
-                    <div class="note">원가 수준, 적자 감수</div>
-                </div>
-                <div class="sclass-item">
-                    <div class="label">캡보너스</div>
-                    <div class="value">건당 5만원</div>
-                    <div class="note">월 상한 100만원</div>
-                </div>
-                <div class="sclass-item">
-                    <div class="label">계약 조건</div>
-                    <div class="value">6개월 독점</div>
-                    <div class="note">최소 거래액 기준 설정</div>
-                </div>
-                <div class="sclass-item">
-                    <div class="label">MD 추가 수익</div>
-                    <div class="value">월 ~104만원</div>
-                    <div class="note">기본 4.4만 + 보너스 100만</div>
-                </div>
+                <div class="sclass-item"><div class="label">수수료</div><div class="value">3.3%</div><div class="note">원가 수준, 적자 감수</div></div>
+                <div class="sclass-item"><div class="label">캡보너스</div><div class="value">건당 5만원</div><div class="note">월 상한 100만원</div></div>
+                <div class="sclass-item"><div class="label">계약 조건</div><div class="value">6개월 독점</div><div class="note">최소 거래액 기준 설정</div></div>
+                <div class="sclass-item"><div class="label">MD 추가 수익</div><div class="value">월 ~104만원</div><div class="note">기본 4.4만 + 보너스 100만</div></div>
             </div>
         </div>
     </div>
 
     <div class="divider"></div>
 
-    <!-- 7. 부가서비스 -->
+    <!-- 6. 부가서비스 -->
     <div class="section" id="services">
-        <div class="section-label">07 — 부가서비스</div>
-        <div class="section-title">파트너스 플러스</div>
-        <div class="section-desc">저가 상품으로 영업 허들을 낮추고, 고가 상품으로 수익성을 확보합니다.</div>
+        <div class="section-label">06</div>
+        <div class="section-title">부가서비스 — 파트너스 플러스</div>
         <div class="service-grid">
             <div class="service-card tier-low">
                 <div class="service-tier">BASIC</div>
@@ -959,7 +637,6 @@
                 <ul class="service-list">
                     <li>&#10003; &nbsp;템플릿 홈페이지 제작</li>
                     <li>&#10003; &nbsp;기본 SEO 설정</li>
-                    <li>&#10003; &nbsp;영업 진입 미끼 상품</li>
                 </ul>
             </div>
             <div class="service-card tier-mid">
@@ -969,7 +646,6 @@
                 <ul class="service-list">
                     <li>&#10003; &nbsp;커스텀 홈페이지 제작</li>
                     <li>&#10003; &nbsp;블로그 포스팅 월 4건</li>
-                    <li>&#10003; &nbsp;SEO 마케팅 관리</li>
                 </ul>
             </div>
             <div class="service-card tier-high">
@@ -978,42 +654,40 @@
                 <div class="service-unit">일시납</div>
                 <ul class="service-list">
                     <li>&#10003; &nbsp;전문 사진 촬영</li>
-                    <li>&#10003; &nbsp;커스텀 홈페이지 제작</li>
-                    <li>&#10003; &nbsp;마케팅 6개월 풀패키지</li>
+                    <li>&#10003; &nbsp;홈페이지 + 마케팅 6개월</li>
                 </ul>
             </div>
         </div>
         <div class="info-box">
-            <strong>운영 원칙:</strong> 홈페이지 제작 시 <strong>최소 6개월 예약 서비스 이용 의무</strong> 조건 부여. 사진 미보유 업체는 30~50만원 원가 수준으로 촬영 서비스 연계.
+            홈페이지 제작 시 <strong>최소 6개월 예약 서비스 이용 의무</strong> 조건 부여
         </div>
     </div>
 
     <div class="divider"></div>
 
-    <!-- 8. 실행 로드맵 -->
+    <!-- 7. 실행 로드맵 -->
     <div class="section" id="roadmap">
-        <div class="section-label">08 — 실행 로드맵</div>
-        <div class="section-title">3단계 실행 계획</div>
+        <div class="section-label">07</div>
+        <div class="section-title">실행 로드맵</div>
         <div class="roadmap">
             <div class="roadmap-phase active">
                 <div class="roadmap-dot"></div>
                 <div class="roadmap-time">Phase 1 — 즉시 실행 (1~2주)</div>
-                <div class="roadmap-title">Quick Win으로 MD 동력 점화</div>
+                <div class="roadmap-title">MD 동력 점화</div>
                 <ul class="roadmap-tasks">
-                    <li><div class="task-check"></div>라이트/프리미엄 수수료 테이블 확정 및 MD 브리핑 자료 작성</li>
-                    <li><div class="task-check"></div>슬랙 예약 알림 봇 세팅 (예약 확정 기능 개발 전 임시)</li>
-                    <li><div class="task-check"></div>MD 대상 프로모션 킥오프 미팅 진행</li>
+                    <li><div class="task-check"></div>수수료 테이블 확정 및 MD 브리핑 자료 작성</li>
+                    <li><div class="task-check"></div>슬랙 예약 알림 봇 세팅</li>
+                    <li><div class="task-check"></div>MD 대상 킥오프 미팅 진행</li>
                 </ul>
             </div>
             <div class="roadmap-phase">
                 <div class="roadmap-dot"></div>
                 <div class="roadmap-time">Phase 2 — 단기 구축 (1~3개월)</div>
-                <div class="roadmap-title">시스템으로 차별화</div>
+                <div class="roadmap-title">시스템 구축</div>
                 <ul class="roadmap-tasks">
-                    <li><div class="task-check"></div>예약 확정 기능 MVP 스펙 정의 및 개발</li>
-                    <li><div class="task-check"></div>업주용 월간 리포트 자동 발송 기능 구축</li>
-                    <li><div class="task-check"></div>MD용 업체별 예약 현황 대시보드 제공</li>
-                    <li><div class="task-check"></div>S급 펜션 타겟 리스트 10곳 선정 및 공략 시작</li>
+                    <li><div class="task-check"></div>예약 확정 기능 MVP 개발</li>
+                    <li><div class="task-check"></div>MD용 예약 현황 대시보드</li>
+                    <li><div class="task-check"></div>S급 펜션 타겟 10곳 공략</li>
                 </ul>
             </div>
             <div class="roadmap-phase">
@@ -1021,10 +695,9 @@
                 <div class="roadmap-time">Phase 3 — 중기 확장 (3~6개월)</div>
                 <div class="roadmap-title">검증 후 확장</div>
                 <ul class="roadmap-tasks">
-                    <li><div class="task-check"></div>라이트/프리미엄 모델 성과 비교 평가</li>
-                    <li><div class="task-check"></div>부가서비스 상품 정식 런칭</li>
-                    <li><div class="task-check"></div>월 5만원 저가 홈페이지 상품 영업 적용</li>
-                    <li><div class="task-check"></div>수수료 테이블 실적 기반 조정</li>
+                    <li><div class="task-check"></div>라이트/프리미엄 성과 평가</li>
+                    <li><div class="task-check"></div>부가서비스 정식 런칭</li>
+                    <li><div class="task-check"></div>수익 쉐어 테이블 실적 기반 조정</li>
                 </ul>
             </div>
         </div>
@@ -1032,91 +705,35 @@
 
     <div class="divider"></div>
 
-    <!-- 9. 리스크 관리 -->
-    <div class="section" id="risk">
-        <div class="section-label">09 — 리스크 관리</div>
-        <div class="section-title">리스크 및 대응 방안</div>
-        <div class="card">
-            <div class="risk-item">
-                <div class="risk-label">예약 확정 기능 개발 지연</div>
-                <div class="risk-solution">슬랙 알림 기반 수동 운영으로 선 런칭, 개발은 병행</div>
-            </div>
-            <div class="risk-item">
-                <div class="risk-label">타사 예약 취소 유도 시 페널티</div>
-                <div class="risk-solution">"취소 유도" 대신 "자사 우선 노출" 전략으로 전환</div>
-            </div>
-            <div class="risk-item">
-                <div class="risk-label">홈페이지만 만들고 예약 전환 없음</div>
-                <div class="risk-solution">최소 6개월 이용 의무 조건 + 전환율 모니터링</div>
-            </div>
-            <div class="risk-item">
-                <div class="risk-label">프리미엄 MD 전화응대 품질</div>
-                <div class="risk-solution">응대 매뉴얼 제공 + 정기 품질 모니터링</div>
-            </div>
-            <div class="risk-item">
-                <div class="risk-label">프로모션 후 MD 이탈</div>
-                <div class="risk-solution">프로모션 연장 자격 기준 명확화 (신규 5개소 이상)</div>
-            </div>
-            <div class="risk-item">
-                <div class="risk-label">비수기 MD 수입 급감</div>
-                <div class="risk-solution">비수기 최소 보장금 또는 별도 인센티브 검토</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="divider"></div>
-
-    <!-- 10. 의사결정 사항 -->
+    <!-- 8. 의사결정 사항 -->
     <div class="section" id="decisions">
-        <div class="section-label">10 — 의사결정 사항</div>
-        <div class="section-title">내부 논의 후 결정 필요</div>
+        <div class="section-label">08</div>
+        <div class="section-title">의사결정 필요 사항</div>
         <div class="decision-grid">
             <div class="decision-item">
                 <div class="decision-num">1</div>
-                <div>
-                    <div class="decision-text">라이트/프리미엄 수수료율 최종 확정</div>
-                    <div class="decision-options">현재 제안 수치 적정한지, 프리미엄 가산폭 조정 여부</div>
-                </div>
+                <div><div class="decision-text">수익 쉐어 비율 최종 확정</div><div class="decision-options">라이트 MD 1% / 캠핏 3%, 프리미엄 MD 1.5% / 캠핏 2.5% 적정한지</div></div>
             </div>
             <div class="decision-item">
                 <div class="decision-num">2</div>
-                <div>
-                    <div class="decision-text">프로모션 기간 결정</div>
-                    <div class="decision-options">3개월 vs 6개월</div>
-                </div>
+                <div><div class="decision-text">네이버 연동 시 수익 쉐어</div><div class="decision-options">MD 1% / 캠핏 2% 비율 조정 여부</div></div>
             </div>
             <div class="decision-item">
                 <div class="decision-num">3</div>
-                <div>
-                    <div class="decision-text">예약 확정 기능 개발 우선순위</div>
-                    <div class="decision-options">스케줄러 대비 우선 배치 가능한지</div>
-                </div>
+                <div><div class="decision-text">예약 확정 기능 개발 우선순위</div><div class="decision-options">스케줄러 대비 우선 배치 가능한지</div></div>
             </div>
             <div class="decision-item">
                 <div class="decision-num">4</div>
-                <div>
-                    <div class="decision-text">S급 캡보너스 기준</div>
-                    <div class="decision-options">건당 5만원 (월 상한 100만원) 적정한지</div>
-                </div>
+                <div><div class="decision-text">S급 캡보너스 기준</div><div class="decision-options">건당 5만원 (월 상한 100만원) 적정한지</div></div>
             </div>
             <div class="decision-item">
                 <div class="decision-num">5</div>
-                <div>
-                    <div class="decision-text">프리미엄 MD 전화응대 기준</div>
-                    <div class="decision-options">응대 시간, 품질 기준, 매뉴얼 범위</div>
-                </div>
-            </div>
-            <div class="decision-item">
-                <div class="decision-num">6</div>
-                <div>
-                    <div class="decision-text">비수기 MD 최소 보장금</div>
-                    <div class="decision-options">도입 여부 및 금액 수준</div>
-                </div>
+                <div><div class="decision-text">프리미엄 MD 전화응대 기준</div><div class="decision-options">응대 시간, 품질 기준, 매뉴얼 범위</div></div>
             </div>
         </div>
     </div>
 
-    <!-- 의견 남기기 -->
+    <!-- 의견 -->
     <div class="comment-section" id="comments">
         <h3>의견 남기기</h3>
         <p>전략에 대한 피드백, 수정 사항, 추가 아이디어를 남겨주세요.</p>
@@ -1132,43 +749,27 @@
 
 <div class="footer">
     <p>캠핏 파트너스 — MD 펜션 영업 전략(안)</p>
-    <p style="margin-top:4px;">본 문서는 내부 검토용 초안이며, 논의를 거쳐 최종 확정됩니다.</p>
-    <p style="margin-top:4px;">2026.04.22</p>
+    <p style="margin-top:4px;">본 문서는 내부 검토용 초안이며, 논의를 거쳐 최종 확정됩니다. | 2026.04.22</p>
 </div>
 
 <script>
-    let comments = JSON.parse(localStorage.getItem('camfit-partners-comments') || '[]');
-    function renderComments() {
-        const list = document.getElementById('commentsList');
-        list.innerHTML = comments.map(c => `
-            <div class="comment-entry">
-                <span class="author">${c.author}</span>
-                <span class="time">${c.time}</span>
-                <div class="body">${c.body}</div>
-            </div>
-        `).join('');
-    }
-    function addComment() {
-        const box = document.querySelector('.comment-box');
-        const name = document.querySelector('.comment-name');
-        const body = box.value.trim();
-        const author = name.value.trim() || '익명';
-        if (!body) return;
-        const now = new Date();
-        const time = `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
-        comments.unshift({ author, body, time });
-        localStorage.setItem('camfit-partners-comments', JSON.stringify(comments));
-        box.value = '';
-        renderComments();
-    }
+let comments = JSON.parse(localStorage.getItem('camfit-partners-comments') || '[]');
+function renderComments() {
+    document.getElementById('commentsList').innerHTML = comments.map(c => `<div class="comment-entry"><span class="author">${c.author}</span><span class="time">${c.time}</span><div class="body">${c.body}</div></div>`).join('');
+}
+function addComment() {
+    const box = document.querySelector('.comment-box'), name = document.querySelector('.comment-name');
+    const body = box.value.trim(), author = name.value.trim() || '익명';
+    if (!body) return;
+    const now = new Date();
+    const time = `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+    comments.unshift({ author, body, time });
+    localStorage.setItem('camfit-partners-comments', JSON.stringify(comments));
+    box.value = '';
     renderComments();
-    document.querySelectorAll('.toc-item').forEach(a => {
-        a.addEventListener('click', e => {
-            e.preventDefault();
-            const target = document.querySelector(a.getAttribute('href'));
-            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-    });
+}
+renderComments();
+document.querySelectorAll('.toc-item').forEach(a => { a.addEventListener('click', e => { e.preventDefault(); document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior:'smooth', block:'start' }); }); });
 </script>
 </body>
 </html>
