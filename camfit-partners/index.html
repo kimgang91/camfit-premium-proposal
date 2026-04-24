@@ -235,7 +235,7 @@
         <h3>목차</h3>
         <div class="toc-grid">
             <a href="#diagnosis" class="toc-item"><span class="toc-num">01</span> 현황 진단</a>
-            <a href="#models" class="toc-item"><span class="toc-num">02</span> MD 라이트 / 프리미엄</a>
+            <a href="#models" class="toc-item"><span class="toc-num">02</span> 글카펜 예약관리 / 예약관리+전화응대</a>
             <a href="#commission" class="toc-item"><span class="toc-num">03</span> 수수료 + 수익 쉐어</a>
             <a href="#simulation" class="toc-item"><span class="toc-num">04</span> 수익 시뮬레이션</a>
             <a href="#sclass" class="toc-item"><span class="toc-num">05</span> S급 펜션 전략</a>
@@ -276,15 +276,15 @@
     <!-- 2. 영업 모델 -->
     <div class="section" id="models">
         <div class="section-label">02</div>
-        <div class="section-title">MD 라이트 & MD 프리미엄</div>
-        <div class="section-desc">MD가 제공하는 서비스 범위에 따라 두 등급으로 운영. 더 많은 서비스를 제공하는 MD에게 더 높은 보상.</div>
+        <div class="section-title">글카펜 예약관리 & 글카펜 예약관리+전화응대</div>
+        <div class="section-desc">글램핑·카라반·펜션 숙박업체를 위한 두 가지 관리 상품. 서비스 범위에 따라 MD 보상이 달라집니다.</div>
 
         <div class="model-grid">
             <div class="model-card lite">
                 <div class="model-header">
-                    <div class="model-tag">MD LITE</div>
-                    <h3>MD 라이트</h3>
-                    <div class="subtitle">예약 관리</div>
+                    <div class="model-tag">글카펜 예약관리</div>
+                    <h3>글카펜 예약관리</h3>
+                    <div class="subtitle">글램핑·카라반·펜션 예약 관리</div>
                 </div>
                 <div class="model-body">
                     <ul class="model-features">
@@ -297,13 +297,13 @@
             </div>
             <div class="model-card premium">
                 <div class="model-header">
-                    <div class="model-tag">MD PREMIUM</div>
-                    <h3>MD 프리미엄</h3>
-                    <div class="subtitle">예약 관리 + 전화 응대</div>
+                    <div class="model-tag">글카펜 예약관리+전화응대</div>
+                    <h3>글카펜 예약관리+전화응대</h3>
+                    <div class="subtitle">글램핑·카라반·펜션 예약 관리 + 전화 응대</div>
                 </div>
                 <div class="model-body">
                     <ul class="model-features">
-                        <li><span class="icon">&#10003;</span> 라이트의 모든 서비스 포함</li>
+                        <li><span class="icon">&#10003;</span> 예약관리의 모든 서비스 포함</li>
                         <li><span class="icon">&#10003;</span> 고객 전화 응대 및 상담</li>
                         <li><span class="icon">&#10003;</span> 타사 채널 예약 통합 관리</li>
                         <li><span class="icon">&#10003;</span> 업주 대신 전체 CS 처리</li>
@@ -320,8 +320,8 @@
                     <thead>
                         <tr>
                             <th style="background:var(--bg);">MD 서비스 항목</th>
-                            <th class="th-lite">라이트</th>
-                            <th class="th-premium">프리미엄</th>
+                            <th class="th-lite">예약관리</th>
+                            <th class="th-premium">예약관리+전화응대</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -345,115 +345,165 @@
         <div class="section-title">수수료 체계 + 수익 쉐어</div>
         <div class="section-desc">캠핏 원가를 먼저 빼고, 남은 수익을 MD와 캠핏이 나누는 구조입니다.</div>
 
-        <!-- 타입 A: 안심취소 -->
+        <!-- 타입 A: 안심취소 — 글카펜 예약관리 -->
         <div class="share-box type-a">
-            <h4 style="color:var(--primary-dark);">안심취소 서비스</h4>
+            <h4 style="color:var(--primary-dark);">안심취소 — 글카펜 예약관리</h4>
             <div class="fee">판매 수수료 <strong style="font-size:20px; color:var(--primary);">9.9%</strong></div>
 
-            <!-- 원가 -->
             <div style="background:white; border-radius:10px; padding:16px 20px; margin-bottom:16px;">
-                <div style="font-size:12px; color:var(--text-muted); font-weight:600; margin-bottom:8px;">캠핏 원가</div>
-                <div style="display:flex; gap:24px; font-size:14px;">
+                <div style="font-size:12px; color:var(--text-muted); font-weight:600; margin-bottom:8px;">원가 구성</div>
+                <div style="display:flex; gap:24px; font-size:14px; flex-wrap:wrap;">
                     <span>PG 결제 <strong>3.3%</strong></span>
                     <span>+ 안심취소 <strong>2.15%</strong></span>
                     <span>= <strong style="color:var(--accent);">원가 5.45%</strong></span>
                 </div>
-                <div style="font-size:13px; color:var(--text-muted); margin-top:6px;">남은 수익: 9.9% - 5.45% = <strong style="color:var(--primary);">4.45%</strong></div>
+                <div style="font-size:13px; color:var(--text-muted); margin-top:6px;">남은 수익: 9.9% − 5.45% = <strong style="color:var(--primary);">4.45%</strong></div>
             </div>
 
-            <!-- 쉐어 바 -->
             <div style="font-size:13px; font-weight:600; color:var(--text-light); margin-bottom:8px;">수익 쉐어 구조</div>
             <div class="share-bar">
                 <div class="bar-cost" style="width:55%;">원가 5.45%</div>
-                <div class="bar-md-l" style="width:10%;">MD</div>
-                <div class="bar-camfit-l" style="width:35%;">캠핏</div>
+                <div class="bar-md-l" style="width:10%;">MD 1.0%</div>
+                <div class="bar-camfit-l" style="width:35%;">캠핏 3.45%</div>
             </div>
 
             <div class="share-detail">
                 <div>
-                    <div style="font-size:12px; font-weight:700; color:var(--lite-accent); margin-bottom:8px; text-align:center;">라이트 (예약관리)</div>
                     <div class="share-detail-item" style="border:2px solid #C8E6C9;">
                         <div class="label">MD 수익</div>
                         <div class="pct" style="color:var(--lite-accent);">1.0%</div>
                     </div>
-                    <div class="share-detail-item" style="margin-top:8px; border:2px solid #C8E6C9;">
-                        <div class="label">캠핏 수익</div>
-                        <div class="pct" style="color:var(--primary);">3.0%</div>
-                    </div>
                 </div>
                 <div>
-                    <div style="font-size:12px; font-weight:700; color:var(--premium-accent); margin-bottom:8px; text-align:center;">프리미엄 (예약관리+전화응대)</div>
+                    <div class="share-detail-item" style="border:2px solid #C8E6C9;">
+                        <div class="label">캠핏 수익</div>
+                        <div class="pct" style="color:var(--primary);">3.45%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 타입 B: 안심취소 — 글카펜 예약관리+전화응대 -->
+        <div class="share-box type-a" style="border-left:4px solid var(--premium-accent);">
+            <h4 style="color:var(--premium-accent);">안심취소 — 글카펜 예약관리+전화응대</h4>
+            <div class="fee">판매 수수료 <strong style="font-size:20px; color:var(--premium-accent);">12.1%</strong></div>
+
+            <div style="background:white; border-radius:10px; padding:16px 20px; margin-bottom:16px;">
+                <div style="font-size:12px; color:var(--text-muted); font-weight:600; margin-bottom:8px;">원가 구성</div>
+                <div style="display:flex; gap:24px; font-size:14px; flex-wrap:wrap;">
+                    <span>PG 결제 <strong>3.3%</strong></span>
+                    <span>+ 안심취소 <strong>2.15%</strong></span>
+                    <span>+ 전화응대 <strong>2.2%</strong></span>
+                    <span>= <strong style="color:var(--accent);">원가 7.65%</strong></span>
+                </div>
+                <div style="font-size:13px; color:var(--text-muted); margin-top:6px;">남은 수익: 12.1% − 7.65% = <strong style="color:var(--premium-accent);">4.45%</strong></div>
+            </div>
+
+            <div style="font-size:13px; font-weight:600; color:var(--text-light); margin-bottom:8px;">수익 쉐어 구조</div>
+            <div class="share-bar">
+                <div class="bar-cost" style="width:63%;">원가 7.65%</div>
+                <div class="bar-md-l" style="width:13%; background:var(--premium); color:var(--premium-accent);">MD 1.5%</div>
+                <div class="bar-camfit-l" style="width:24%; background:#FFF3E0; color:var(--premium-accent);">캠핏 2.95%</div>
+            </div>
+
+            <div class="share-detail">
+                <div>
                     <div class="share-detail-item" style="border:2px solid #FFE0B2;">
                         <div class="label">MD 수익</div>
                         <div class="pct" style="color:var(--premium-accent);">1.5%</div>
                     </div>
-                    <div class="share-detail-item" style="margin-top:8px; border:2px solid #FFE0B2;">
+                </div>
+                <div>
+                    <div class="share-detail-item" style="border:2px solid #FFE0B2;">
                         <div class="label">캠핏 수익</div>
-                        <div class="pct" style="color:var(--primary);">2.5%</div>
+                        <div class="pct" style="color:var(--premium-accent);">2.95%</div>
                     </div>
                 </div>
             </div>
-
-            <div class="share-extra">
-                <span class="badge">참고</span>
-                9.9%보다 높은 수수료로 계약 시, 별도 협의를 통해 수익 쉐어 비율 조정 가능
-            </div>
         </div>
 
-        <!-- 타입 B: 안심취소 + 네이버 -->
+        <!-- 타입 C: 안심취소 + 네이버 — 글카펜 예약관리 -->
         <div class="share-box type-b">
-            <h4 style="color:#1565C0;">안심취소 + 네이버 연동</h4>
+            <h4 style="color:#1565C0;">안심취소 + 네이버 — 글카펜 예약관리</h4>
             <div class="fee">판매 수수료 <strong style="font-size:20px; color:#1565C0;">12.1%</strong></div>
 
-            <!-- 원가 -->
             <div style="background:white; border-radius:10px; padding:16px 20px; margin-bottom:16px;">
-                <div style="font-size:12px; color:var(--text-muted); font-weight:600; margin-bottom:8px;">캠핏 원가</div>
+                <div style="font-size:12px; color:var(--text-muted); font-weight:600; margin-bottom:8px;">원가 구성</div>
                 <div style="display:flex; gap:24px; font-size:14px; flex-wrap:wrap;">
                     <span>PG 결제 <strong>3.3%</strong></span>
                     <span>+ 안심취소 <strong>2.15%</strong></span>
                     <span>+ 네이버 <strong>3.5%</strong></span>
                     <span>= <strong style="color:var(--danger-accent);">원가 8.95%</strong></span>
                 </div>
-                <div style="font-size:13px; color:var(--text-muted); margin-top:6px;">남은 수익: 12.1% - 8.95% = <strong style="color:#1565C0;">3.15%</strong></div>
+                <div style="font-size:13px; color:var(--text-muted); margin-top:6px;">남은 수익: 12.1% − 8.95% = <strong style="color:#1565C0;">3.15%</strong></div>
             </div>
 
-            <!-- 쉐어 바 -->
             <div style="font-size:13px; font-weight:600; color:var(--text-light); margin-bottom:8px;">수익 쉐어 구조</div>
             <div class="share-bar">
                 <div class="bar-cost" style="width:74%;">원가 8.95%</div>
-                <div class="bar-md-l" style="width:10%;">MD</div>
-                <div class="bar-camfit-p" style="width:16%;">캠핏</div>
+                <div class="bar-md-l" style="width:8%;">MD 1.0%</div>
+                <div class="bar-camfit-p" style="width:18%;">캠핏 2.15%</div>
             </div>
 
             <div class="share-detail">
                 <div>
-                    <div style="font-size:12px; font-weight:700; color:var(--lite-accent); margin-bottom:8px; text-align:center;">라이트 (예약관리)</div>
                     <div class="share-detail-item" style="border:2px solid #90CAF9;">
                         <div class="label">MD 수익</div>
                         <div class="pct" style="color:#1565C0;">1.0%</div>
                     </div>
-                    <div class="share-detail-item" style="margin-top:8px; border:2px solid #90CAF9;">
-                        <div class="label">캠핏 수익</div>
-                        <div class="pct" style="color:#1565C0;">2.0%</div>
-                    </div>
                 </div>
                 <div>
-                    <div style="font-size:12px; font-weight:700; color:var(--premium-accent); margin-bottom:8px; text-align:center;">프리미엄 (예약관리+전화응대)</div>
+                    <div class="share-detail-item" style="border:2px solid #90CAF9;">
+                        <div class="label">캠핏 수익</div>
+                        <div class="pct" style="color:#1565C0;">2.15%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 타입 D: 안심취소 + 네이버 — 글카펜 예약관리+전화응대 -->
+        <div class="share-box type-b" style="border-left:4px solid var(--premium-accent);">
+            <h4 style="color:var(--premium-accent);">안심취소 + 네이버 — 글카펜 예약관리+전화응대</h4>
+            <div class="fee">판매 수수료 <strong style="font-size:20px; color:var(--premium-accent);">14.3%</strong></div>
+
+            <div style="background:white; border-radius:10px; padding:16px 20px; margin-bottom:16px;">
+                <div style="font-size:12px; color:var(--text-muted); font-weight:600; margin-bottom:8px;">원가 구성</div>
+                <div style="display:flex; gap:24px; font-size:14px; flex-wrap:wrap;">
+                    <span>PG 결제 <strong>3.3%</strong></span>
+                    <span>+ 안심취소 <strong>2.15%</strong></span>
+                    <span>+ 네이버 <strong>3.5%</strong></span>
+                    <span>+ 전화응대 <strong>2.2%</strong></span>
+                    <span>= <strong style="color:var(--danger-accent);">원가 11.15%</strong></span>
+                </div>
+                <div style="font-size:13px; color:var(--text-muted); margin-top:6px;">남은 수익: 14.3% − 11.15% = <strong style="color:var(--premium-accent);">3.15%</strong></div>
+            </div>
+
+            <div style="font-size:13px; font-weight:600; color:var(--text-light); margin-bottom:8px;">수익 쉐어 구조</div>
+            <div class="share-bar">
+                <div class="bar-cost" style="width:78%;">원가 11.15%</div>
+                <div class="bar-md-l" style="width:10%; background:var(--premium); color:var(--premium-accent);">MD 1.5%</div>
+                <div class="bar-camfit-p" style="width:12%; background:#FFF3E0; color:var(--premium-accent);">캠핏 1.65%</div>
+            </div>
+
+            <div class="share-detail">
+                <div>
                     <div class="share-detail-item" style="border:2px solid #FFE0B2;">
                         <div class="label">MD 수익</div>
                         <div class="pct" style="color:var(--premium-accent);">1.5%</div>
                     </div>
-                    <div class="share-detail-item" style="margin-top:8px; border:2px solid #FFE0B2;">
+                </div>
+                <div>
+                    <div class="share-detail-item" style="border:2px solid #FFE0B2;">
                         <div class="label">캠핏 수익</div>
-                        <div class="pct" style="color:var(--premium-accent);">1.5%</div>
+                        <div class="pct" style="color:var(--premium-accent);">1.65%</div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="share-extra">
-                <span class="badge">참고</span>
-                12.1%보다 높은 수수료로 계약 시, 별도 협의를 통해 수익 쉐어 비율 조정 가능
-            </div>
+        <div class="share-extra">
+            <span class="badge">참고</span>
+            위 수수료보다 높은 수수료로 계약 시, 별도 협의를 통해 수익 쉐어 비율 조정 가능
         </div>
 
         <!-- 요약 -->
@@ -472,32 +522,32 @@
                     </thead>
                     <tbody>
                         <tr style="background:#F1F8E9;">
-                            <td style="padding:14px 16px; font-weight:600;">안심취소 — 라이트</td>
+                            <td style="padding:14px 16px; font-weight:600;">안심취소 — 예약관리</td>
                             <td style="padding:14px 16px; text-align:center; font-weight:700;">9.9%</td>
                             <td style="padding:14px 16px; text-align:center;">5.45%</td>
                             <td style="padding:14px 16px; text-align:center; font-weight:700; color:var(--lite-accent);">1.0%</td>
-                            <td style="padding:14px 16px; text-align:center; font-weight:700; color:var(--primary);">3.0%</td>
+                            <td style="padding:14px 16px; text-align:center; font-weight:700; color:var(--primary);">3.45%</td>
                         </tr>
                         <tr style="background:#FFF8E1;">
-                            <td style="padding:14px 16px; font-weight:600;">안심취소 — 프리미엄</td>
-                            <td style="padding:14px 16px; text-align:center; font-weight:700;">9.9%</td>
-                            <td style="padding:14px 16px; text-align:center;">5.45%</td>
+                            <td style="padding:14px 16px; font-weight:600;">안심취소 — 예약관리+전화응대</td>
+                            <td style="padding:14px 16px; text-align:center; font-weight:700;">12.1%</td>
+                            <td style="padding:14px 16px; text-align:center;">7.65%</td>
                             <td style="padding:14px 16px; text-align:center; font-weight:700; color:var(--premium-accent);">1.5%</td>
-                            <td style="padding:14px 16px; text-align:center; font-weight:700; color:var(--primary);">2.5%</td>
+                            <td style="padding:14px 16px; text-align:center; font-weight:700; color:var(--premium-accent);">2.95%</td>
                         </tr>
                         <tr style="background:#E3F2FD;">
-                            <td style="padding:14px 16px; font-weight:600;">안심취소 + 네이버 — 라이트</td>
+                            <td style="padding:14px 16px; font-weight:600;">안심취소 + 네이버 — 예약관리</td>
                             <td style="padding:14px 16px; text-align:center; font-weight:700;">12.1%</td>
                             <td style="padding:14px 16px; text-align:center;">8.95%</td>
                             <td style="padding:14px 16px; text-align:center; font-weight:700; color:#1565C0;">1.0%</td>
-                            <td style="padding:14px 16px; text-align:center; font-weight:700; color:#1565C0;">2.0%</td>
+                            <td style="padding:14px 16px; text-align:center; font-weight:700; color:#1565C0;">2.15%</td>
                         </tr>
                         <tr style="background:#BBDEFB;">
-                            <td style="padding:14px 16px; font-weight:600;">안심취소 + 네이버 — 프리미엄</td>
-                            <td style="padding:14px 16px; text-align:center; font-weight:700;">12.1%</td>
-                            <td style="padding:14px 16px; text-align:center;">8.95%</td>
+                            <td style="padding:14px 16px; font-weight:600;">안심취소 + 네이버 — 예약관리+전화응대</td>
+                            <td style="padding:14px 16px; text-align:center; font-weight:700;">14.3%</td>
+                            <td style="padding:14px 16px; text-align:center;">11.15%</td>
                             <td style="padding:14px 16px; text-align:center; font-weight:700; color:var(--premium-accent);">1.5%</td>
-                            <td style="padding:14px 16px; text-align:center; font-weight:700; color:var(--premium-accent);">1.5%</td>
+                            <td style="padding:14px 16px; text-align:center; font-weight:700; color:var(--premium-accent);">1.65%</td>
                         </tr>
                     </tbody>
                 </table>
@@ -524,70 +574,82 @@
             </div>
         </div>
 
-        <!-- 안심취소 9.9% -->
-        <h4 style="font-size:16px; font-weight:700; margin-bottom:16px;">안심취소 서비스 (9.9%) — 업체 1곳 기준</h4>
+        <!-- 안심취소 — 예약관리 9.9% -->
+        <h4 style="font-size:16px; font-weight:700; margin-bottom:16px;">안심취소 — 글카펜 예약관리 (9.9%) — 업체 1곳 기준</h4>
         <div class="sim-grid" style="margin-bottom:24px;">
             <div class="sim-box" style="border-color:#C8E6C9;">
-                <h5><span class="scope-tag yes">LITE</span> 라이트</h5>
+                <h5><span class="scope-tag yes">예약관리</span> 수수료 9.9%</h5>
                 <div class="sim-row"><span>수수료 수입 (9.9%)</span><span><strong>495,000원</strong></span></div>
                 <div class="sim-row"><span>PG 결제 (3.3%)</span><span class="neg">-165,000원</span></div>
                 <div class="sim-row"><span>안심취소 (2.15%)</span><span class="neg">-107,500원</span></div>
                 <div class="sim-row"><span>MD 수익 (1.0%)</span><span class="green"><strong>50,000원</strong></span></div>
-                <div class="sim-row total"><span>캠핏 수익 (3.0%)</span><span class="green">150,000원</span></div>
-            </div>
-            <div class="sim-box" style="border-color:#FFE0B2;">
-                <h5><span style="background:var(--premium); color:var(--premium-accent); padding:3px 10px; border-radius:6px; font-size:11px; font-weight:700;">PREMIUM</span> 프리미엄</h5>
-                <div class="sim-row"><span>수수료 수입 (9.9%)</span><span><strong>495,000원</strong></span></div>
-                <div class="sim-row"><span>PG 결제 (3.3%)</span><span class="neg">-165,000원</span></div>
-                <div class="sim-row"><span>안심취소 (2.15%)</span><span class="neg">-107,500원</span></div>
-                <div class="sim-row"><span>MD 수익 (1.5%)</span><span class="orange"><strong>75,000원</strong></span></div>
-                <div class="sim-row total pt"><span>캠핏 수익 (2.5%)</span><span class="orange">125,000원</span></div>
+                <div class="sim-row total"><span>캠핏 수익 (3.45%)</span><span class="green">172,500원</span></div>
             </div>
         </div>
 
-        <!-- 네이버 12.1% -->
-        <h4 style="font-size:16px; font-weight:700; margin-bottom:16px;">안심취소 + 네이버 (12.1%) — 업체 1곳 기준</h4>
+        <!-- 안심취소 — 예약관리+전화응대 12.1% -->
+        <h4 style="font-size:16px; font-weight:700; margin-bottom:16px;">안심취소 — 글카펜 예약관리+전화응대 (12.1%) — 업체 1곳 기준</h4>
+        <div class="sim-grid" style="margin-bottom:24px;">
+            <div class="sim-box" style="border-color:#FFE0B2;">
+                <h5><span style="background:var(--premium); color:var(--premium-accent); padding:3px 10px; border-radius:6px; font-size:11px; font-weight:700;">예약관리+전화응대</span> 수수료 12.1%</h5>
+                <div class="sim-row"><span>수수료 수입 (12.1%)</span><span><strong>605,000원</strong></span></div>
+                <div class="sim-row"><span>PG 결제 (3.3%)</span><span class="neg">-165,000원</span></div>
+                <div class="sim-row"><span>안심취소 (2.15%)</span><span class="neg">-107,500원</span></div>
+                <div class="sim-row"><span>전화응대 (2.2%)</span><span class="neg">-110,000원</span></div>
+                <div class="sim-row"><span>MD 수익 (1.5%)</span><span class="orange"><strong>75,000원</strong></span></div>
+                <div class="sim-row total pt"><span>캠핏 수익 (2.95%)</span><span class="orange">147,500원</span></div>
+            </div>
+        </div>
+
+        <!-- 안심취소 + 네이버 — 예약관리 12.1% -->
+        <h4 style="font-size:16px; font-weight:700; margin-bottom:16px;">안심취소 + 네이버 — 글카펜 예약관리 (12.1%) — 업체 1곳 기준</h4>
         <div class="sim-grid" style="margin-bottom:24px;">
             <div class="sim-box" style="border-color:#90CAF9;">
-                <h5><span class="scope-tag yes">LITE</span> 라이트 + 네이버</h5>
+                <h5><span class="scope-tag yes">예약관리</span> 수수료 12.1%</h5>
                 <div class="sim-row"><span>수수료 수입 (12.1%)</span><span><strong>605,000원</strong></span></div>
                 <div class="sim-row"><span>PG 결제 (3.3%)</span><span class="neg">-165,000원</span></div>
                 <div class="sim-row"><span>안심취소 (2.15%)</span><span class="neg">-107,500원</span></div>
                 <div class="sim-row"><span>네이버 연동 (3.5%)</span><span class="neg">-175,000원</span></div>
                 <div class="sim-row"><span>MD 수익 (1.0%)</span><span class="blue"><strong>50,000원</strong></span></div>
-                <div class="sim-row total" style="border-color:#1565C0;"><span>캠핏 수익 (2.0%)</span><span class="blue">100,000원</span></div>
+                <div class="sim-row total" style="border-color:#1565C0;"><span>캠핏 수익 (2.15%)</span><span class="blue">107,500원</span></div>
             </div>
+        </div>
+
+        <!-- 안심취소 + 네이버 — 예약관리+전화응대 14.3% -->
+        <h4 style="font-size:16px; font-weight:700; margin-bottom:16px;">안심취소 + 네이버 — 글카펜 예약관리+전화응대 (14.3%) — 업체 1곳 기준</h4>
+        <div class="sim-grid" style="margin-bottom:24px;">
             <div class="sim-box" style="border-color:#FFE0B2;">
-                <h5><span style="background:var(--premium); color:var(--premium-accent); padding:3px 10px; border-radius:6px; font-size:11px; font-weight:700;">PREMIUM</span> 프리미엄 + 네이버</h5>
-                <div class="sim-row"><span>수수료 수입 (12.1%)</span><span><strong>605,000원</strong></span></div>
+                <h5><span style="background:var(--premium); color:var(--premium-accent); padding:3px 10px; border-radius:6px; font-size:11px; font-weight:700;">예약관리+전화응대</span> 수수료 14.3%</h5>
+                <div class="sim-row"><span>수수료 수입 (14.3%)</span><span><strong>715,000원</strong></span></div>
                 <div class="sim-row"><span>PG 결제 (3.3%)</span><span class="neg">-165,000원</span></div>
                 <div class="sim-row"><span>안심취소 (2.15%)</span><span class="neg">-107,500원</span></div>
                 <div class="sim-row"><span>네이버 연동 (3.5%)</span><span class="neg">-175,000원</span></div>
+                <div class="sim-row"><span>전화응대 (2.2%)</span><span class="neg">-110,000원</span></div>
                 <div class="sim-row"><span>MD 수익 (1.5%)</span><span class="orange"><strong>75,000원</strong></span></div>
-                <div class="sim-row total pt"><span>캠핏 수익 (1.5%)</span><span class="orange">75,000원</span></div>
+                <div class="sim-row total pt"><span>캠핏 수익 (1.65%)</span><span class="orange">82,500원</span></div>
             </div>
         </div>
 
         <!-- MD 관리 업체 수별 -->
         <h4 style="font-size:16px; font-weight:700; margin-bottom:16px;">MD가 여러 업체를 관리하면?</h4>
         <div class="card">
-            <div style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">안심취소 9.9% 기준, 업체당 월 매출 500만원</div>
+            <div style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">업체당 월 매출 500만원 기준 (예약관리 9.9% / 예약관리+전화응대 12.1%)</div>
             <div style="overflow-x:auto; border-radius:12px; border:1px solid var(--border);">
                 <table style="width:100%; border-collapse:collapse; font-size:14px;">
                     <thead style="background:var(--primary); color:white;">
                         <tr>
                             <th style="padding:14px 16px; text-align:left;">관리 업체 수</th>
-                            <th style="padding:14px 16px; text-align:center;">MD 라이트<br><span style="font-weight:400; font-size:12px;">월 수령액</span></th>
-                            <th style="padding:14px 16px; text-align:center;">MD 프리미엄<br><span style="font-weight:400; font-size:12px;">월 수령액</span></th>
-                            <th style="padding:14px 16px; text-align:center;">캠핏 수익<br><span style="font-weight:400; font-size:12px;">(라이트 기준)</span></th>
+                            <th style="padding:14px 16px; text-align:center;">예약관리 MD<br><span style="font-weight:400; font-size:12px;">월 수령액</span></th>
+                            <th style="padding:14px 16px; text-align:center;">예약관리+전화응대 MD<br><span style="font-weight:400; font-size:12px;">월 수령액</span></th>
+                            <th style="padding:14px 16px; text-align:center;">캠핏 수익<br><span style="font-weight:400; font-size:12px;">(예약관리 기준)</span></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td style="padding:13px 16px;">5개소</td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--lite-accent);">25만원</td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--premium-accent);">37.5만원</td><td style="padding:13px 16px; text-align:center; font-weight:700;">75만원</td></tr>
-                        <tr><td style="padding:13px 16px;">10개소</td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--lite-accent);">50만원</td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--premium-accent);">75만원</td><td style="padding:13px 16px; text-align:center; font-weight:700;">150만원</td></tr>
-                        <tr style="background:var(--lite);"><td style="padding:13px 16px; font-weight:700;">15개소</td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--lite-accent);">75만원</td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--premium-accent);">112.5만원</td><td style="padding:13px 16px; text-align:center; font-weight:700;">225만원</td></tr>
-                        <tr><td style="padding:13px 16px;">20개소</td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--lite-accent);">100만원</td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--premium-accent);">150만원</td><td style="padding:13px 16px; text-align:center; font-weight:700;">300만원</td></tr>
-                        <tr><td style="padding:13px 16px;">30개소</td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--lite-accent);">150만원</td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--premium-accent);">225만원</td><td style="padding:13px 16px; text-align:center; font-weight:700;">450만원</td></tr>
+                        <tr><td style="padding:13px 16px;">5개소</td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--lite-accent);">25만원</td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--premium-accent);">37.5만원</td><td style="padding:13px 16px; text-align:center; font-weight:700;">86만원</td></tr>
+                        <tr><td style="padding:13px 16px;">10개소</td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--lite-accent);">50만원</td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--premium-accent);">75만원</td><td style="padding:13px 16px; text-align:center; font-weight:700;">172만원</td></tr>
+                        <tr style="background:var(--lite);"><td style="padding:13px 16px; font-weight:700;">15개소</td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--lite-accent);">75만원</td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--premium-accent);">112.5만원</td><td style="padding:13px 16px; text-align:center; font-weight:700;">259만원</td></tr>
+                        <tr><td style="padding:13px 16px;">20개소</td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--lite-accent);">100만원</td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--premium-accent);">150만원</td><td style="padding:13px 16px; text-align:center; font-weight:700;">345만원</td></tr>
+                        <tr><td style="padding:13px 16px;">30개소</td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--lite-accent);">150만원</td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--premium-accent);">225만원</td><td style="padding:13px 16px; text-align:center; font-weight:700;">518만원</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -726,7 +788,7 @@
                 <div class="roadmap-time">Phase 3 — 중기 확장 (3~6개월)</div>
                 <div class="roadmap-title">검증 후 확장</div>
                 <ul class="roadmap-tasks">
-                    <li><div class="task-check"></div>라이트/프리미엄 성과 평가</li>
+                    <li><div class="task-check"></div>예약관리/예약관리+전화응대 성과 평가</li>
                     <li><div class="task-check"></div>부가서비스 정식 런칭</li>
                     <li><div class="task-check"></div>수익 쉐어 테이블 실적 기반 조정</li>
                 </ul>
@@ -743,11 +805,11 @@
         <div class="decision-grid">
             <div class="decision-item">
                 <div class="decision-num">1</div>
-                <div><div class="decision-text">수익 쉐어 비율 최종 확정</div><div class="decision-options">라이트 MD 1% / 캠핏 3%, 프리미엄 MD 1.5% / 캠핏 2.5% 적정한지</div></div>
+                <div><div class="decision-text">수익 쉐어 비율 최종 확정</div><div class="decision-options">예약관리(9.9%) MD 1% / 캠핏 3.45%, 예약관리+전화응대(12.1%) MD 1.5% / 캠핏 2.95% 적정한지</div></div>
             </div>
             <div class="decision-item">
                 <div class="decision-num">2</div>
-                <div><div class="decision-text">네이버 연동 시 수익 쉐어</div><div class="decision-options">MD 1% / 캠핏 2% 비율 조정 여부</div></div>
+                <div><div class="decision-text">네이버 연동 시 수익 쉐어</div><div class="decision-options">예약관리(12.1%) MD 1% / 캠핏 2.15%, 예약관리+전화응대(14.3%) MD 1.5% / 캠핏 1.65% 조정 여부</div></div>
             </div>
             <div class="decision-item">
                 <div class="decision-num">3</div>
@@ -759,7 +821,7 @@
             </div>
             <div class="decision-item">
                 <div class="decision-num">5</div>
-                <div><div class="decision-text">프리미엄 MD 전화응대 기준</div><div class="decision-options">응대 시간, 품질 기준, 매뉴얼 범위</div></div>
+                <div><div class="decision-text">예약관리+전화응대 MD 응대 기준</div><div class="decision-options">응대 시간, 품질 기준, 매뉴얼 범위</div></div>
             </div>
         </div>
     </div>
