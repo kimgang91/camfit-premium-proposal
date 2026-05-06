@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>펜션 파트너 서비스 안내</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap');
+        :root {
+            --primary:#1B5E20; --primary-light:#2E7D32; --primary-dark:#0D3B11;
+            --accent:#FF6F00; --accent-light:#FFA726;
+            --bg:#FAFAF8; --card:#FFFFFF;
+            --text:#1A1A1A; --text-light:#5A5A5A; --text-muted:#8A8A8A;
+            --border:#E8E8E4;
+            --safe:#00C853; --safe-bg:#E8F5E9;
+            --warn:#FF1744; --warn-bg:#FFEBEE;
+            --blue:#1565C0; --blue-bg:#E3F2FD;
+            --gold:#F9A825; --gold-bg:#FFFDE7;
+        }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Noto Sans KR',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;}
+
+        .page{max-width:800px;margin:0 auto;padding:24px;}
+
+        /* Hero */
+        .hero{background:linear-gradient(135deg,#0D3B11 0%,#1B5E20 40%,#2E7D32 70%,#43A047 100%);color:white;border-radius:24px;padding:56px 36px 48px;text-align:center;position:relative;overflow:hidden;margin-bottom:32px;}
+        .hero::before{content:'';position:absolute;top:-60%;right:-20%;width:500px;height:500px;background:radial-gradient(circle,rgba(255,255,255,0.04) 0%,transparent 70%);}
+        .hero-inner{position:relative;z-index:1;}
+        .hero-badge{display:inline-block;background:rgba(255,255,255,0.12);padding:5px 18px;border-radius:100px;font-size:12px;font-weight:600;margin-bottom:20px;border:1px solid rgba(255,255,255,0.18);letter-spacing:1px;}
+        .hero h1{font-size:clamp(30px,5vw,44px);font-weight:900;letter-spacing:-1.5px;line-height:1.25;margin-bottom:14px;}
+        .hero h1 em{font-style:normal;color:var(--accent-light);}
+        .hero p{font-size:16px;opacity:.82;font-weight:300;max-width:480px;margin:0 auto;line-height:1.65;}
+
+        /* Stats Row */
+        .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px;}
+        .stat{background:white;border-radius:16px;padding:22px 16px;text-align:center;border:1px solid var(--border);}
+        .stat-value{font-size:28px;font-weight:900;color:var(--primary);}
+        .stat-label{font-size:12px;color:var(--text-muted);font-weight:500;margin-top:4px;}
+
+        /* Section Title */
+        .stitle{font-size:12px;font-weight:800;color:var(--primary);letter-spacing:2px;margin-bottom:6px;}
+        .sh{font-size:22px;font-weight:900;letter-spacing:-.5px;margin-bottom:6px;}
+        .sd{font-size:14px;color:var(--text-light);margin-bottom:20px;}
+
+        /* 3 Core Cards */
+        .core-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:32px;}
+        .core{background:white;border-radius:16px;padding:24px 18px;text-align:center;border:1px solid var(--border);}
+        .core-icon{font-size:36px;margin-bottom:10px;}
+        .core-name{font-size:15px;font-weight:800;margin-bottom:6px;}
+        .core-desc{font-size:12px;color:var(--text-light);line-height:1.55;}
+
+        /* Highlight Box */
+        .highlight{background:var(--safe-bg);border-radius:14px;padding:18px 20px;display:flex;align-items:center;gap:14px;margin-bottom:28px;border:1px solid #C8E6C9;}
+        .highlight-icon{font-size:28px;flex-shrink:0;}
+        .highlight-text{font-size:14px;color:var(--text);line-height:1.6;}
+        .highlight-text strong{color:var(--primary);}
+
+        /* Service Compare */
+        .plans{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:28px;}
+        .plan{background:white;border-radius:16px;padding:24px 18px;border:2px solid var(--border);}
+        .plan.rec{border-color:var(--primary);position:relative;}
+        .plan.rec::before{content:'추천';position:absolute;top:-10px;right:16px;background:var(--accent);color:white;padding:3px 12px;border-radius:6px;font-size:11px;font-weight:700;}
+        .plan-badge{display:inline-block;padding:3px 10px;border-radius:5px;font-size:11px;font-weight:700;margin-bottom:10px;}
+        .plan-badge.b{background:var(--safe-bg);color:var(--primary);}
+        .plan-badge.p{background:var(--gold-bg);color:var(--accent);}
+        .plan-name{font-size:17px;font-weight:800;margin-bottom:4px;}
+        .plan-sub{font-size:12px;color:var(--text-muted);margin-bottom:14px;}
+        .plan ul{list-style:none;}
+        .plan li{padding:5px 0;font-size:13px;display:flex;align-items:center;gap:7px;}
+        .ck{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;font-weight:700;}
+        .ck.y{background:var(--safe-bg);color:var(--safe);}
+        .ck.n{background:var(--warn-bg);color:var(--warn);}
+
+        /* Success Case mini */
+        .case{background:linear-gradient(135deg,var(--gold-bg),#FFE082);border-radius:16px;padding:24px;margin-bottom:28px;display:flex;align-items:center;gap:20px;}
+        .case-icon{font-size:48px;flex-shrink:0;}
+        .case-body{}
+        .case-title{font-size:16px;font-weight:800;margin-bottom:4px;}
+        .case-desc{font-size:13px;color:var(--text-light);line-height:1.6;}
+        .case-desc strong{color:var(--text);}
+
+        /* Zero Risk */
+        .zero{background:linear-gradient(135deg,var(--primary-dark),var(--primary));border-radius:20px;padding:36px 28px;color:white;text-align:center;margin-bottom:28px;}
+        .zero h3{font-size:22px;font-weight:900;margin-bottom:6px;}
+        .zero p{font-size:14px;opacity:.82;margin-bottom:24px;}
+        .zero-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+        .zero-item{background:rgba(255,255,255,.1);border-radius:12px;padding:18px 12px;border:1px solid rgba(255,255,255,.12);}
+        .zero-item-icon{font-size:26px;margin-bottom:6px;}
+        .zero-item-title{font-size:14px;font-weight:700;margin-bottom:2px;}
+        .zero-item-desc{font-size:11px;opacity:.78;}
+
+        /* CTA */
+        .cta{text-align:center;padding:24px 0 16px;}
+        .cta-btn{display:inline-block;padding:14px 36px;border-radius:12px;font-size:15px;font-weight:700;background:var(--primary);color:white;text-decoration:none;border:none;cursor:pointer;transition:all .2s;}
+        .cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.15);}
+
+        .footer{text-align:center;padding:20px;font-size:11px;color:var(--text-muted);border-top:1px solid var(--border);margin-top:16px;}
+
+        @media(max-width:640px){
+            .core-grid,.plans,.zero-grid,.stats{grid-template-columns:1fr;}
+            .case{flex-direction:column;text-align:center;}
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+
+    <!-- Hero -->
+    <div class="hero">
+        <div class="hero-inner">
+            <div class="hero-badge">PENSION PARTNER SERVICE</div>
+            <h1>펜션 운영의<br><em>모든 불편을 해소</em>합니다</h1>
+            <p>예약관리 · 안심취소 · 방막기 · 전화응대<br>운영에만 집중할 수 있는 환경을 만들어드립니다</p>
+        </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+        <div class="stat">
+            <div class="stat-value">0원</div>
+            <div class="stat-label">초기 비용</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value" style="font-size:22px;">최소화</div>
+            <div class="stat-label">중복예약 (방막기 적용)</div>
+        </div>
+        <div class="stat">
+            <div class="stat-value">100%</div>
+            <div class="stat-label">파트너 만족도</div>
+        </div>
+    </div>
+
+    <!-- 핵심 서비스 3가지 -->
+    <div class="stitle">CORE SERVICE</div>
+    <div class="sh">3가지 핵심 서비스</div>
+    <div class="sd">사업주에게 손해 없는 구조로 설계되었습니다</div>
+
+    <div class="core-grid">
+        <div class="core">
+            <div class="core-icon">&#128203;</div>
+            <div class="core-name">예약 통합관리</div>
+            <div class="core-desc">여러 예약 채널의<br>예약 현황을<br>한 곳에서 실시간 관리</div>
+        </div>
+        <div class="core">
+            <div class="core-icon">&#128737;</div>
+            <div class="core-name">안심취소</div>
+            <div class="core-desc">비·눈·개인사정 등<br>입실 1일 전 취소 시에도<br>사업주 수익 그대로 수취</div>
+        </div>
+        <div class="core">
+            <div class="core-icon">&#128274;</div>
+            <div class="core-name">방막기</div>
+            <div class="core-desc">한 곳에서 예약 시<br>다른 채널의 동일 객실을<br>관리하여 중복예약 최소화</div>
+        </div>
+    </div>
+
+    <!-- 제로 리스크 강조 -->
+    <div class="highlight">
+        <div class="highlight-icon">&#9989;</div>
+        <div class="highlight-text">
+            <strong>초기 비용 0원, 약정 없음, 예약 발생 시에만 비용 발생.</strong><br>
+            예약이 없으면 비용도 없습니다. 부담 없이 시작하실 수 있는 구조입니다.
+        </div>
+    </div>
+
+    <!-- 2가지 플랜 -->
+    <div class="stitle">SERVICE PLAN</div>
+    <div class="sh">운영 스타일에 맞는 2가지 플랜</div>
+    <div class="sd">안심취소 · 방막기는 두 플랜 모두 기본 포함</div>
+
+    <div class="plans">
+        <div class="plan">
+            <div class="plan-badge b">BASIC</div>
+            <div class="plan-name">예약관리</div>
+            <div class="plan-sub">예약 통합관리에 집중</div>
+            <ul>
+                <li><span class="ck y">&#10003;</span>실시간 예약 모니터링</li>
+                <li><span class="ck y">&#10003;</span>중복예약 방지 (방막기)</li>
+                <li><span class="ck y">&#10003;</span>안심취소 운영</li>
+                <li><span class="ck y">&#10003;</span>다채널 통합관리</li>
+                <li><span class="ck n">&#10005;</span><span style="color:var(--text-muted)">고객 전화응대</span></li>
+            </ul>
+        </div>
+        <div class="plan rec">
+            <div class="plan-badge p">PREMIUM</div>
+            <div class="plan-name">예약관리 + 전화응대</div>
+            <div class="plan-sub">전화까지 맡기고 운영에만 집중</div>
+            <ul>
+                <li><span class="ck y">&#10003;</span>실시간 예약 모니터링</li>
+                <li><span class="ck y">&#10003;</span>중복예약 방지 (방막기)</li>
+                <li><span class="ck y">&#10003;</span>안심취소 운영</li>
+                <li><span class="ck y">&#10003;</span>다채널 통합관리</li>
+                <li><span class="ck y">&#10003;</span><strong>고객 전화 문의 대행</strong></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 성공 사례 -->
+    <div class="case">
+        <div class="case-icon">&#127942;</div>
+        <div class="case-body">
+            <div class="case-title">실제 운영 성공 사례 — 경상권 A 펜션</div>
+            <div class="case-desc">
+                서비스 적용 후 <strong>파트너 만족도 99% 달성.</strong><br>
+                방막기로 중복예약 최소화, 안심취소로 취소 시에도 수익 유지.<br>
+                전화응대 서비스로 하루 2시간 이상의 운영 시간 확보.
+            </div>
+        </div>
+    </div>
+
+    <!-- Zero Risk -->
+    <div class="zero">
+        <h3>부담 없이 시작하실 수 있습니다</h3>
+        <p>편하게 시작하시고, 효과를 직접 확인해보세요</p>
+        <div class="zero-grid">
+            <div class="zero-item">
+                <div class="zero-item-icon">&#128176;</div>
+                <div class="zero-item-title">초기 비용 0원</div>
+                <div class="zero-item-desc">가입비 · 세팅비 · 보증금 없음</div>
+            </div>
+            <div class="zero-item">
+                <div class="zero-item-icon">&#128195;</div>
+                <div class="zero-item-title">약정 없음</div>
+                <div class="zero-item-desc">의무 기간 없이 언제든 해지</div>
+            </div>
+            <div class="zero-item">
+                <div class="zero-item-icon">&#128200;</div>
+                <div class="zero-item-title">성과 기반 과금</div>
+                <div class="zero-item-desc">예약 0건 = 비용 0원</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta">
+        <a href="pension-proposal-detail.html" class="cta-btn">&#8595; &nbsp;상세 서비스 안내 보기</a>
+    </div>
+
+    <div class="footer">
+        <p>PICO PENSION PARTNER | 2026</p>
+        <p style="margin-top:4px;">본 자료는 펜션 파트너 제안용으로 작성되었습니다.</p>
+    </div>
+</div>
+</body>
+</html>

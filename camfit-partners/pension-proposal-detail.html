@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>펜션 파트너 서비스 — 상세 안내</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap');
+        :root {
+            --primary:#1B5E20;--primary-light:#2E7D32;--primary-dark:#0D3B11;
+            --accent:#FF6F00;--accent-light:#FFA726;
+            --bg:#FAFAF8;--card:#FFF;
+            --text:#1A1A1A;--text-light:#5A5A5A;--text-muted:#8A8A8A;
+            --border:#E8E8E4;--border-light:#F0F0EC;
+            --safe:#00C853;--safe-bg:#E8F5E9;
+            --warn:#FF1744;--warn-bg:#FFEBEE;
+            --blue:#1565C0;--blue-bg:#E3F2FD;
+            --gold:#F9A825;--gold-bg:#FFFDE7;
+            --purple:#7B1FA2;--purple-bg:#F3E5F5;
+        }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        html{scroll-behavior:smooth;}
+        body{font-family:'Noto Sans KR',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased;}
+
+        /* Sticky Nav */
+        .nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 20px;display:flex;align-items:center;gap:16px;height:52px;overflow-x:auto;}
+        .nav a{font-size:13px;font-weight:600;color:var(--text-muted);text-decoration:none;white-space:nowrap;padding:6px 12px;border-radius:8px;transition:all .2s;flex-shrink:0;}
+        .nav a:hover,.nav a.active{color:var(--primary);background:var(--safe-bg);}
+        .nav-logo{font-size:17px;font-weight:800;color:var(--primary);letter-spacing:-.5px;flex-shrink:0;margin-right:8px;}
+        .nav-logo span{color:var(--accent);}
+
+        .container{max-width:800px;margin:0 auto;padding:0 24px;}
+
+        /* Section */
+        .section{padding:56px 0 40px;}
+        .slabel{font-size:11px;font-weight:800;color:var(--primary);letter-spacing:2px;margin-bottom:6px;}
+        .stitle{font-size:clamp(24px,4vw,32px);font-weight:900;letter-spacing:-1px;margin-bottom:8px;line-height:1.3;}
+        .sdesc{font-size:14px;color:var(--text-light);margin-bottom:28px;line-height:1.7;}
+
+        .divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);max-width:500px;margin:0 auto;}
+
+        /* Card */
+        .card{background:white;border-radius:16px;padding:24px;border:1px solid var(--border);margin-bottom:18px;}
+
+        /* Pain Grid */
+        .pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px;}
+        .pain{background:var(--warn-bg);border-radius:14px;padding:22px 16px;text-align:center;border:1px solid #FFCDD2;}
+        .pain-icon{font-size:36px;margin-bottom:8px;}
+        .pain h4{font-size:14px;font-weight:800;color:#C62828;margin-bottom:4px;}
+        .pain p{font-size:12px;color:#B71C1C;line-height:1.5;}
+
+        .arrow-down{text-align:center;padding:20px 0;}
+        .arrow-down span{font-size:40px;color:var(--primary);display:inline-block;animation:bounce 2s infinite;}
+        @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+        .arrow-label{font-size:13px;font-weight:700;color:var(--primary);}
+
+        /* Safe Cancel */
+        .sc-hero{background:linear-gradient(135deg,#E8F5E9,#C8E6C9,#A5D6A7);border-radius:20px;padding:40px 28px;text-align:center;margin-bottom:28px;}
+        .sc-hero h2{font-size:28px;font-weight:900;color:var(--primary-dark);margin-bottom:6px;}
+        .sc-hero p{font-size:15px;color:var(--primary);font-weight:500;}
+
+        .sc-flow{display:flex;align-items:stretch;gap:0;margin-bottom:28px;}
+        .sc-step{flex:1;text-align:center;padding:20px 12px;background:white;border:1px solid var(--border);}
+        .sc-step:first-child{border-radius:14px 0 0 14px;}
+        .sc-step:last-child{border-radius:0 14px 14px 0;}
+        .sc-num{width:28px;height:28px;background:var(--primary);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;margin:0 auto 8px;}
+        .sc-step h4{font-size:13px;font-weight:700;margin-bottom:4px;}
+        .sc-step p{font-size:11px;color:var(--text-light);line-height:1.4;}
+        .sc-arrow{display:flex;align-items:center;font-size:18px;color:var(--primary);font-weight:700;padding:0 2px;}
+
+        .sc-compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+        .sc-before{background:var(--warn-bg);border-radius:14px;padding:20px;border:2px solid #FFCDD2;}
+        .sc-after{background:var(--safe-bg);border-radius:14px;padding:20px;border:2px solid #A5D6A7;}
+        .sc-before h4{font-size:14px;font-weight:800;color:#C62828;margin-bottom:12px;}
+        .sc-after h4{font-size:14px;font-weight:800;color:var(--primary);margin-bottom:12px;}
+        .sc-list{list-style:none;}
+        .sc-list li{padding:5px 0;font-size:12px;display:flex;align-items:flex-start;gap:6px;line-height:1.5;}
+
+        /* Fee Table */
+        .fee-wrap{overflow:hidden;border-radius:14px;border:1px solid var(--border);margin-bottom:16px;}
+        .fee-table{width:100%;border-collapse:collapse;font-size:13px;}
+        .fee-table thead{background:var(--primary);color:white;}
+        .fee-table th{padding:13px 14px;text-align:center;font-weight:700;font-size:12px;}
+        .fee-table td{padding:12px 14px;text-align:center;border-bottom:1px solid var(--border-light);}
+        .fee-table .hl{background:var(--gold-bg);}
+
+        /* Block Visual */
+        .block-box{background:white;border-radius:18px;padding:28px;border:2px solid var(--primary);margin-bottom:24px;}
+        .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin:14px 0;}
+        .cal-h{text-align:center;font-size:11px;font-weight:700;color:var(--text-muted);padding:6px 0;}
+        .cal-d{text-align:center;padding:9px 2px;border-radius:7px;font-size:12px;font-weight:600;}
+        .cal-d.bk{background:#C8E6C9;color:var(--primary-dark);}
+        .cal-d.bl{background:#BBDEFB;color:var(--blue);position:relative;}
+        .cal-d.bl::after{content:'관리';position:absolute;bottom:1px;left:50%;transform:translateX(-50%);font-size:7px;font-weight:700;color:var(--blue);}
+        .cal-d.em{background:var(--warn-bg);color:#C62828;}
+        .cal-d.na{background:var(--bg);color:var(--text-muted);}
+        .legend{display:flex;gap:16px;justify-content:center;margin-top:14px;font-size:11px;flex-wrap:wrap;}
+        .legend-item{display:flex;align-items:center;gap:5px;}
+        .legend-dot{width:10px;height:10px;border-radius:3px;}
+
+        .block-how{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0;}
+        .block-step{text-align:center;padding:18px 12px;background:var(--bg);border-radius:12px;}
+        .block-step-icon{font-size:28px;margin-bottom:6px;}
+        .block-step h4{font-size:13px;font-weight:700;margin-bottom:3px;}
+        .block-step p{font-size:11px;color:var(--text-light);line-height:1.4;}
+
+        /* Cost of duplicate */
+        .dup-cost{display:grid;gap:6px;margin:16px 0;}
+        .dup-row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-radius:8px;font-size:13px;}
+        .dup-row.bg{background:var(--warn-bg);}
+        .dup-row.total{background:#C62828;color:white;font-weight:700;font-size:14px;}
+
+        /* Zero Risk */
+        .zero{background:linear-gradient(135deg,var(--primary-dark),var(--primary));border-radius:20px;padding:40px 28px;color:white;text-align:center;margin:28px 0;}
+        .zero h3{font-size:24px;font-weight:900;margin-bottom:6px;}
+        .zero>p{font-size:14px;opacity:.82;margin-bottom:24px;}
+        .zg{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+        .zi{background:rgba(255,255,255,.1);border-radius:12px;padding:18px 10px;border:1px solid rgba(255,255,255,.12);}
+        .zi-icon{font-size:24px;margin-bottom:4px;}
+        .zi h4{font-size:13px;font-weight:700;margin-bottom:2px;}
+        .zi p{font-size:11px;opacity:.78;}
+
+        /* Success Case */
+        .case{background:white;border-radius:18px;overflow:hidden;border:1px solid var(--border);margin:24px 0;}
+        .case-head{background:linear-gradient(135deg,var(--gold-bg),#FFE082);padding:28px;}
+        .case-badge{display:inline-block;background:var(--accent);color:white;padding:3px 12px;border-radius:5px;font-size:11px;font-weight:700;margin-bottom:10px;}
+        .case-head h3{font-size:22px;font-weight:900;margin-bottom:6px;}
+        .case-head p{font-size:13px;color:var(--text-light);}
+        .case-body{padding:28px;}
+        .case-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
+        .cs{text-align:center;padding:16px;background:var(--bg);border-radius:10px;}
+        .cs-label{font-size:11px;font-weight:600;color:var(--text-muted);margin-bottom:4px;}
+        .cs-val{font-size:26px;font-weight:900;color:var(--primary);}
+        .cs-unit{font-size:11px;color:var(--text-light);}
+
+        .timeline{border-left:3px solid var(--primary);padding-left:20px;margin-top:20px;}
+        .tl-item{position:relative;margin-bottom:20px;}
+        .tl-item::before{content:'';position:absolute;left:-26px;top:5px;width:10px;height:10px;background:var(--primary);border-radius:50%;border:3px solid white;box-shadow:0 0 0 2px var(--primary);}
+        .tl-time{font-size:12px;font-weight:700;color:var(--primary);}
+        .tl-text{font-size:13px;color:var(--text);margin-top:3px;line-height:1.6;}
+
+        .review{background:var(--safe-bg);border-radius:12px;padding:18px;margin-top:20px;}
+        .review h4{font-size:14px;font-weight:700;color:var(--primary);margin-bottom:6px;}
+        .review p{font-size:13px;color:var(--text);line-height:1.7;font-style:italic;}
+
+        /* Compare Bars */
+        .cbar{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+        .cbar-label{width:70px;font-size:12px;font-weight:600;flex-shrink:0;}
+        .cbar-track{flex:1;height:28px;background:var(--bg);border-radius:7px;overflow:hidden;}
+        .cbar-fill{height:100%;border-radius:7px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;font-size:11px;font-weight:700;color:white;transition:width 1s ease;}
+        .cbar-fill.red{background:linear-gradient(90deg,#EF5350,#C62828);}
+        .cbar-fill.green{background:linear-gradient(90deg,var(--primary-light),var(--primary));}
+
+        /* Phone Section */
+        .phone-sec{background:linear-gradient(135deg,#E3F2FD,#BBDEFB);border-radius:20px;padding:40px 28px;margin:24px 0;}
+        .phone-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center;}
+        .phone-info h3{font-size:22px;font-weight:900;color:var(--blue);margin-bottom:10px;line-height:1.3;}
+        .phone-info p{font-size:13px;color:var(--text-light);line-height:1.7;margin-bottom:16px;}
+        .phone-feat{list-style:none;}
+        .phone-feat li{display:flex;align-items:center;gap:8px;padding:7px 0;font-size:13px;}
+        .phone-feat .dot{width:7px;height:7px;background:var(--blue);border-radius:50%;flex-shrink:0;}
+
+        .phone-mock{background:white;border-radius:20px;padding:20px 16px;box-shadow:0 6px 24px rgba(0,0,0,.08);max-width:300px;margin:0 auto;}
+        .pm-top{display:flex;align-items:center;gap:10px;padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:12px;}
+        .pm-avatar{width:36px;height:36px;background:var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:14px;font-weight:700;}
+        .pm-name{font-size:13px;font-weight:700;}
+        .pm-sub{font-size:10px;color:var(--text-muted);}
+        .msg{margin-bottom:10px;}
+        .bubble{display:inline-block;max-width:82%;padding:8px 12px;border-radius:14px;font-size:12px;line-height:1.45;}
+        .bubble.in{background:var(--bg);border-bottom-left-radius:3px;}
+        .bubble.out{background:var(--primary);color:white;border-bottom-right-radius:3px;float:right;}
+        .msg.r{text-align:right;}
+        .pm-note{font-size:10px;color:var(--text-muted);text-align:center;margin-top:10px;clear:both;}
+
+        /* Addon */
+        .addon-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+        .addon{background:white;border-radius:14px;padding:22px 16px;border:1px solid var(--border);text-align:center;transition:all .3s;}
+        .addon:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.06);}
+        .addon.pop{border:2px solid var(--blue);position:relative;}
+        .addon.pop::before{content:'인기';position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:var(--blue);color:white;padding:2px 10px;border-radius:5px;font-size:10px;font-weight:700;}
+        .addon-tier{font-size:11px;font-weight:800;letter-spacing:1px;margin-bottom:6px;}
+        .addon-price{font-size:24px;font-weight:900;margin-bottom:2px;}
+        .addon-unit{font-size:11px;color:var(--text-muted);margin-bottom:14px;}
+        .addon ul{list-style:none;text-align:left;}
+        .addon li{padding:4px 0;font-size:12px;display:flex;align-items:center;gap:6px;}
+
+        /* Info Box */
+        .info{background:var(--bg);border-radius:10px;padding:14px 16px;margin-top:14px;font-size:12px;color:var(--text-light);display:flex;align-items:flex-start;gap:8px;}
+        .info strong{color:var(--primary);flex-shrink:0;}
+
+        /* CTA Final */
+        .cta-final{background:linear-gradient(135deg,var(--primary-dark),var(--primary));border-radius:20px;padding:44px 28px;color:white;text-align:center;margin:32px 0;}
+        .cta-final h3{font-size:26px;font-weight:900;margin-bottom:8px;}
+        .cta-final>p{font-size:14px;opacity:.82;margin-bottom:28px;}
+        .cta-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:500px;margin:0 auto 28px;}
+        .cta-item{background:rgba(255,255,255,.1);border-radius:12px;padding:16px;border:1px solid rgba(255,255,255,.12);text-align:center;}
+        .cta-item-icon{font-size:28px;margin-bottom:4px;}
+        .cta-item h4{font-size:14px;font-weight:700;}
+        .cta-item p{font-size:11px;opacity:.78;}
+        .cta-btn{display:inline-block;padding:14px 36px;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;cursor:pointer;border:none;transition:all .2s;margin:0 6px;}
+        .cta-btn.w{background:white;color:var(--primary);}
+        .cta-btn.o{background:rgba(255,255,255,.15);color:white;border:1px solid rgba(255,255,255,.3);}
+        .cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.18);}
+
+        .footer{text-align:center;padding:32px 20px;font-size:11px;color:var(--text-muted);border-top:1px solid var(--border);}
+
+        /* Responsive */
+        @media(max-width:640px){
+            .pain-grid,.sc-compare,.block-how,.case-stats,.phone-grid,.addon-grid,.zg,.cta-grid{grid-template-columns:1fr;}
+            .sc-flow{flex-direction:column;}
+            .sc-step:first-child,.sc-step:last-child{border-radius:10px;}
+            .sc-arrow{transform:rotate(90deg);justify-content:center;padding:6px 0;}
+            .nav{gap:8px;}
+        }
+    </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+    <div class="nav-logo">PI<span>CO</span></div>
+    <a href="#pain" class="active">고민해결</a>
+    <a href="#safecx">안심취소</a>
+    <a href="#block">방막기</a>
+    <a href="#case">성공사례</a>
+    <a href="#phone">전화응대</a>
+    <a href="#addon">부가서비스</a>
+    <a href="#contact">상담</a>
+</nav>
+
+<div class="container">
+
+<!-- ====================== 1. Pain Point ====================== -->
+<div class="section" id="pain">
+    <div class="slabel">01 &mdash; PAIN POINT</div>
+    <div class="stitle">펜션 운영, 이런 고민 있으시죠?</div>
+    <div class="sdesc">전국 펜션 사장님들이 공통으로 겪는 3가지 문제입니다.</div>
+
+    <div class="pain-grid">
+        <div class="pain">
+            <div class="pain-icon">&#128561;</div>
+            <h4>중복예약 사고</h4>
+            <p>여러 예약 채널에서<br>같은 날 예약이 겹쳐<br>고객에게 취소 연락</p>
+        </div>
+        <div class="pain">
+            <div class="pain-icon">&#128222;</div>
+            <h4>끝없는 전화</h4>
+            <p>체크인, 주변 맛집, 환불...<br>하루종일 전화 응대에<br>본업 집중 불가</p>
+        </div>
+        <div class="pain">
+            <div class="pain-icon">&#128557;</div>
+            <h4>갑작스러운 취소</h4>
+            <p>비·눈·개인사정으로<br>입실 전 갑자기 취소<br>빈 객실로 매출 감소</p>
+        </div>
+    </div>
+
+    <div class="arrow-down">
+        <span>&#11015;</span><br>
+        <span class="arrow-label">아래 서비스로 모두 해결됩니다</span>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ====================== 2. 안심취소 ====================== -->
+<div class="section" id="safecx">
+    <div class="slabel">02 &mdash; SAFE CANCEL</div>
+    <div class="stitle">안심취소 — 취소 시에도 사업주 수익을 유지합니다</div>
+    <div class="sdesc">비가 와서, 눈이 와서, 개인사정으로... 어떤 사유든 고객이 입실 1일 전 취소하면 환불 수수료가 고객에게 환급되고, 사장님은 수익을 그대로 수취하는 구조입니다.</div>
+
+    <div class="sc-hero">
+        <h2>&#128737; 안심취소 서비스</h2>
+        <p>기본 포함 — 추가 비용 없음</p>
+    </div>
+
+    <!-- 작동 흐름 -->
+    <h3 style="font-size:18px;font-weight:800;margin-bottom:16px;">작동 원리</h3>
+    <div class="sc-flow">
+        <div class="sc-step">
+            <div class="sc-num">1</div>
+            <h4>예약 접수</h4>
+            <p>고객이 펜션 예약 완료</p>
+        </div>
+        <div class="sc-arrow">&#8594;</div>
+        <div class="sc-step">
+            <div class="sc-num">2</div>
+            <h4>입실 1일 전 취소 발생</h4>
+            <p>비·눈·개인사정 등<br>어떤 사유든<br>고객이 취소 요청</p>
+        </div>
+        <div class="sc-arrow">&#8594;</div>
+        <div class="sc-step">
+            <div class="sc-num">3</div>
+            <h4>환불 수수료 환급</h4>
+            <p>소보원 기준에 따라<br>고객에게 환불 수수료<br>환급 처리</p>
+        </div>
+        <div class="sc-arrow">&#8594;</div>
+        <div class="sc-step">
+            <div class="sc-num">4</div>
+            <h4>사장님 수익 그대로</h4>
+            <p>사장님 수취분은<br>그대로 유지<br>고객과 실랑이 불필요</p>
+        </div>
+    </div>
+
+    <!-- Before vs After -->
+    <h3 style="font-size:18px;font-weight:800;margin:32px 0 16px;">안심취소 있을 때 vs 없을 때</h3>
+    <div class="sc-compare">
+        <div class="sc-before">
+            <h4>&#10060; 안심취소 없이 운영</h4>
+            <ul class="sc-list">
+                <li><span style="color:#C62828;">&#9679;</span>"비 와서 못 가요" 한마디에 빈 객실</li>
+                <li><span style="color:#C62828;">&#9679;</span>취소 시 수익 회수가 어려움</li>
+                <li><span style="color:#C62828;">&#9679;</span>환불 문제로 고객과 직접 실랑이</li>
+                <li><span style="color:#C62828;">&#9679;</span>성수기 취소 → 재판매 기회 감소</li>
+                <li><span style="color:#C62828;">&#9679;</span>취소 건마다 시간·감정 소모</li>
+            </ul>
+        </div>
+        <div class="sc-after">
+            <h4>&#9989; 안심취소 적용 시</h4>
+            <ul class="sc-list">
+                <li><span style="color:var(--safe);">&#9679;</span>비·눈·개인사정 등 어떤 사유든 적용</li>
+                <li><span style="color:var(--safe);">&#9679;</span>고객에게 환불 수수료 환급 처리</li>
+                <li><span style="color:var(--safe);">&#9679;</span>사장님 수취분은 그대로 유지</li>
+                <li><span style="color:var(--safe);">&#9679;</span>고객과 직접 실랑이할 필요 없음</li>
+                <li><span style="color:var(--safe);">&#9679;</span>취소 CS까지 처리 → 운영 편의성 극대화</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 실제 금액 예시 -->
+    <div class="card" style="border:2px solid var(--primary);">
+        <h4 style="font-size:15px;font-weight:800;color:var(--primary);margin-bottom:14px;">&#128176; 실제 상황 예시</h4>
+        <div style="background:var(--bg);border-radius:10px;padding:18px;margin-bottom:14px;">
+            <div style="font-size:13px;font-weight:700;margin-bottom:10px;">Case: 성수기 금요일, 30만원 객실 — 전날 "비 예보라서 못 갈 것 같아요"</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                <div style="background:var(--warn-bg);border-radius:10px;padding:14px;text-align:center;">
+                    <div style="font-size:11px;font-weight:700;color:#C62828;margin-bottom:6px;">안심취소 없이</div>
+                    <div style="font-size:22px;font-weight:900;color:#C62828;">0원</div>
+                    <div style="font-size:10px;color:#C62828;margin-top:3px;">전액 환불 → 빈 객실</div>
+                </div>
+                <div style="background:var(--safe-bg);border-radius:10px;padding:14px;text-align:center;">
+                    <div style="font-size:11px;font-weight:700;color:var(--primary);margin-bottom:6px;">안심취소 적용</div>
+                    <div style="font-size:22px;font-weight:900;color:var(--primary);">30만원</div>
+                    <div style="font-size:10px;color:var(--primary);margin-top:3px;">고객에게 환불 수수료 환급 → 사장님 수취</div>
+                </div>
+            </div>
+        </div>
+        <div class="info" style="margin:0;">
+            <strong>&#128161;</strong> 입실 전 취소가 월 2건만 발생해도 연간 상당한 수익 차이가 발생합니다 (객단가 30만원 기준).
+        </div>
+    </div>
+
+    <!-- 취소 규정 안내 -->
+    <div class="card" style="border:1px solid var(--border);">
+        <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:28px;">&#128203;</span>
+            <div>
+                <h4 style="font-size:15px;font-weight:800;color:var(--primary);margin-bottom:4px;">취소 규정 안내</h4>
+                <p style="font-size:13px;color:var(--text-light);line-height:1.6;">취소 규정은 <strong style="color:var(--primary);">소보원(한국소비자원) 기준</strong>에 맞게 설정됩니다.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ====================== 3. 방막기 ====================== -->
+<div class="section" id="block">
+    <div class="slabel">03 &mdash; ROOM BLOCK</div>
+    <div class="stitle">방막기 — 중복예약을 최소화합니다</div>
+    <div class="sdesc">어느 채널에서 예약이 들어오든, 다른 채널의 동일 객실 재고를 관리하여 중복예약 발생을 줄여드립니다.</div>
+
+    <!-- 캘린더 시각화 -->
+    <div class="block-box">
+        <h4 style="font-size:15px;font-weight:800;margin-bottom:3px;">&#128274; 방막기 작동 예시 — 5월 셋째 주</h4>
+        <p style="font-size:12px;color:var(--text-muted);margin-bottom:12px;">한 채널에서 금·토·일 예약 접수 → 다른 채널의 동일 객실 재고 관리</p>
+
+        <div class="cal">
+            <div class="cal-h">월</div><div class="cal-h">화</div><div class="cal-h">수</div><div class="cal-h">목</div><div class="cal-h">금</div><div class="cal-h">토</div><div class="cal-h">일</div>
+            <div class="cal-d na">12</div><div class="cal-d na">13</div><div class="cal-d na">14</div><div class="cal-d na">15</div><div class="cal-d bk">16</div><div class="cal-d bk">17</div><div class="cal-d bk">18</div>
+            <div class="cal-d em">19</div><div class="cal-d em">20</div><div class="cal-d na">21</div><div class="cal-d na">22</div><div class="cal-d bl">23</div><div class="cal-d bl">24</div><div class="cal-d bl">25</div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item"><div class="legend-dot" style="background:#C8E6C9;"></div> 기존 예약</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#BBDEFB;"></div> 방막기 재고 관리</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--warn-bg);"></div> 예약 가능</div>
+        </div>
+
+        <div style="margin-top:18px;background:var(--safe-bg);border-radius:10px;padding:14px;display:flex;align-items:center;gap:10px;">
+            <span style="font-size:22px;">&#128260;</span>
+            <div style="font-size:12px;line-height:1.6;">
+                <strong style="color:var(--primary);">23~25일:</strong> 한 채널에서 예약이 들어오면, 다른 채널의 동일 객실 <strong>재고가 관리됩니다.</strong> 취소 발생 시 다시 <strong>예약 가능 상태로 전환.</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- 작동 방식 -->
+    <div class="block-how">
+        <div class="block-step">
+            <div class="block-step-icon">&#128276;</div>
+            <h4>1. 예약 확인</h4>
+            <p>어떤 채널이든<br>예약 접수 시<br>실시간 확인</p>
+        </div>
+        <div class="block-step">
+            <div class="block-step-icon">&#128274;</div>
+            <h4>2. 재고 관리</h4>
+            <p>다른 채널의<br>동일 객실·날짜<br>재고 반영</p>
+        </div>
+        <div class="block-step">
+            <div class="block-step-icon">&#128275;</div>
+            <h4>3. 상태 복원</h4>
+            <p>취소 발생 시<br>예약 가능 상태로<br>재전환</p>
+        </div>
+    </div>
+
+    <!-- 중복예약 비용 -->
+    <div class="card" style="border:2px solid #C62828;">
+        <h4 style="font-size:15px;font-weight:800;color:#C62828;margin-bottom:14px;">&#9888; 중복예약 1건의 실제 비용</h4>
+        <div class="dup-cost">
+            <div class="dup-row bg"><span>고객 환불 비용</span><span style="font-weight:700;color:#C62828;">-30만원</span></div>
+            <div class="dup-row bg"><span>부정 리뷰 대응 시간</span><span style="font-weight:700;color:#C62828;">-2시간</span></div>
+            <div class="dup-row bg"><span>평점 하락 → 예약 감소</span><span style="font-weight:700;color:#C62828;">-???만원</span></div>
+            <div class="dup-row total"><span>중복예약 1건의 실제 손실</span><span style="font-size:16px;">30만원 + &#945;</span></div>
+        </div>
+        <div class="info" style="margin-top:12px;">
+            <strong>&#128161;</strong> 방막기를 통해 중복예약을 최소화할 수 있습니다. 중복예약 1건만 줄여도 상당한 비용 절감 효과가 있습니다.
+        </div>
+    </div>
+
+    <!-- Zero Risk -->
+    <div class="zero">
+        <h3>부담 없이 시작하실 수 있습니다</h3>
+        <p>편하게 시작하시고, 효과를 직접 확인해보세요</p>
+        <div class="zg">
+            <div class="zi">
+                <div class="zi-icon">&#128176;</div>
+                <h4>초기 비용 0원</h4>
+                <p>가입비·세팅비·보증금 없음</p>
+            </div>
+            <div class="zi">
+                <div class="zi-icon">&#128195;</div>
+                <h4>약정 없음</h4>
+                <p>의무 기간 없이 언제든 해지</p>
+            </div>
+            <div class="zi">
+                <div class="zi-icon">&#128200;</div>
+                <h4>성과 기반 과금</h4>
+                <p>예약 0건 = 비용 0원</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ====================== 4. 성공사례 ====================== -->
+<div class="section" id="case">
+    <div class="slabel">04 &mdash; SUCCESS CASE</div>
+    <div class="stitle">실제 운영 성공 사례</div>
+    <div class="sdesc">서비스 적용 후 높은 만족도로 운영되고 있는 실제 파트너 사례입니다.</div>
+
+    <div class="case">
+        <div class="case-head">
+            <div class="case-badge">SUCCESS STORY</div>
+            <h3>경상권 A 펜션 — 만족도 99%</h3>
+            <p>서비스 적용 후 안정적인 운영과 높은 파트너 만족도 달성</p>
+        </div>
+        <div class="case-body">
+            <div class="case-stats">
+                <div class="cs">
+                    <div class="cs-label">파트너 만족도</div>
+                    <div class="cs-val">99%</div>
+                    <div class="cs-unit">서비스 운영 만족</div>
+                </div>
+                <div class="cs">
+                    <div class="cs-label">중복예약</div>
+                    <div class="cs-val" style="color:var(--safe);font-size:20px;">최소화</div>
+                    <div class="cs-unit">방막기 적용 이후</div>
+                </div>
+                <div class="cs">
+                    <div class="cs-label">취소 시 수익</div>
+                    <div class="cs-val" style="color:var(--safe);font-size:20px;">유지</div>
+                    <div class="cs-unit">안심취소 적용</div>
+                </div>
+            </div>
+
+            <h4 style="font-size:15px;font-weight:800;margin-bottom:14px;">적용 후 변화 과정</h4>
+            <div class="timeline">
+                <div class="tl-item">
+                    <div class="tl-time">적용 전</div>
+                    <div class="tl-text">평일 공실률 40% 이상. 여러 채널에 동시 등록했지만 중복예약 사고 월 2~3회 발생. 전화 응대에 하루 2시간 이상 소모.</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-time">적용 1개월</div>
+                    <div class="tl-text">예약관리 + 전화응대 플랜 시작. 방막기로 중복예약 최소화. 전화 응대 위임으로 운영 시간 확보.</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-time">적용 2개월</div>
+                    <div class="tl-text">신규 고객 유입 증가. 안심취소 덕분에 취소 시에도 수익 유지. 확보된 시간으로 시설 리뉴얼 집중.</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-time">적용 3개월 ~</div>
+                    <div class="tl-text"><strong>파트너 만족도 99% 달성.</strong> 안정적인 예약 관리와 운영 편의성에 높은 만족도를 보이며 운영 중.</div>
+                </div>
+            </div>
+
+            <div class="review">
+                <h4>&#128172; 파트너 사장님 후기</h4>
+                <p>"예전에는 중복예약 터질까 봐 하루종일 핸드폰을 놓을 수 없었어요. 지금은 예약 관리를 아예 신경 안 써도 되니까 진짜 펜션 관리에만 집중하고 있습니다. 전화응대까지 맡기니까 손님들도 더 만족하시더라고요. 만족도 99%가 괜히 나온 게 아닙니다."</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Before / After 바 그래프 -->
+    <div class="card">
+        <h4 style="font-size:15px;font-weight:800;margin-bottom:16px;">&#128200; 경상권 A 펜션 Before vs After</h4>
+
+        <div style="font-size:12px;font-weight:700;color:var(--text-muted);margin-bottom:8px;">운영 만족도</div>
+        <div class="cbar"><div class="cbar-label">Before</div><div class="cbar-track"><div class="cbar-fill red" style="width:40%;">불만족</div></div></div>
+        <div class="cbar" style="margin-bottom:20px;"><div class="cbar-label" style="color:var(--primary);font-weight:700;">After</div><div class="cbar-track"><div class="cbar-fill green" style="width:99%;">99%</div></div></div>
+
+        <div style="font-size:12px;font-weight:700;color:var(--text-muted);margin-bottom:8px;">중복예약 (월)</div>
+        <div class="cbar"><div class="cbar-label">Before</div><div class="cbar-track"><div class="cbar-fill red" style="width:30%;">2~3건</div></div></div>
+        <div class="cbar" style="margin-bottom:20px;"><div class="cbar-label" style="color:var(--primary);font-weight:700;">After</div><div class="cbar-track"><div class="cbar-fill green" style="width:4%;">최소화</div></div></div>
+
+        <div style="font-size:12px;font-weight:700;color:var(--text-muted);margin-bottom:8px;">전화응대 시간 (일)</div>
+        <div class="cbar"><div class="cbar-label">Before</div><div class="cbar-track"><div class="cbar-fill red" style="width:45%;">2시간+</div></div></div>
+        <div class="cbar"><div class="cbar-label" style="color:var(--primary);font-weight:700;">After</div><div class="cbar-track"><div class="cbar-fill green" style="width:4%;">0분</div></div></div>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ====================== 5. 전화응대 ====================== -->
+<div class="section" id="phone">
+    <div class="slabel">05 &mdash; PHONE SERVICE</div>
+    <div class="stitle">전화응대까지 맡기세요</div>
+    <div class="sdesc">전문 CS팀이 사장님 대신 고객 전화를 받습니다. 마치 펜션 직원처럼 자연스럽게.</div>
+
+    <div class="phone-sec">
+        <div class="phone-grid">
+            <div class="phone-info">
+                <h3>하루 수십 통의 전화,<br>이제 대신 받아드립니다</h3>
+                <p>체크인 시간, 주변 관광지, 환불 문의, 객실 안내... 반복되는 전화 때문에 시설 관리에 집중 못 하셨죠?</p>
+                <p>전담 CS팀이 펜션 정보를 완벽히 숙지하고, 고객은 직원과 통화하는 것처럼 느끼게 됩니다.</p>
+                <ul class="phone-feat">
+                    <li><span class="dot"></span>체크인 / 체크아웃 안내</li>
+                    <li><span class="dot"></span>객실 정보 & 가격 안내</li>
+                    <li><span class="dot"></span>주변 관광지·맛집 추천</li>
+                    <li><span class="dot"></span>예약 변경·취소 처리</li>
+                    <li><span class="dot"></span>환불 규정 안내</li>
+                    <li><span class="dot"></span>특이사항 즉시 사장님께 전달</li>
+                </ul>
+            </div>
+            <div>
+                <div class="phone-mock">
+                    <div class="pm-top">
+                        <div class="pm-avatar">CS</div>
+                        <div>
+                            <div class="pm-name">전담 CS팀</div>
+                            <div class="pm-sub">사장님 대신 응대 중</div>
+                        </div>
+                    </div>
+                    <div class="msg"><div class="bubble in">안녕하세요, 이번 주말 2인실 예약 가능한가요?</div></div>
+                    <div class="msg r"><div class="bubble out">네! 오션뷰 2인실 1실 남아있습니다. 1박 15만원이고 체크인은 3시예요 :)</div></div>
+                    <div class="msg"><div class="bubble in">바비큐 시설도 있나요?</div></div>
+                    <div class="msg r"><div class="bubble out">개별 바비큐장이 있고 그릴·숯 무료 제공됩니다. 바로 예약 도와드릴까요?</div></div>
+                    <div class="pm-note">사장님은 이 시간에 시설 관리에 집중 중 &#127793;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ====================== 6. 부가서비스 ====================== -->
+<div class="section" id="addon">
+    <div class="slabel">06 &mdash; ADD-ON</div>
+    <div class="stitle">부가서비스 — 파트너스 플러스</div>
+    <div class="sdesc">홈페이지부터 마케팅까지, 펜션 브랜딩을 돕는 서비스입니다.</div>
+
+    <div class="addon-grid">
+        <div class="addon">
+            <div class="addon-tier" style="color:var(--primary);">BASIC</div>
+            <div class="addon-price" style="color:var(--primary);font-size:18px;">사전 문의</div>
+            <div class="addon-unit">비용 별도 안내</div>
+            <ul>
+                <li><span style="color:var(--safe);">&#10003;</span> 템플릿 홈페이지 제작</li>
+                <li><span style="color:var(--safe);">&#10003;</span> 기본 SEO 설정</li>
+                <li><span style="color:var(--safe);">&#10003;</span> 네이버 검색 노출</li>
+            </ul>
+        </div>
+        <div class="addon pop">
+            <div class="addon-tier" style="color:var(--blue);">STANDARD</div>
+            <div class="addon-price" style="color:var(--blue);font-size:18px;">사전 문의</div>
+            <div class="addon-unit">비용 별도 안내</div>
+            <ul>
+                <li><span style="color:var(--safe);">&#10003;</span> 커스텀 홈페이지 제작</li>
+                <li><span style="color:var(--safe);">&#10003;</span> 블로그 포스팅 월 4건</li>
+                <li><span style="color:var(--safe);">&#10003;</span> 네이버 마케팅 지원</li>
+            </ul>
+        </div>
+        <div class="addon" style="background:linear-gradient(135deg,#FFF8E1,#FFFDE7);">
+            <div class="addon-tier" style="color:var(--accent);">PREMIUM</div>
+            <div class="addon-price" style="color:var(--accent);font-size:18px;">사전 문의</div>
+            <div class="addon-unit">비용 별도 안내</div>
+            <ul>
+                <li><span style="color:var(--safe);">&#10003;</span> 전문 사진 촬영</li>
+                <li><span style="color:var(--safe);">&#10003;</span> 홈페이지 + 마케팅 6개월</li>
+                <li><span style="color:var(--safe);">&#10003;</span> 올인원 브랜딩</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="info" style="margin-top:18px;">
+        <strong>&#128204;</strong> 부가서비스는 사전 문의를 통해 상세 비용과 조건을 안내드립니다. 직접 예약이 늘어나면 플랫폼 수수료 부담이 줄어드는 선순환 구조입니다.
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ====================== 7. 상담 / CTA ====================== -->
+<div class="section" id="contact">
+    <div class="cta-final">
+        <h3>부담 없이 시작해보세요</h3>
+        <p>초기 비용 0원 · 약정 없음 · 예약 없으면 비용 없음</p>
+
+        <div class="cta-grid">
+            <div class="cta-item">
+                <div class="cta-item-icon">&#128274;</div>
+                <h4>중복예약 최소화</h4>
+                <p>방막기로 재고 관리</p>
+            </div>
+            <div class="cta-item">
+                <div class="cta-item-icon">&#128737;</div>
+                <h4>취소 시 수익 유지</h4>
+                <p>안심취소로 수익 수취</p>
+            </div>
+            <div class="cta-item">
+                <div class="cta-item-icon">&#128222;</div>
+                <h4>전화응대 위임</h4>
+                <p>전담 CS팀이 대신 응대</p>
+            </div>
+            <div class="cta-item">
+                <div class="cta-item-icon">&#128200;</div>
+                <h4>공실률 감소</h4>
+                <p>실제 파트너 100% 달성</p>
+            </div>
+        </div>
+
+        <div>
+            <a href="tel:010-0000-0000" class="cta-btn w">&#128222; 전화 상담</a>
+            <a href="#" class="cta-btn o">&#128172; 카카오톡 상담</a>
+        </div>
+
+        <div style="margin-top:20px;font-size:12px;opacity:.65;">상담 가능 시간: 평일 09:00 ~ 18:00</div>
+    </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="footer">
+    <p style="font-weight:700;color:var(--primary);">PICO</p>
+    <p style="margin-top:4px;">펜션 파트너 서비스 상세 안내 | 2026</p>
+    <p style="margin-top:4px;">본 자료는 펜션 파트너 제안용으로 작성되었습니다.</p>
+</div>
+
+<script>
+// Active nav link on scroll
+const sections = document.querySelectorAll('.section[id]');
+const navLinks = document.querySelectorAll('.nav a');
+window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) current = s.id; });
+    navLinks.forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + current); });
+});
+
+// Animate compare bars on scroll
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.querySelectorAll('.cbar-fill').forEach(bar => {
+                const w = bar.style.width;
+                bar.style.width = '0';
+                setTimeout(() => { bar.style.width = w; }, 150);
+            });
+        }
+    });
+}, { threshold: 0.3 });
+document.querySelectorAll('.card').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
