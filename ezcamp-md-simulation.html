@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이지캠핑 MD 수익 쉐어 시뮬레이션</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f0f4f8;
+    color: #1a202c;
+    line-height: 1.6;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #1e3a5f 0%, #2d6a4f 100%);
+    color: white;
+    padding: 48px 24px 36px;
+    text-align: center;
+  }
+  .header h1 {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+  .header p {
+    font-size: 15px;
+    opacity: 0.85;
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* 기본 조건 카드 */
+  .basis-section {
+    margin-top: -28px;
+    margin-bottom: 32px;
+  }
+  .basis-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    padding: 28px 32px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+  }
+  .basis-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    background: #f7fafc;
+    min-width: 200px;
+  }
+  .basis-item .icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .basis-item .icon.blue { background: #ebf4ff; }
+  .basis-item .icon.green { background: #e6fffa; }
+  .basis-item .icon.orange { background: #fff5eb; }
+  .basis-item .label { font-size: 12px; color: #718096; }
+  .basis-item .value { font-size: 18px; font-weight: 700; color: #1a202c; }
+
+  /* 슬라이더 섹션 */
+  .control-section {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    padding: 28px 32px;
+    margin-bottom: 32px;
+  }
+  .control-section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #2d3748;
+  }
+  .slider-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  .slider-item {
+    flex: 1;
+    min-width: 250px;
+  }
+  .slider-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .slider-label span { font-size: 14px; color: #4a5568; }
+  .slider-label strong {
+    font-size: 20px;
+    color: #2d6a4f;
+    font-weight: 800;
+  }
+  input[type="range"] {
+    width: 100%;
+    height: 8px;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 4px;
+    background: #e2e8f0;
+    outline: none;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #2d6a4f;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(45,106,79,0.3);
+  }
+
+  /* 결과 카드 */
+  .result-section {
+    margin-bottom: 32px;
+  }
+  .result-section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #2d3748;
+  }
+  .result-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .result-card {
+    background: white;
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    text-align: center;
+    transition: transform 0.2s;
+  }
+  .result-card:hover { transform: translateY(-2px); }
+  .result-card .card-label {
+    font-size: 13px;
+    color: #718096;
+    margin-bottom: 6px;
+  }
+  .result-card .card-value {
+    font-size: 26px;
+    font-weight: 800;
+  }
+  .result-card .card-sub {
+    font-size: 12px;
+    color: #a0aec0;
+    margin-top: 4px;
+  }
+  .color-blue { color: #3182ce; }
+  .color-green { color: #2d6a4f; }
+  .color-orange { color: #dd6b20; }
+  .color-purple { color: #805ad5; }
+
+  /* 시나리오 테이블 */
+  .scenario-section {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    padding: 28px 32px;
+    margin-bottom: 32px;
+    overflow-x: auto;
+  }
+  .scenario-section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #2d3748;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th {
+    background: #f7fafc;
+    padding: 12px 16px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4a5568;
+    border-bottom: 2px solid #e2e8f0;
+  }
+  td {
+    padding: 14px 16px;
+    text-align: center;
+    font-size: 14px;
+    border-bottom: 1px solid #edf2f7;
+  }
+  tr:hover td { background: #f7fafc; }
+  .highlight-row td { background: #f0fff4; font-weight: 600; }
+  td.num { font-variant-numeric: tabular-nums; }
+
+  /* 멀티 캠핑장 시뮬레이션 */
+  .multi-section {
+    background: linear-gradient(135deg, #2d6a4f 0%, #1e3a5f 100%);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 32px;
+    color: white;
+  }
+  .multi-section h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .multi-section p {
+    font-size: 14px;
+    opacity: 0.85;
+    margin-bottom: 20px;
+  }
+  .multi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+  }
+  .multi-card {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+  }
+  .multi-card .mc-label {
+    font-size: 12px;
+    opacity: 0.8;
+    margin-bottom: 4px;
+  }
+  .multi-card .mc-value {
+    font-size: 22px;
+    font-weight: 800;
+  }
+  .multi-card .mc-sub {
+    font-size: 11px;
+    opacity: 0.65;
+    margin-top: 2px;
+  }
+
+  .day-info {
+    margin-bottom: 20px;
+  }
+  .day-badge {
+    display: inline-block;
+    background: #ebf4ff;
+    color: #2b6cb0;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    border: 1px solid #bee3f8;
+  }
+  .day-badge strong { color: #1a365d; }
+
+  .footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 12px;
+    color: #a0aec0;
+  }
+
+  @media (max-width: 600px) {
+    .header { padding: 36px 16px 28px; }
+    .header h1 { font-size: 22px; }
+    .basis-card { padding: 20px 16px; }
+    .control-section, .scenario-section { padding: 20px 16px; }
+    .result-card .card-value { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>이지캠핑 MD 수익 쉐어 시뮬레이션</h1>
+  <p>카즈미 이지캠핑 예약 건당 MD 수익 시뮬레이션</p>
+</div>
+
+<div class="container">
+
+  <!-- 기본 조건 -->
+  <div class="basis-section">
+    <div class="basis-card">
+      <div class="basis-item">
+        <div class="icon blue">💰</div>
+        <div>
+          <div class="label">예약 건당 공급가</div>
+          <div class="value">40,000원</div>
+        </div>
+      </div>
+      <div class="basis-item">
+        <div class="icon green">🏕️</div>
+        <div>
+          <div class="label">캠핏 수수료 (10%)</div>
+          <div class="value">4,000원</div>
+        </div>
+      </div>
+      <div class="basis-item">
+        <div class="icon orange">🤝</div>
+        <div>
+          <div class="label">MD 수익 쉐어 (5%)</div>
+          <div class="value">2,000원/건</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 슬라이더 컨트롤 -->
+  <div class="control-section">
+    <h2>시뮬레이션 조건 설정</h2>
+    <div class="day-info">
+      <span class="day-badge">📅 예약 가능일 = 금·토요일 <strong>8일</strong> + 공휴일 전날 <strong id="holidayCount">1</strong>일 = 월 <strong id="totalDays">9</strong>일</span>
+    </div>
+    <div class="slider-group">
+      <div class="slider-item">
+        <div class="slider-label">
+          <span>이지캠핑 설치 수</span>
+          <strong id="unitDisplay">5개</strong>
+        </div>
+        <input type="range" id="unitSlider" min="1" max="20" value="5" step="1">
+      </div>
+      <div class="slider-item">
+        <div class="slider-label">
+          <span>주말 가동률</span>
+          <strong id="rateDisplay">70%</strong>
+        </div>
+        <input type="range" id="rateSlider" min="10" max="100" value="70" step="5">
+      </div>
+      <div class="slider-item">
+        <div class="slider-label">
+          <span>월 공휴일 전날 수</span>
+          <strong id="holidayDisplay">1일</strong>
+        </div>
+        <input type="range" id="holidaySlider" min="0" max="4" value="1" step="1">
+      </div>
+    </div>
+  </div>
+
+  <!-- 실시간 결과 -->
+  <div class="result-section">
+    <h2>예상 수익</h2>
+    <div class="result-grid">
+      <div class="result-card">
+        <div class="card-label">월 총 예약 건수</div>
+        <div class="card-value color-blue" id="totalBookings">32건</div>
+        <div class="card-sub"><span id="subDays">9</span>일 × <span id="subUnits">5</span>개 × <span id="subRate">70</span>%</div>
+      </div>
+      <div class="result-card">
+        <div class="card-label">MD 월 수익</div>
+        <div class="card-value color-green" id="monthlyRevenue">210,000원</div>
+        <div class="card-sub">예약 건수 × 2,000원</div>
+      </div>
+      <div class="result-card">
+        <div class="card-label">MD 연 수익</div>
+        <div class="card-value color-orange" id="yearlyRevenue">2,520,000원</div>
+        <div class="card-sub">월 수익 × 12개월</div>
+      </div>
+      <div class="result-card">
+        <div class="card-label">캠핏 월 수수료</div>
+        <div class="card-value color-purple" id="campfitRevenue">210,000원</div>
+        <div class="card-sub">캠핏 수수료 - MD 쉐어</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 시나리오 비교 테이블 -->
+  <div class="scenario-section">
+    <h2>설치 수량별 비교 (가동률 <span id="tableRate">70</span>% 기준)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>설치 수</th>
+          <th>월 예약 건수</th>
+          <th>MD 월 수익</th>
+          <th>MD 연 수익</th>
+          <th>캠핏 월 수수료</th>
+        </tr>
+      </thead>
+      <tbody id="scenarioBody"></tbody>
+    </table>
+  </div>
+
+  <!-- 가동률별 비교 테이블 -->
+  <div class="scenario-section">
+    <h2>가동률별 비교 (<span id="tableUnit">5</span>개 설치 기준)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>가동률</th>
+          <th>월 예약 건수</th>
+          <th>MD 월 수익</th>
+          <th>MD 연 수익</th>
+          <th>캠핏 월 수수료</th>
+        </tr>
+      </thead>
+      <tbody id="rateBody"></tbody>
+    </table>
+  </div>
+
+  <!-- 멀티 캠핑장 시뮬레이션 -->
+  <div class="multi-section">
+    <h2>다수 캠핑장 확보 시 패시브 인컴</h2>
+    <p>현재 설정 조건(<span id="multiUnits">5</span>개, 가동률 <span id="multiRate">70</span>%)의 캠핑장을 여러 곳 확보했을 때</p>
+    <div class="multi-grid" id="multiGrid"></div>
+  </div>
+
+  <div class="footer">
+    캠핏 이지캠핑 MD 수익 시뮬레이션 · 공급가 40,000원 기준
+  </div>
+</div>
+
+<script>
+const SUPPLY_PRICE = 40000;
+const CAMPFIT_RATE = 0.10;
+const MD_RATE = 0.05;
+const MD_PER_BOOKING = SUPPLY_PRICE * MD_RATE; // 2,000원
+const CAMPFIT_PER_BOOKING = SUPPLY_PRICE * CAMPFIT_RATE - MD_PER_BOOKING; // 2,000원
+const WEEKEND_DAYS = 8; // 금·토 월 평균 8일 (4주 × 2일)
+
+const unitSlider = document.getElementById('unitSlider');
+const rateSlider = document.getElementById('rateSlider');
+const holidaySlider = document.getElementById('holidaySlider');
+
+function fmt(n) {
+  return n.toLocaleString('ko-KR') + '원';
+}
+
+function getDays() {
+  return WEEKEND_DAYS + parseInt(holidaySlider.value);
+}
+
+function calculate() {
+  const units = parseInt(unitSlider.value);
+  const rate = parseInt(rateSlider.value);
+  const holidays = parseInt(holidaySlider.value);
+  const days = WEEKEND_DAYS + holidays;
+  const rateDecimal = rate / 100;
+
+  // 디스플레이 업데이트
+  document.getElementById('unitDisplay').textContent = units + '개';
+  document.getElementById('rateDisplay').textContent = rate + '%';
+  document.getElementById('holidayDisplay').textContent = holidays + '일';
+  document.getElementById('holidayCount').textContent = holidays;
+  document.getElementById('totalDays').textContent = days;
+
+  // 결과 계산
+  const bookings = Math.round(days * units * rateDecimal);
+  const mdMonthly = bookings * MD_PER_BOOKING;
+  const mdYearly = mdMonthly * 12;
+  const campfitMonthly = bookings * CAMPFIT_PER_BOOKING;
+
+  document.getElementById('totalBookings').textContent = bookings + '건';
+  document.getElementById('subDays').textContent = days;
+  document.getElementById('subUnits').textContent = units;
+  document.getElementById('subRate').textContent = rate;
+  document.getElementById('monthlyRevenue').textContent = fmt(mdMonthly);
+  document.getElementById('yearlyRevenue').textContent = fmt(mdYearly);
+  document.getElementById('campfitRevenue').textContent = fmt(campfitMonthly);
+
+  // 설치 수량별 테이블
+  document.getElementById('tableRate').textContent = rate;
+  const scenarioBody = document.getElementById('scenarioBody');
+  scenarioBody.innerHTML = '';
+  [3, 5, 7, 10, 15, 20].forEach(u => {
+    const b = Math.round(days * u * rateDecimal);
+    const md = b * MD_PER_BOOKING;
+    const cf = b * CAMPFIT_PER_BOOKING;
+    const isActive = u === units;
+    scenarioBody.innerHTML += `
+      <tr class="${isActive ? 'highlight-row' : ''}">
+        <td>${u}개</td>
+        <td class="num">${b}건</td>
+        <td class="num">${fmt(md)}</td>
+        <td class="num">${fmt(md * 12)}</td>
+        <td class="num">${fmt(cf)}</td>
+      </tr>`;
+  });
+
+  // 가동률별 테이블
+  document.getElementById('tableUnit').textContent = units;
+  const rateBody = document.getElementById('rateBody');
+  rateBody.innerHTML = '';
+  [30, 50, 70, 80, 90, 100].forEach(r => {
+    const b = Math.round(days * units * (r / 100));
+    const md = b * MD_PER_BOOKING;
+    const cf = b * CAMPFIT_PER_BOOKING;
+    const isActive = r === rate;
+    rateBody.innerHTML += `
+      <tr class="${isActive ? 'highlight-row' : ''}">
+        <td>${r}%</td>
+        <td class="num">${b}건</td>
+        <td class="num">${fmt(md)}</td>
+        <td class="num">${fmt(md * 12)}</td>
+        <td class="num">${fmt(cf)}</td>
+      </tr>`;
+  });
+
+  // 멀티 캠핑장
+  document.getElementById('multiUnits').textContent = units;
+  document.getElementById('multiRate').textContent = rate;
+  const multiGrid = document.getElementById('multiGrid');
+  multiGrid.innerHTML = '';
+  [1, 3, 5, 10].forEach(sites => {
+    const totalMd = mdMonthly * sites;
+    multiGrid.innerHTML += `
+      <div class="multi-card">
+        <div class="mc-label">${sites}개 캠핑장</div>
+        <div class="mc-value">${fmt(totalMd)}</div>
+        <div class="mc-sub">월 수익 (연 ${fmt(totalMd * 12)})</div>
+      </div>`;
+  });
+}
+
+unitSlider.addEventListener('input', calculate);
+rateSlider.addEventListener('input', calculate);
+holidaySlider.addEventListener('input', calculate);
+calculate();
+</script>
+</body>
+</html>
