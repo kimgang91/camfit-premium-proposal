@@ -257,6 +257,27 @@
     margin-top: 2px;
   }
 
+  .section-badge {
+    display: inline-block;
+    background: #ebf4ff;
+    color: #2b6cb0;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 6px;
+    vertical-align: middle;
+    margin-left: 6px;
+  }
+  .section-badge.green {
+    background: #e6fffa;
+    color: #276749;
+  }
+  .scenario-desc {
+    font-size: 14px;
+    color: #718096;
+    margin-bottom: 16px;
+  }
+
   .day-info {
     margin-bottom: 20px;
   }
@@ -356,7 +377,7 @@
 
   <!-- 실시간 결과 -->
   <div class="result-section">
-    <h2>예상 수익</h2>
+    <h2>예상 수익 <span class="section-badge">1개 캠핑장 기준</span></h2>
     <div class="result-grid">
       <div class="result-card">
         <div class="card-label">월 총 예약 건수</div>
@@ -383,7 +404,7 @@
 
   <!-- 시나리오 비교 테이블 -->
   <div class="scenario-section">
-    <h2>설치 수량별 비교 (가동률 <span id="tableRate">70</span>% 기준)</h2>
+    <h2>설치 수량별 비교 <span class="section-badge">1개 캠핑장 기준</span> (가동률 <span id="tableRate">70</span>%)</h2>
     <table>
       <thead>
         <tr>
@@ -415,11 +436,23 @@
     </table>
   </div>
 
-  <!-- 누적 수익 성장 -->
-  <div class="multi-section">
-    <h2>MD 누적 수익 성장</h2>
-    <p>현재 설정 조건 기준, 시간이 지날수록 쌓이는 누적 수익</p>
-    <div class="multi-grid" id="multiGrid"></div>
+  <!-- 다수 캠핑장 시나리오 -->
+  <div class="scenario-section">
+    <h2>캠핑장을 늘려가면? <span class="section-badge green">성장 시나리오</span></h2>
+    <p class="scenario-desc">설치 캠핑장이 늘어날수록 MD 수익은 누적됩니다. 가동률 <span id="scenarioRate">70</span>% 기준</p>
+    <table>
+      <thead>
+        <tr>
+          <th>시나리오</th>
+          <th>캠핑장 수</th>
+          <th>총 사이트</th>
+          <th>월 예약 건수</th>
+          <th>MD 월 수익</th>
+          <th>MD 연 수익</th>
+        </tr>
+      </thead>
+      <tbody id="multiScenarioBody"></tbody>
+    </table>
   </div>
 
   <div class="footer">
@@ -513,17 +546,29 @@ function calculate() {
       </tr>`;
   });
 
-  // 누적 수익 성장
-  const multiGrid = document.getElementById('multiGrid');
-  multiGrid.innerHTML = '';
-  [3, 6, 12, 24].forEach(months => {
-    const cumulative = mdMonthly * months;
-    multiGrid.innerHTML += `
-      <div class="multi-card">
-        <div class="mc-label">${months}개월 후</div>
-        <div class="mc-value">${fmt(cumulative)}</div>
-        <div class="mc-sub">누적 수익 (월 ${fmt(mdMonthly)})</div>
-      </div>`;
+  // 다수 캠핑장 시나리오
+  document.getElementById('scenarioRate').textContent = rate;
+  const scenarios = [
+    { label: '시작 단계', camps: 1, sites: 3 },
+    { label: '성장 단계', camps: 2, sites: 8 },
+    { label: '확장 단계', camps: 3, sites: 15 },
+    { label: '안정 단계', camps: 5, sites: 25 },
+    { label: '프로 MD', camps: 10, sites: 50 },
+  ];
+  const multiBody = document.getElementById('multiScenarioBody');
+  multiBody.innerHTML = '';
+  scenarios.forEach(s => {
+    const b = Math.round(days * s.sites * rateDecimal);
+    const md = b * MD_PER_BOOKING;
+    multiBody.innerHTML += `
+      <tr>
+        <td><strong>${s.label}</strong></td>
+        <td>${s.camps}개</td>
+        <td>${s.sites}개</td>
+        <td class="num">${b}건</td>
+        <td class="num">${fmt(md)}</td>
+        <td class="num">${fmt(md * 12)}</td>
+      </tr>`;
   });
 }
 
