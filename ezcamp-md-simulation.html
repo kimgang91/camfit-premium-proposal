@@ -415,10 +415,10 @@
     </table>
   </div>
 
-  <!-- 멀티 캠핑장 시뮬레이션 -->
+  <!-- 누적 수익 성장 -->
   <div class="multi-section">
-    <h2>다수 캠핑장 확보 시 패시브 인컴</h2>
-    <p>현재 설정 조건(<span id="multiUnits">5</span>개, 가동률 <span id="multiRate">70</span>%)의 캠핑장을 여러 곳 확보했을 때</p>
+    <h2>MD 누적 수익 성장</h2>
+    <p>현재 설정 조건 기준, 시간이 지날수록 쌓이는 누적 수익</p>
     <div class="multi-grid" id="multiGrid"></div>
   </div>
 
@@ -513,18 +513,16 @@ function calculate() {
       </tr>`;
   });
 
-  // 멀티 캠핑장
-  document.getElementById('multiUnits').textContent = units;
-  document.getElementById('multiRate').textContent = rate;
+  // 누적 수익 성장
   const multiGrid = document.getElementById('multiGrid');
   multiGrid.innerHTML = '';
-  [1, 3, 5, 10].forEach(sites => {
-    const totalMd = mdMonthly * sites;
+  [3, 6, 12, 24].forEach(months => {
+    const cumulative = mdMonthly * months;
     multiGrid.innerHTML += `
       <div class="multi-card">
-        <div class="mc-label">${sites}개 캠핑장</div>
-        <div class="mc-value">${fmt(totalMd)}</div>
-        <div class="mc-sub">월 수익 (연 ${fmt(totalMd * 12)})</div>
+        <div class="mc-label">${months}개월 후</div>
+        <div class="mc-value">${fmt(cumulative)}</div>
+        <div class="mc-sub">누적 수익 (월 ${fmt(mdMonthly)})</div>
       </div>`;
   });
 }
