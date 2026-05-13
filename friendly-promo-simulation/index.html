@@ -136,7 +136,8 @@
   }
   .s-card-a .label { background:#0071e3; }
   .s-card-b .label { background:#ff6b00; }
-  .s-card h3 { font-size:15px; font-weight:700; color:#1d1d1f; margin-bottom:16px; }
+  .s-card h3 { font-size:15px; font-weight:700; color:#1d1d1f; margin-bottom:8px; }
+  .s-desc { font-size:12px; color:#6e6e73; line-height:1.6; margin-bottom:16px; }
   .s-metric { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid rgba(0,0,0,.06); }
   .s-metric:last-child { border-bottom:none; }
   .s-metric .ml { font-size:13px; color:#6e6e73; }
@@ -359,6 +360,67 @@
         <label>프로모션 전환 증가율</label>
         <input type="number" id="upliftPct" value="150" step="10" min="0" max="300" oninput="calc()">
         <div class="unit">% (성과급 동기부여)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 핵심 비교 요약 -->
+  <div class="summary">
+    <h2>핵심 비교 요약</h2>
+    <div class="sub">두 프로모션 안의 비용·기대효과·매출을 한눈에 비교합니다</div>
+
+    <div class="summary-cards">
+      <!-- 1안 카드 -->
+      <div class="s-card s-card-a">
+        <span class="label">1안</span>
+        <h3>건당 균등 성과급</h3>
+        <p class="s-desc">전환 1건마다 MD에게 동일한 금액을 지급합니다.<br>많이 전환할수록 MD 수익이 늘어나는 구조로, 실적이 없으면 비용도 0원입니다.</p>
+        <div class="s-metric">
+          <span class="ml">총 전환 수</span>
+          <span class="mr" id="s_aTotal"></span>
+        </div>
+        <div class="s-metric">
+          <span class="ml">추가 전환 수</span>
+          <span class="mr" id="s_aAdd"></span>
+        </div>
+        <div class="s-metric">
+          <span class="ml">총 비용 (성과급)</span>
+          <span class="mr cost" id="s_aCost"></span>
+        </div>
+        <div class="s-metric">
+          <span class="ml">캠핏 월 수수료 수익</span>
+          <span class="mr revenue" id="s_aRevenue"></span>
+        </div>
+        <div class="s-metric">
+          <span class="ml">투자금 회수</span>
+          <span class="mr" id="s_aPayback"></span>
+        </div>
+      </div>
+      <!-- 2안 카드 -->
+      <div class="s-card s-card-b">
+        <span class="label">2안</span>
+        <h3>순위별 고정 상금</h3>
+        <p class="s-desc">매월 전환 실적 순위에 따라 고정 상금을 지급합니다.<br>전환 건수와 무관하게 순위로만 상금이 결정되어, 월 예산이 사전에 확정됩니다.</p>
+        <div class="s-metric">
+          <span class="ml">총 전환 수</span>
+          <span class="mr" id="s_bTotal"></span>
+        </div>
+        <div class="s-metric">
+          <span class="ml">추가 전환 수</span>
+          <span class="mr" id="s_bAdd"></span>
+        </div>
+        <div class="s-metric">
+          <span class="ml">총 비용 (상금)</span>
+          <span class="mr cost" id="s_bCost"></span>
+        </div>
+        <div class="s-metric">
+          <span class="ml">캠핏 월 수수료 수익</span>
+          <span class="mr revenue" id="s_bRevenue"></span>
+        </div>
+        <div class="s-metric">
+          <span class="ml">투자금 회수</span>
+          <span class="mr" id="s_bPayback"></span>
+        </div>
       </div>
     </div>
   </div>
@@ -595,65 +657,9 @@
     </div>
   </div>
 
-  <!-- 핵심 비교 요약 -->
-  <div class="summary">
-    <h2>핵심 비교 요약</h2>
-    <div class="sub">두 프로모션 안의 비용·기대효과·매출을 한눈에 비교합니다</div>
-
-    <div class="summary-cards">
-      <!-- 1안 카드 -->
-      <div class="s-card s-card-a">
-        <span class="label">1안</span>
-        <h3>건당 균등 성과급</h3>
-        <div class="s-metric">
-          <span class="ml">총 전환 수</span>
-          <span class="mr" id="s_aTotal"></span>
-        </div>
-        <div class="s-metric">
-          <span class="ml">추가 전환 수</span>
-          <span class="mr" id="s_aAdd"></span>
-        </div>
-        <div class="s-metric">
-          <span class="ml">총 비용 (성과급)</span>
-          <span class="mr cost" id="s_aCost"></span>
-        </div>
-        <div class="s-metric">
-          <span class="ml">캠핏 월 수수료 수익</span>
-          <span class="mr revenue" id="s_aRevenue"></span>
-        </div>
-        <div class="s-metric">
-          <span class="ml">투자금 회수</span>
-          <span class="mr" id="s_aPayback"></span>
-        </div>
-      </div>
-      <!-- 2안 카드 -->
-      <div class="s-card s-card-b">
-        <span class="label">2안</span>
-        <h3>순위별 고정 상금</h3>
-        <div class="s-metric">
-          <span class="ml">총 전환 수</span>
-          <span class="mr" id="s_bTotal"></span>
-        </div>
-        <div class="s-metric">
-          <span class="ml">추가 전환 수</span>
-          <span class="mr" id="s_bAdd"></span>
-        </div>
-        <div class="s-metric">
-          <span class="ml">총 비용 (상금)</span>
-          <span class="mr cost" id="s_bCost"></span>
-        </div>
-        <div class="s-metric">
-          <span class="ml">캠핏 월 수수료 수익</span>
-          <span class="mr revenue" id="s_bRevenue"></span>
-        </div>
-        <div class="s-metric">
-          <span class="ml">투자금 회수</span>
-          <span class="mr" id="s_bPayback"></span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 상세 비교 테이블 -->
+  <!-- 상세 비교 테이블 -->
+  <div class="compare">
+    <h2>상세 비교</h2>
     <table class="ctable">
       <thead><tr><th>항목</th><th>1안 (균등 성과급)</th><th>2안 (고정 상금)</th></tr></thead>
       <tbody id="cmpBody"></tbody>
