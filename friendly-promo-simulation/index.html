@@ -870,7 +870,7 @@ function calc() {
   t('s_aPayback', aPayback > 0 ? aPayback.toFixed(1) + '개월' : '-');
   t('s_bTotal', bTotal + '건');
   t('s_bAdd', '+' + bAddCount + '건');
-  t('s_bCost', won(monthlyPrize) + '/월');
+  t('s_bCost', won(r1 + r2 + r3) + '/월');
   t('s_bRevenue', won(Math.round(bMonthlyAll)) + '/월');
   t('s_bPayback', bPayback > 0 ? bPayback.toFixed(1) + '개월' : '-');
 
