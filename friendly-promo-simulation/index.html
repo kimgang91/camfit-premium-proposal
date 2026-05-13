@@ -374,7 +374,7 @@
       <div class="s-card s-card-a">
         <span class="label">1안</span>
         <h3>건당 균등 성과급</h3>
-        <p class="s-desc">전환 1건마다 MD에게 동일한 금액을 지급합니다.<br>많이 전환할수록 MD 수익이 늘어나는 구조로, 실적이 없으면 비용도 0원입니다.</p>
+        <p class="s-desc">전환 1건당 <b id="s_aBonusDesc"></b>을 지급합니다.<br>많이 전환할수록 MD 수익이 늘어나는 구조로, 실적이 없으면 비용도 0원입니다.</p>
         <div class="s-metric">
           <span class="ml">총 전환 수</span>
           <span class="mr" id="s_aTotal"></span>
@@ -400,7 +400,7 @@
       <div class="s-card s-card-b">
         <span class="label">2안</span>
         <h3>순위별 고정 상금</h3>
-        <p class="s-desc">매월 전환 실적 순위에 따라 고정 상금을 지급합니다.<br>전환 건수와 무관하게 순위로만 상금이 결정되어, 월 예산이 사전에 확정됩니다.</p>
+        <p class="s-desc">매월 순위별 성과급을 지급합니다.<br><b id="s_bPrizeDesc"></b></p>
         <div class="s-metric">
           <span class="ml">총 전환 수</span>
           <span class="mr" id="s_bTotal"></span>
@@ -423,15 +423,6 @@
         </div>
       </div>
     </div>
-  </div>
-
-  <!-- 상세 비교 테이블 -->
-  <div class="compare">
-    <h2>상세 비교</h2>
-    <table class="ctable">
-      <thead><tr><th>항목</th><th>1안 (균등 성과급)</th><th>2안 (고정 상금)</th></tr></thead>
-      <tbody id="cmpBody"></tbody>
-    </table>
   </div>
 
   <!-- 장단점 분석 -->
@@ -863,6 +854,8 @@ function calc() {
   }
 
   // === 핵심 비교 요약 카드 ===
+  t('s_aBonusDesc', won(aBonus));
+  t('s_bPrizeDesc', '1등 ' + won(r1) + ' / 2등 ' + won(r2) + ' / 3등 ' + won(r3) + '의 성과급을 지급합니다.');
   t('s_aTotal', aTotal + '건');
   t('s_aAdd', '+' + aAdd + '건');
   t('s_aCost', won(Math.round(aCost / md)) + '/인');
