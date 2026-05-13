@@ -867,28 +867,6 @@ function calc() {
   t('s_bRevenue', won(Math.round(bMonthlyAll)) + '/월');
   t('s_bPayback', bPayback > 0 ? bPayback.toFixed(1) + '개월' : '-');
 
-  // === 비교 테이블 ===
-  var aCostPerAdd = aAdd > 0 ? (aCost / aAdd) : 0;
-  var bCostPerAdd = bAddCount > 0 ? (totalCost / bAddCount) : 0;
-  const rows = [
-    ['총 비용', won(aCost), won(totalCost), aCost <= totalCost ? 'a' : 'b'],
-    ['비용 구조', '변동비 (실적 비례)', '고정비 (예산 확정)', 'a'],
-    ['전환 1건당 비용', aCostPerAdd > 0 ? won(Math.round(aCostPerAdd)) : '-', bCostPerAdd > 0 ? won(Math.round(bCostPerAdd)) : '-', (aCostPerAdd > 0 && bCostPerAdd > 0 && aCostPerAdd <= bCostPerAdd) ? 'a' : 'a'],
-    ['실적 없을 때 비용', '0원 (리스크 없음)', won(totalCost) + ' (고정)', 'a'],
-    ['투자금 회수', aPayback > 0 ? aPayback.toFixed(1) + '개월' : '-', bPayback > 0 ? bPayback.toFixed(1) + '개월' : '-',
-      (aPayback > 0 && bPayback > 0) ? (aPayback <= bPayback ? 'a' : 'b') : 'a'],
-    ['리스크', '낮음 (실적=비용)', '중간 (고정비 발생)', 'a'],
-    ['MD 전원 동기부여', '전원 균등 보상', '상위권만 집중', 'a'],
-    ['모멘텀 유지', '꾸준히 유지', '격차 벌어지면 저하', 'a'],
-  ];
-
-  document.getElementById('cmpBody').innerHTML = rows.map(function(r) {
-    var label = r[0], a = r[1], b = r[2], w = r[3];
-    var aB = w === 'a' ? '<span class="badge">유리</span>' : '';
-    var bB = w === 'b' ? '<span class="badge">유리</span>' : '';
-    return '<tr><td>'+label+'</td><td>'+a+aB+'</td><td>'+b+bB+'</td></tr>';
-  }).join('');
-
   // === 종합 추천 의견 ===
   var recPlan = 1;
   var opHtml = '';
