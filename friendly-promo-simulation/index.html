@@ -425,6 +425,58 @@
     </div>
   </div>
 
+  <!-- 상세 비교 테이블 -->
+  <div class="compare">
+    <h2>상세 비교</h2>
+    <table class="ctable">
+      <thead><tr><th>항목</th><th>1안 (균등 성과급)</th><th>2안 (고정 상금)</th></tr></thead>
+      <tbody id="cmpBody"></tbody>
+    </table>
+  </div>
+
+  <!-- 장단점 분석 -->
+  <div class="proscons">
+    <h2>1안 vs 2안 장단점 분석</h2>
+    <div class="pc-grid">
+      <div class="pc-box pc-box-a">
+        <h4>1안 — 건당 균등 성과급</h4>
+        <p style="font-size:12px;color:#6e6e73;margin-bottom:10px;font-weight:600;">장점</p>
+        <ul class="pc-list pros">
+          <li>전환 1건마다 10만원 → MD 개인의 적극적 영업 동기</li>
+          <li>실적 없으면 비용 0원, 리스크가 매우 낮음</li>
+          <li>모든 MD가 공평하게 보상받아 팀 분위기 안정</li>
+          <li>비용이 성과에 정비례해 ROI 예측이 쉬움</li>
+        </ul>
+        <p style="font-size:12px;color:#6e6e73;margin:14px 0 10px;font-weight:600;">단점</p>
+        <ul class="pc-list cons">
+          <li>전환이 폭발적으로 늘면 비용도 비례해서 증가</li>
+          <li>MD 간 경쟁 심리 자극이 약한 편</li>
+        </ul>
+      </div>
+      <div class="pc-box pc-box-b">
+        <h4>2안 — 순위별 고정 상금</h4>
+        <p style="font-size:12px;color:#6e6e73;margin-bottom:10px;font-weight:600;">장점</p>
+        <ul class="pc-list pros">
+          <li>월 예산이 확정되어 비용 관리가 용이</li>
+          <li>순위 경쟁으로 상위권 MD의 폭발적 성과 기대</li>
+          <li>전환이 아무리 많아도 비용은 고정</li>
+        </ul>
+        <p style="font-size:12px;color:#6e6e73;margin:14px 0 10px;font-weight:600;">단점</p>
+        <ul class="pc-list cons">
+          <li>1등과 격차가 벌어지면 나머지 MD 동기 저하</li>
+          <li>중간 모멘텀이 꺾이면 하위 MD는 포기할 위험</li>
+          <li>실적이 저조해도 고정 비용은 그대로 발생</li>
+          <li>하위권 MD 입장에서 보상 매력이 떨어짐</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 종합 추천 의견 -->
+  <div class="opinion" id="opinionSection">
+    <!-- JS에서 동적 생성 -->
+  </div>
+
   <!-- 1안 -->
   <div class="plan plan-a">
     <div class="plan-head">
@@ -655,58 +707,6 @@
         </div>
       </div>
     </div>
-  </div>
-
-  <!-- 상세 비교 테이블 -->
-  <div class="compare">
-    <h2>상세 비교</h2>
-    <table class="ctable">
-      <thead><tr><th>항목</th><th>1안 (균등 성과급)</th><th>2안 (고정 상금)</th></tr></thead>
-      <tbody id="cmpBody"></tbody>
-    </table>
-  </div>
-
-  <!-- 장단점 분석 -->
-  <div class="proscons">
-    <h2>1안 vs 2안 장단점 분석</h2>
-    <div class="pc-grid">
-      <div class="pc-box pc-box-a">
-        <h4>1안 — 건당 균등 성과급</h4>
-        <p style="font-size:12px;color:#6e6e73;margin-bottom:10px;font-weight:600;">장점</p>
-        <ul class="pc-list pros">
-          <li>전환 1건마다 10만원 → MD 개인의 적극적 영업 동기</li>
-          <li>실적 없으면 비용 0원, 리스크가 매우 낮음</li>
-          <li>모든 MD가 공평하게 보상받아 팀 분위기 안정</li>
-          <li>비용이 성과에 정비례해 ROI 예측이 쉬움</li>
-        </ul>
-        <p style="font-size:12px;color:#6e6e73;margin:14px 0 10px;font-weight:600;">단점</p>
-        <ul class="pc-list cons">
-          <li>전환이 폭발적으로 늘면 비용도 비례해서 증가</li>
-          <li>MD 간 경쟁 심리 자극이 약한 편</li>
-        </ul>
-      </div>
-      <div class="pc-box pc-box-b">
-        <h4>2안 — 순위별 고정 상금</h4>
-        <p style="font-size:12px;color:#6e6e73;margin-bottom:10px;font-weight:600;">장점</p>
-        <ul class="pc-list pros">
-          <li>월 예산이 확정되어 비용 관리가 용이</li>
-          <li>순위 경쟁으로 상위권 MD의 폭발적 성과 기대</li>
-          <li>전환이 아무리 많아도 비용은 고정</li>
-        </ul>
-        <p style="font-size:12px;color:#6e6e73;margin:14px 0 10px;font-weight:600;">단점</p>
-        <ul class="pc-list cons">
-          <li>1등과 격차가 벌어지면 나머지 MD 동기 저하</li>
-          <li>중간 모멘텀이 꺾이면 하위 MD는 포기할 위험</li>
-          <li>실적이 저조해도 고정 비용은 그대로 발생</li>
-          <li>하위권 MD 입장에서 보상 매력이 떨어짐</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- 종합 추천 의견 -->
-  <div class="opinion" id="opinionSection">
-    <!-- JS에서 동적 생성 -->
   </div>
 
   <!-- 보고서 생성 버튼 -->
