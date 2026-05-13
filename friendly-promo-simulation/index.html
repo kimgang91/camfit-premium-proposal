@@ -384,7 +384,7 @@
           <span class="mr" id="s_aAdd"></span>
         </div>
         <div class="s-metric">
-          <span class="ml">총 비용 (성과급)</span>
+          <span class="ml">인당 비용 (성과급)</span>
           <span class="mr cost" id="s_aCost"></span>
         </div>
         <div class="s-metric">
@@ -410,7 +410,7 @@
           <span class="mr" id="s_bAdd"></span>
         </div>
         <div class="s-metric">
-          <span class="ml">총 비용 (상금)</span>
+          <span class="ml">총 상금 (1~3등 합계)</span>
           <span class="mr cost" id="s_bCost"></span>
         </div>
         <div class="s-metric">
@@ -865,12 +865,12 @@ function calc() {
   // === 핵심 비교 요약 카드 ===
   t('s_aTotal', aTotal + '건');
   t('s_aAdd', '+' + aAdd + '건');
-  t('s_aCost', won(aCost));
+  t('s_aCost', won(Math.round(aCost / md)) + '/인');
   t('s_aRevenue', won(Math.round(aMonthlyAll)) + '/월');
   t('s_aPayback', aPayback > 0 ? aPayback.toFixed(1) + '개월' : '-');
   t('s_bTotal', bTotal + '건');
   t('s_bAdd', '+' + bAddCount + '건');
-  t('s_bCost', won(totalCost));
+  t('s_bCost', won(monthlyPrize) + '/월');
   t('s_bRevenue', won(Math.round(bMonthlyAll)) + '/월');
   t('s_bPayback', bPayback > 0 ? bPayback.toFixed(1) + '개월' : '-');
 
