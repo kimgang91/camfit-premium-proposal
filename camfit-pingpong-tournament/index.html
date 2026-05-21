@@ -231,8 +231,14 @@
     <!-- Tournament Bracket -->
     <section id="bracketSection" class="hidden">
       <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
-        <h2 class="text-2xl font-bold text-gray-800 mb-2 flex items-center gap-2">🏆 토너먼트 대진표</h2>
-        <p class="text-sm text-gray-400 mb-6">선수 이름을 클릭하면 승자로 선택됩니다.</p>
+        <div class="flex items-center justify-between mb-2 flex-wrap gap-3">
+          <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2">🏆 토너먼트 대진표</h2>
+          <button id="reshuffleBtn"
+            class="px-4 py-2 bg-gradient-to-r from-violet-500 to-purple-500 text-white text-sm font-bold rounded-xl hover:from-violet-600 hover:to-purple-600 transition-all shadow-md active:scale-95">
+            🔀 대진표 재배치
+          </button>
+        </div>
+        <p class="text-sm text-gray-400 mb-6">선수 이름을 클릭하면 승자로 선택됩니다. 재배치 버튼으로 랜덤 셔플 가능!</p>
         <div class="bracket-container">
           <div id="bracketDisplay" class="bracket"></div>
         </div>
@@ -388,6 +394,14 @@
       bracketSection.classList.remove('hidden');
       championDisplay.classList.add('hidden');
       setTimeout(() => bracketSection.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+    });
+
+    // Reshuffle (no password needed after initial generation)
+    document.getElementById('reshuffleBtn').addEventListener('click', () => {
+      if (participants.length < 2) return;
+      if (!confirm('대진표를 새로 랜덤 배치하시겠습니까?\n현재 진행 상황이 초기화됩니다.')) return;
+      generateBracket();
+      championDisplay.classList.add('hidden');
     });
 
     function shuffle(arr) {
