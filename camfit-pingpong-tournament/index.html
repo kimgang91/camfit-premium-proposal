@@ -254,14 +254,19 @@
   <div id="confettiContainer"></div>
 
   <script>
+    // Google Sheets API
+    const API_URL = 'https://script.google.com/macros/s/AKfycbyTvqw2O44iYAznCooVmKYvG9wm5AA2R49SM2N4R5TTzmEs9Z924DO1wtfe_UcQOpebrg/exec';
+
     // State
     let participants = [];
-    let bracket = null; // { rounds: [ [ {p1, p2, winner}, ... ], ... ] }
+    let isLoading = false;
+    let bracket = null;
 
     // DOM refs
     const form = document.getElementById('registrationForm');
     const nameInput = document.getElementById('playerName');
     const deptInput = document.getElementById('playerDept');
+    const submitBtn = form.querySelector('button[type="submit"]');
     const listEl = document.getElementById('participantList');
     const emptyMsg = document.getElementById('emptyMsg');
     const countEl = document.getElementById('participantCount');
@@ -272,38 +277,78 @@
     const championDisplay = document.getElementById('championDisplay');
     const championName = document.getElementById('championName');
 
+    // Load participants from Google Sheets
+    async function loadParticipants() {
+      try {
+        listEl.innerHTML = '<p class="text-gray-400 col-span-full text-center py-8">불러오는 중...</p>';
+        const res = await fetch(API_URL);
+        const data = await res.json();
+        participants = (data.participants || []).map((p, i) => ({ ...p, id: i }));
+        renderParticipants();
+      } catch (err) {
+        listEl.innerHTML = '<p class="text-red-400 col-span-full text-center py-8">데이터를 불러오지 못했습니다. 새로고침 해주세요.</p>';
+      }
+    }
+
     // Registration
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      if (isLoading) return;
       const name = nameInput.value.trim();
       const dept = deptInput.value;
       if (!name || !dept) return;
 
-      // Check duplicate
       if (participants.some(p => p.name === name && p.dept === dept)) {
         alert('이미 등록된 참여자입니다.');
         return;
       }
 
-      participants.push({ name, dept, id: Date.now() });
-      nameInput.value = '';
-      deptInput.value = '';
-      nameInput.focus();
-      renderParticipants();
+      isLoading = true;
+      submitBtn.disabled = true;
+      submitBtn.textContent = '신청 중...';
+
+      try {
+        const res = await fetch(API_URL, {
+          method: 'POST',
+          body: JSON.stringify({ action: 'add', name, dept }),
+        });
+        const data = await res.json();
+        participants = (data.participants || []).map((p, i) => ({ ...p, id: i }));
+        nameInput.value = '';
+        deptInput.value = '';
+        nameInput.focus();
+        renderParticipants();
+      } catch (err) {
+        alert('신청 중 오류가 발생했습니다. 다시 시도해 주세요.');
+      } finally {
+        isLoading = false;
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '🏓 참여 신청';
+      }
     });
 
     clearBtn.addEventListener('click', () => {
-      if (!confirm('모든 참여자를 삭제하시겠습니까?')) return;
-      participants = [];
-      bracket = null;
-      bracketSection.classList.add('hidden');
-      championDisplay.classList.add('hidden');
-      renderParticipants();
+      alert('참여자 삭제는 구글 시트에서 직접 관리해 주세요.');
     });
 
-    function removeParticipant(id) {
-      participants = participants.filter(p => p.id !== id);
-      renderParticipants();
+    async function removeParticipant(name, dept) {
+      if (!confirm(`${name}(${dept}) 님을 삭제하시겠습니까?`)) return;
+      const pw = prompt('삭제는 관리자만 가능합니다.\n비밀번호를 입력해 주세요:');
+      if (pw !== ADMIN_PW) { if (pw !== null) alert('비밀번호가 일치하지 않습니다.'); return; }
+
+      try {
+        listEl.innerHTML = '<p class="text-gray-400 col-span-full text-center py-8">삭제 중...</p>';
+        const res = await fetch(API_URL, {
+          method: 'POST',
+          body: JSON.stringify({ action: 'delete', name, dept }),
+        });
+        const data = await res.json();
+        participants = (data.participants || []).map((p, i) => ({ ...p, id: i }));
+        renderParticipants();
+      } catch (err) {
+        alert('삭제 중 오류가 발생했습니다.');
+        loadParticipants();
+      }
     }
 
     function renderParticipants() {
@@ -325,7 +370,7 @@
               <p class="text-xs text-gray-400">${escapeHtml(p.dept)}</p>
             </div>
           </div>
-          <button onclick="removeParticipant(${p.id})" class="text-gray-300 hover:text-red-500 transition opacity-0 group-hover:opacity-100 text-lg leading-none" title="삭제">&times;</button>
+          <button onclick="removeParticipant('${escapeHtml(p.name)}','${escapeHtml(p.dept)}')" class="text-gray-300 hover:text-red-500 transition opacity-0 group-hover:opacity-100 text-lg leading-none" title="삭제">&times;</button>
         </div>
       `).join('');
     }
@@ -655,8 +700,8 @@
       setTimeout(() => container.innerHTML = '', 4000);
     }
 
-    // Initialize
-    renderParticipants();
+    // Initialize — load from Google Sheets
+    loadParticipants();
   </script>
 </body>
 </html>
