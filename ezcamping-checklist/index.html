@@ -300,7 +300,7 @@ searchInput.addEventListener('input', function() {
     c.name.toLowerCase().includes(q) || c.region.toLowerCase().includes(q)
   );
   if (filtered.length === 0) {
-    dropdown.innerHTML = '<div class="dropdown-item" style="color:#9E9E9E;cursor:default;">검색 결과 없음</div>';
+    dropdown.innerHTML = `<div class="dropdown-item" onclick="selectCamp('${q.replace(/'/g,"\\'")}','')" style="color:#2E7D32;font-weight:600;">&#10010; "${this.value.trim()}" 직접 입력</div>`;
   } else {
     dropdown.innerHTML = filtered.map((c, i) =>
       `<div class="dropdown-item" data-idx="${i}" onclick="selectCamp('${c.name.replace(/'/g,"\\'")}','${c.region}')">${c.name}<span class="region">${c.region}</span></div>`
@@ -314,7 +314,14 @@ searchInput.addEventListener('keydown', function(e) {
   const items = dropdown.querySelectorAll('.dropdown-item[data-idx]');
   if (e.key === 'ArrowDown') { e.preventDefault(); highlightIdx = Math.min(highlightIdx + 1, items.length - 1); updateHighlight(items); }
   else if (e.key === 'ArrowUp') { e.preventDefault(); highlightIdx = Math.max(highlightIdx - 1, 0); updateHighlight(items); }
-  else if (e.key === 'Enter' && highlightIdx >= 0 && items[highlightIdx]) { items[highlightIdx].click(); }
+  else if (e.key === 'Enter') {
+    if (highlightIdx >= 0 && items[highlightIdx]) { items[highlightIdx].click(); }
+    else if (searchInput.value.trim()) {
+      // 목록에 없는 캠핑장 직접 입력
+      const typed = searchInput.value.trim();
+      selectCamp(typed, '');
+    }
+  }
 });
 
 function updateHighlight(items) {
@@ -330,7 +337,7 @@ function selectCamp(name, region) {
   selectedCamp = { name, region };
   document.getElementById('searchArea').style.display = 'none';
   document.getElementById('selectedArea').style.display = 'block';
-  document.getElementById('selectedName').textContent = `${name} (${region})`;
+  document.getElementById('selectedName').textContent = region ? `${name} (${region})` : `${name} (직접 입력)`;
   dropdown.classList.remove('show');
 
   // Show item card

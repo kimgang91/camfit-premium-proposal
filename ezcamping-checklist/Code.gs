@@ -13,7 +13,15 @@ function doPost(e) {
   }
 
   if (targetRow === -1) {
-    return ContentService.createTextOutput(JSON.stringify({result: "error", message: "not found"})).setMimeType(ContentService.MimeType.JSON);
+    // 기존 데이터 마지막 행 찾기
+    var lastRow = sheet.getLastRow();
+    targetRow = lastRow + 1;
+    // C열에 캠핑장명 입력
+    sheet.getRange(targetRow, 3).setValue(data.campName);
+    // 지역 정보가 있으면 D열에 입력
+    if (data.region) {
+      sheet.getRange(targetRow, 4).setValue(data.region);
+    }
   }
 
   var items = data.items;
