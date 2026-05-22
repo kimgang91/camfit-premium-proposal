@@ -178,6 +178,11 @@
     <!-- Step 2: 품목 수량 -->
     <div class="card" id="itemCard" style="display:none;">
       <div class="card-title"><span class="num">2</span> 품목별 수량 입력</div>
+      <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:#FFF8E1;border:2px solid #FFD54F;border-radius:10px;margin-bottom:14px;">
+        <span style="font-size:14px;font-weight:600;white-space:nowrap;">설치 사이트 수</span>
+        <input type="number" class="item-input" id="siteCount" min="1" max="999" placeholder="0" style="width:72px;border-color:#FFD54F;" oninput="this.classList.toggle('filled', this.value !== '')">
+        <span style="font-size:13px;color:#757575;">개소</span>
+      </div>
       <p style="font-size:13px;color:#757575;margin-bottom:14px;">각 품목별 현재 비치된 수량을 입력해주세요 (미비치 시 0 입력)</p>
       <div class="item-grid" id="itemGrid"></div>
     </div>
@@ -406,6 +411,7 @@ function submitForm() {
     return el.value || '0';
   });
   const remark = document.getElementById('remarkInput').value || '';
+  const siteCount = document.getElementById('siteCount').value || '0';
   const today = new Date().toLocaleDateString('ko-KR');
   const campName = selectedCamp.name;
   const region = selectedCamp.region;
@@ -414,6 +420,7 @@ function submitForm() {
     date: today,
     campName: campName,
     region: region,
+    siteCount: siteCount,
     items: values,
     remark: remark
   };
@@ -429,31 +436,32 @@ function submitForm() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     }).then(() => {
-      showSuccess(campName, values, remark, true);
+      showSuccess(campName, siteCount, values, remark, true);
     }).catch(() => {
-      showSuccess(campName, values, remark, false);
+      showSuccess(campName, siteCount, values, remark, false);
     });
   } else {
-    showSuccess(campName, values, remark, false);
+    showSuccess(campName, siteCount, values, remark, false);
   }
 }
 
-function showSuccess(campName, values, remark, autoSaved) {
+function showSuccess(campName, siteCount, values, remark, autoSaved) {
   updateSteps(3);
   document.getElementById('formArea').style.display = 'none';
   const screen = document.getElementById('successScreen');
   screen.style.display = 'block';
   screen.classList.add('show');
 
-  const tsvRow = [new Date().toLocaleDateString('ko-KR'), campName, ...values, remark].join('\t');
+  const tsvRow = [new Date().toLocaleDateString('ko-KR'), campName, siteCount, ...values, remark].join('\t');
 
   screen.innerHTML = `
     <div style="font-size:48px;color:#2E7D32;margin-bottom:12px;">&#10003;</div>
     <div class="success-title">${autoSaved ? '시트에 자동 저장 완료!' : '점검 완료!'}</div>
-    <div class="success-desc">${campName} 구비품목 점검이 완료되었습니다.</div>
+    <div class="success-desc">${campName} (${siteCount}사이트) 구비품목 점검이 완료되었습니다.</div>
     <div style="background:#F5F5F5;border-radius:10px;padding:16px;margin:16px 0;text-align:left;">
       <div style="font-size:13px;font-weight:600;margin-bottom:8px;">점검 요약</div>
       <div style="font-size:13px;color:#616161;line-height:1.8;">
+        <strong>설치 사이트: ${siteCount}개소</strong><br>
         ${items.map((item, i) => `${item}: <strong>${values[i]}개</strong>`).join(' / ')}
         ${remark ? '<br><br>비고: ' + remark : ''}
       </div>
@@ -535,9 +543,9 @@ function renderLogs() {
 function exportLogs() {
   const logs = getLocalLogs();
   if (logs.length === 0) { showToast('저장된 내역 없음'); return; }
-  const header = ['날짜','캠핑장','지역',...items,'비고','시간'].join('\t');
+  const header = ['날짜','캠핑장','지역','사이트수',...items,'비고','시간'].join('\t');
   const rows = logs.map(l =>
-    [l.date, l.campName, l.region||'', ...l.items, l.remark||'', (l.timestamp||'').slice(0,19)].join('\t')
+    [l.date, l.campName, l.region||'', l.siteCount||'', ...l.items, l.remark||'', (l.timestamp||'').slice(0,19)].join('\t')
   );
   navigator.clipboard.writeText(header + '\n' + rows.join('\n')).then(() => {
     showToast('전체 내역 복사 완료! 시트에 붙여넣기 가능');

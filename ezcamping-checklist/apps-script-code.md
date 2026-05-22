@@ -26,6 +26,10 @@ function doPost(e) {
     }
   }
 
+  if (data.siteCount) {
+    sheet.getRange(targetRow, 6).setValue(data.siteCount);
+  }
+
   var items = data.items;
   for (var j = 0; j < items.length; j++) {
     sheet.getRange(targetRow, 7 + j).setValue(items[j]);

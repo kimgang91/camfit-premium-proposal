@@ -13,26 +13,31 @@ function doPost(e) {
   }
 
   if (targetRow === -1) {
-    // 기존 데이터 마지막 행 찾기
     var lastRow = sheet.getLastRow();
     targetRow = lastRow + 1;
-    // C열에 캠핑장명 입력
     sheet.getRange(targetRow, 3).setValue(data.campName);
-    // 지역 정보가 있으면 D열에 입력
     if (data.region) {
       sheet.getRange(targetRow, 4).setValue(data.region);
     }
   }
 
+  // F열(6): 설치 사이트 수
+  if (data.siteCount) {
+    sheet.getRange(targetRow, 6).setValue(data.siteCount);
+  }
+
+  // G열(7)~W열(23): 품목 수량
   var items = data.items;
   for (var j = 0; j < items.length; j++) {
     sheet.getRange(targetRow, 7 + j).setValue(items[j]);
   }
 
+  // X열(24): 비고
   if (data.remark) {
     sheet.getRange(targetRow, 24).setValue(data.remark);
   }
 
+  // A열(1): 점검일
   sheet.getRange(targetRow, 1).setValue(data.date);
 
   return ContentService.createTextOutput(JSON.stringify({result: "success", row: targetRow})).setMimeType(ContentService.MimeType.JSON);
