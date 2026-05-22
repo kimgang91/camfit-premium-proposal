@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이지캠핑 구비품목 점검</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Noto Sans KR', sans-serif; background: #F5F5F5; min-height: 100vh; }
+
+  .header {
+    background: linear-gradient(135deg, #1B5E20 0%, #388E3C 100%);
+    color: white; padding: 32px 20px 24px; text-align: center;
+  }
+  .header h1 { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
+  .header p { font-size: 14px; opacity: 0.85; }
+
+  .container { max-width: 640px; margin: 0 auto; padding: 20px 16px 40px; }
+
+  /* Step indicator */
+  .steps { display: flex; gap: 8px; margin-bottom: 24px; }
+  .step {
+    flex: 1; text-align: center; padding: 10px 0; border-radius: 8px;
+    font-size: 12px; font-weight: 600; background: #E0E0E0; color: #9E9E9E;
+  }
+  .step.active { background: #2E7D32; color: white; }
+  .step.done { background: #A5D6A7; color: #1B5E20; }
+
+  /* Card */
+  .card {
+    background: white; border-radius: 14px; padding: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 16px;
+  }
+  .card-title {
+    font-size: 16px; font-weight: 700; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .card-title .num {
+    width: 28px; height: 28px; border-radius: 50%; background: #2E7D32;
+    color: white; font-size: 13px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* Search input */
+  .search-wrap { position: relative; }
+  .search-input {
+    width: 100%; padding: 14px 16px; border: 2px solid #E0E0E0;
+    border-radius: 10px; font-size: 16px; font-family: inherit;
+    outline: none; transition: border-color 0.2s;
+  }
+  .search-input:focus { border-color: #2E7D32; }
+  .search-input::placeholder { color: #BDBDBD; }
+  .dropdown {
+    position: absolute; top: 100%; left: 0; right: 0; z-index: 100;
+    background: white; border: 1px solid #E0E0E0; border-radius: 10px;
+    max-height: 240px; overflow-y: auto; display: none;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12); margin-top: 4px;
+  }
+  .dropdown.show { display: block; }
+  .dropdown-item {
+    padding: 12px 16px; cursor: pointer; font-size: 14px;
+    border-bottom: 1px solid #F5F5F5; transition: background 0.1s;
+  }
+  .dropdown-item:hover, .dropdown-item.highlighted { background: #E8F5E9; }
+  .dropdown-item:last-child { border-bottom: none; }
+  .dropdown-item .region { font-size: 12px; color: #9E9E9E; margin-left: 6px; }
+  .selected-camp {
+    padding: 14px 16px; background: #E8F5E9; border-radius: 10px;
+    font-size: 15px; font-weight: 600; color: #1B5E20;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .selected-camp .change-btn {
+    font-size: 12px; color: #2E7D32; cursor: pointer;
+    padding: 4px 12px; border: 1px solid #2E7D32; border-radius: 20px;
+    background: white;
+  }
+
+  /* Item grid */
+  .item-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .item-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 14px; background: #FAFAFA; border-radius: 10px;
+    border: 1px solid #EEEEEE;
+  }
+  .item-name { font-size: 14px; font-weight: 500; }
+  .item-input {
+    width: 56px; padding: 8px; text-align: center; border: 1.5px solid #E0E0E0;
+    border-radius: 8px; font-size: 16px; font-weight: 600; font-family: inherit;
+    outline: none; transition: border-color 0.2s;
+  }
+  .item-input:focus { border-color: #2E7D32; background: #F1F8E9; }
+  .item-input.filled { border-color: #4CAF50; background: #E8F5E9; }
+
+  /* Textarea */
+  .remark-input {
+    width: 100%; min-height: 80px; padding: 14px; border: 2px solid #E0E0E0;
+    border-radius: 10px; font-size: 14px; font-family: inherit;
+    outline: none; resize: vertical; transition: border-color 0.2s;
+  }
+  .remark-input:focus { border-color: #2E7D32; }
+  .remark-input::placeholder { color: #BDBDBD; }
+  .remark-hint { font-size: 12px; color: #9E9E9E; margin-top: 6px; }
+
+  /* Submit */
+  .submit-btn {
+    width: 100%; padding: 16px; background: #2E7D32; color: white;
+    border: none; border-radius: 12px; font-size: 16px; font-weight: 700;
+    font-family: inherit; cursor: pointer; transition: background 0.2s;
+    margin-top: 8px;
+  }
+  .submit-btn:hover { background: #1B5E20; }
+  .submit-btn:disabled { background: #BDBDBD; cursor: not-allowed; }
+
+  /* Success */
+  .success-screen {
+    display: none; text-align: center; padding: 60px 20px;
+  }
+  .success-screen.show { display: block; }
+  .success-icon { font-size: 64px; margin-bottom: 16px; }
+  .success-title { font-size: 22px; font-weight: 700; color: #1B5E20; margin-bottom: 8px; }
+  .success-desc { font-size: 14px; color: #757575; margin-bottom: 24px; }
+  .reset-btn {
+    padding: 12px 32px; background: white; border: 2px solid #2E7D32;
+    color: #2E7D32; border-radius: 10px; font-size: 14px; font-weight: 600;
+    cursor: pointer; font-family: inherit;
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    background: #333; color: white; padding: 12px 24px; border-radius: 10px;
+    font-size: 14px; font-weight: 500; z-index: 200; display: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+  .toast.show { display: block; animation: fadeInUp 0.3s; }
+  @keyframes fadeInUp { from { opacity:0; transform:translateX(-50%) translateY(10px); } to { opacity:1; transform:translateX(-50%) translateY(0); } }
+
+  @media (max-width: 480px) {
+    .item-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>이지캠핑 구비품목 점검</h1>
+  <p>스노우라인 지급 물품 비치 현황 확인</p>
+</div>
+
+<div class="container">
+  <!-- Steps -->
+  <div class="steps">
+    <div class="step active" id="step1">1. 캠핑장 선택</div>
+    <div class="step" id="step2">2. 품목 수량 입력</div>
+    <div class="step" id="step3">3. 제출 완료</div>
+  </div>
+
+  <div id="formArea">
+
+    <!-- Step 1: 캠핑장 선택 -->
+    <div class="card">
+      <div class="card-title"><span class="num">1</span> 캠핑장 선택</div>
+      <div id="searchArea">
+        <div class="search-wrap">
+          <input type="text" class="search-input" id="campSearch" placeholder="캠핑장명을 입력하세요" autocomplete="off">
+          <div class="dropdown" id="dropdown"></div>
+        </div>
+      </div>
+      <div id="selectedArea" style="display:none;">
+        <div class="selected-camp">
+          <span id="selectedName"></span>
+          <button class="change-btn" onclick="resetCamp()">변경</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: 품목 수량 -->
+    <div class="card" id="itemCard" style="display:none;">
+      <div class="card-title"><span class="num">2</span> 품목별 수량 입력</div>
+      <p style="font-size:13px;color:#757575;margin-bottom:14px;">각 품목별 현재 비치된 수량을 입력해주세요 (미비치 시 0 입력)</p>
+      <div class="item-grid" id="itemGrid"></div>
+    </div>
+
+    <!-- Step 3: 비고 -->
+    <div class="card" id="remarkCard" style="display:none;">
+      <div class="card-title"><span class="num">3</span> 비고</div>
+      <textarea class="remark-input" id="remarkInput" placeholder="미지급 품목, 수리 필요 품목, 기타 전달사항을 입력해주세요"></textarea>
+      <div class="remark-hint">예) 써큘레이터 1대 고장, 에어매트 커버 오염으로 교체 필요</div>
+    </div>
+
+    <!-- Submit -->
+    <button class="submit-btn" id="submitBtn" disabled onclick="submitForm()">제출하기</button>
+  </div>
+
+  <!-- Success -->
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">&#10003;</div>
+    <div class="success-title">제출 완료!</div>
+    <div class="success-desc">구비품목 점검 내용이 시트에 기록되었습니다.</div>
+    <button class="reset-btn" onclick="resetAll()">추가 점검하기</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- 관리자용: URL에 ?log 붙이면 저장 내역 확인 가능 -->
+<div id="logPanel" style="display:none;max-width:640px;margin:0 auto;padding:0 16px 40px;">
+  <div style="background:white;border-radius:14px;padding:24px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <h3 style="font-size:16px;font-weight:700;">제출 내역 (로컬 백업)</h3>
+      <button onclick="exportLogs()" style="padding:6px 14px;background:#2E7D32;color:white;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">CSV 복사</button>
+    </div>
+    <div id="logList" style="font-size:13px;color:#616161;"></div>
+  </div>
+</div>
+
+<script>
+// === Camp data ===
+const camps = [
+  {name:"[가평]지금, 쉬다休", region:"경기 가평군"},
+  {name:"가평무릉도원캠핑장", region:"경기 가평군"},
+  {name:"강화도 행복한소풍캠핑장", region:"인천 강화군"},
+  {name:"고라데이마을", region:"강원 횡성군"},
+  {name:"괴산 원탑 오토캠핑장", region:"충북 괴산군"},
+  {name:"구학 희망캠핑장", region:"강원 원주시"},
+  {name:"내포레캠핑장", region:"충남 홍성군"},
+  {name:"두물머리 IC 캠핑장", region:"경기 양평군"},
+  {name:"따봄스테이", region:"충북 괴산군"},
+  {name:"따봄캠핑장", region:"경기 하남시"},
+  {name:"레드우드캠핑장", region:"경기 가평군"},
+  {name:"렛츠고강화캠핑장", region:"인천 강화군"},
+  {name:"리버파크캠핑장", region:"강원 평창군"},
+  {name:"리아띠캠핑장", region:"충북 제천시"},
+  {name:"링크독 애견파크", region:"경기 가평군"},
+  {name:"모두의 캠핑장", region:"강원 횡성군"},
+  {name:"무주붉은노을캠핑장", region:"전북 무주군"},
+  {name:"미산분교 캠핑장", region:"강원 인제군"},
+  {name:"미소가든펜션야영장", region:"충북 제천시"},
+  {name:"밤하늘별캠프", region:"강원 양양군"},
+  {name:"백제캠핑장", region:"전북 익산시"},
+  {name:"별밤차박캠핑장", region:"충북 제천시"},
+  {name:"산머루농원캠핑장", region:"경기 파주시"},
+  {name:"산수향야영장", region:"강원 횡성군"},
+  {name:"서산 노을빛바다캠핑장", region:"충남 서산시"},
+  {name:"서해땅끝파도리아치내캠핑장", region:"충남 태안군"},
+  {name:"소백산 오토캠핑장", region:"충북 단양군"},
+  {name:"수동시온 키즈 캠프", region:"경기 남양주시"},
+  {name:"숲202글램핑", region:"경기 포천시"},
+  {name:"스노우라인 캠핑빌리지", region:"충남 예산군"},
+  {name:"쌍계곡펜션&캠핑", region:"강원 홍천군"},
+  {name:"알멕스랜드", region:"경기 연천군"},
+  {name:"알지캠프266", region:"강원 홍천군"},
+  {name:"야호캠핑장", region:"경기 파주시"},
+  {name:"양주장흥VIP캠핑장", region:"경기 양주시"},
+  {name:"양평 약수동산 캠핑펜션", region:"경기 양평군"},
+  {name:"어게인스쿨(Again School)", region:"강원 횡성군"},
+  {name:"엘모로 캠핑파크", region:"경기 양평군"},
+  {name:"영덕천연탄산수 캠핑장", region:"경북 영덕군"},
+  {name:"워터사이드캠핑장", region:"충북 진천시"},
+  {name:"월현포레스트", region:"강원 횡성군"},
+  {name:"은하수관광농원캠핑장", region:"경북 김천시"},
+  {name:"자연애품 캠핑장", region:"전남 곡성군"},
+  {name:"제천 엘림펜션캠핑장", region:"충북 제천시"},
+  {name:"지투캠핑장", region:"경기 포천시"},
+  {name:"충주 아로미캠핑장펜션", region:"충북 충주시"},
+  {name:"캠프여주", region:"경기 여주시"},
+  {name:"캠핑스테이 청포대", region:"충남 태안군"},
+  {name:"캠핑엔조이", region:"경기 파주시"},
+  {name:"캠핑킹", region:"충남 예산군"},
+  {name:"태안 바다드림 캠핑장", region:"충남 태안군"},
+  {name:"파도와노을캠핑", region:"충남 태안군"},
+  {name:"평창바샘캠핑장", region:"강원 평창군"},
+  {name:"평창별내림계곡캠핑장", region:"강원 평창군"},
+  {name:"포천 세븐블럭", region:"경기 포천시"},
+  {name:"필리가 캠핑(강원 영월)", region:"강원 영월군"},
+  {name:"합천 오도산관광농원 캠핑장", region:"경남 합천군"},
+  {name:"명돈골캠핑장", region:"경기 가평군"},
+  {name:"사담관광농원캠핑", region:"충북 괴산군"},
+  {name:"서산 노을빛바다캠핑장 B", region:"충남 서산시"},
+];
+
+const items = ['텐트','테이블','에어매트','매트커버','체어','버너','써큘레이터','전기매트','그리들','LED조명','릴선','화로대','숯집게','쓰레기봉투걸이','타프','멀티탭','아이스박스'];
+
+// Google Apps Script Web App URL
+// apps-script-setup.md 가이드 따라 배포 후 아래 URL을 교체해주세요
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzmrA5Q8jzCZjHcB7gk2uMjmx1b1RJ-hVVYxHbzzoX_wE11z7iVLKGgDecYjZUk35qa/exec';
+
+let selectedCamp = null;
+
+// === Search & Dropdown ===
+const searchInput = document.getElementById('campSearch');
+const dropdown = document.getElementById('dropdown');
+let highlightIdx = -1;
+
+searchInput.addEventListener('input', function() {
+  const q = this.value.trim().toLowerCase();
+  if (!q) { dropdown.classList.remove('show'); return; }
+  const filtered = camps.filter(c =>
+    c.name.toLowerCase().includes(q) || c.region.toLowerCase().includes(q)
+  );
+  if (filtered.length === 0) {
+    dropdown.innerHTML = '<div class="dropdown-item" style="color:#9E9E9E;cursor:default;">검색 결과 없음</div>';
+  } else {
+    dropdown.innerHTML = filtered.map((c, i) =>
+      `<div class="dropdown-item" data-idx="${i}" onclick="selectCamp('${c.name.replace(/'/g,"\\'")}','${c.region}')">${c.name}<span class="region">${c.region}</span></div>`
+    ).join('');
+  }
+  highlightIdx = -1;
+  dropdown.classList.add('show');
+});
+
+searchInput.addEventListener('keydown', function(e) {
+  const items = dropdown.querySelectorAll('.dropdown-item[data-idx]');
+  if (e.key === 'ArrowDown') { e.preventDefault(); highlightIdx = Math.min(highlightIdx + 1, items.length - 1); updateHighlight(items); }
+  else if (e.key === 'ArrowUp') { e.preventDefault(); highlightIdx = Math.max(highlightIdx - 1, 0); updateHighlight(items); }
+  else if (e.key === 'Enter' && highlightIdx >= 0 && items[highlightIdx]) { items[highlightIdx].click(); }
+});
+
+function updateHighlight(items) {
+  items.forEach((el, i) => el.classList.toggle('highlighted', i === highlightIdx));
+  if (items[highlightIdx]) items[highlightIdx].scrollIntoView({ block: 'nearest' });
+}
+
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.search-wrap')) dropdown.classList.remove('show');
+});
+
+function selectCamp(name, region) {
+  selectedCamp = { name, region };
+  document.getElementById('searchArea').style.display = 'none';
+  document.getElementById('selectedArea').style.display = 'block';
+  document.getElementById('selectedName').textContent = `${name} (${region})`;
+  dropdown.classList.remove('show');
+
+  // Show item card
+  document.getElementById('itemCard').style.display = 'block';
+  document.getElementById('remarkCard').style.display = 'block';
+  document.getElementById('submitBtn').disabled = false;
+  renderItems();
+  updateSteps(2);
+}
+
+function resetCamp() {
+  selectedCamp = null;
+  document.getElementById('searchArea').style.display = 'block';
+  document.getElementById('selectedArea').style.display = 'none';
+  document.getElementById('itemCard').style.display = 'none';
+  document.getElementById('remarkCard').style.display = 'none';
+  document.getElementById('submitBtn').disabled = true;
+  searchInput.value = '';
+  searchInput.focus();
+  updateSteps(1);
+}
+
+function renderItems() {
+  const grid = document.getElementById('itemGrid');
+  grid.innerHTML = items.map((item, i) => `
+    <div class="item-row">
+      <span class="item-name">${item}</span>
+      <input type="number" class="item-input" id="item_${i}" min="0" max="99" placeholder="0"
+        oninput="this.classList.toggle('filled', this.value !== '')">
+    </div>
+  `).join('');
+}
+
+function updateSteps(current) {
+  for (let i = 1; i <= 3; i++) {
+    const el = document.getElementById('step' + i);
+    el.classList.remove('active', 'done');
+    if (i < current) el.classList.add('done');
+    else if (i === current) el.classList.add('active');
+  }
+}
+
+// === localStorage 백업 ===
+function saveToLocal(payload) {
+  try {
+    const logs = JSON.parse(localStorage.getItem('ez_checklist_logs') || '[]');
+    logs.push({ ...payload, timestamp: new Date().toISOString() });
+    localStorage.setItem('ez_checklist_logs', JSON.stringify(logs));
+  } catch(e) {}
+}
+
+function getLocalLogs() {
+  try { return JSON.parse(localStorage.getItem('ez_checklist_logs') || '[]'); } catch(e) { return []; }
+}
+
+// === Submit ===
+function submitForm() {
+  if (!selectedCamp) return;
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = '제출 중...';
+
+  const values = items.map((_, i) => {
+    const el = document.getElementById('item_' + i);
+    return el.value || '0';
+  });
+  const remark = document.getElementById('remarkInput').value || '';
+  const today = new Date().toLocaleDateString('ko-KR');
+  const campName = selectedCamp.name;
+  const region = selectedCamp.region;
+
+  const payload = {
+    date: today,
+    campName: campName,
+    region: region,
+    items: values,
+    remark: remark
+  };
+
+  // 항상 localStorage에 백업 저장
+  saveToLocal(payload);
+
+  // Apps Script 자동 전송
+  if (APPS_SCRIPT_URL && APPS_SCRIPT_URL !== 'YOUR_APPS_SCRIPT_URL_HERE') {
+    fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(() => {
+      showSuccess(campName, values, remark, true);
+    }).catch(() => {
+      showSuccess(campName, values, remark, false);
+    });
+  } else {
+    showSuccess(campName, values, remark, false);
+  }
+}
+
+function showSuccess(campName, values, remark, autoSaved) {
+  updateSteps(3);
+  document.getElementById('formArea').style.display = 'none';
+  const screen = document.getElementById('successScreen');
+  screen.style.display = 'block';
+  screen.classList.add('show');
+
+  const tsvRow = [new Date().toLocaleDateString('ko-KR'), campName, ...values, remark].join('\t');
+
+  screen.innerHTML = `
+    <div style="font-size:48px;color:#2E7D32;margin-bottom:12px;">&#10003;</div>
+    <div class="success-title">${autoSaved ? '시트에 자동 저장 완료!' : '점검 완료!'}</div>
+    <div class="success-desc">${campName} 구비품목 점검이 완료되었습니다.</div>
+    <div style="background:#F5F5F5;border-radius:10px;padding:16px;margin:16px 0;text-align:left;">
+      <div style="font-size:13px;font-weight:600;margin-bottom:8px;">점검 요약</div>
+      <div style="font-size:13px;color:#616161;line-height:1.8;">
+        ${items.map((item, i) => `${item}: <strong>${values[i]}개</strong>`).join(' / ')}
+        ${remark ? '<br><br>비고: ' + remark : ''}
+      </div>
+    </div>
+    ${!autoSaved ? '<p style="font-size:13px;color:#9E9E9E;margin-bottom:16px;">아래 버튼으로 데이터를 복사 후 구글 시트에 붙여넣기 해주세요.</p><button onclick="copyToClipboard()" id="copyBtn" style="padding:12px 24px;background:#2E7D32;color:white;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;margin-bottom:12px;">데이터 복사하기</button><br>' : ''}
+    <button class="reset-btn" onclick="resetAll()" style="margin-top:12px;">추가 점검하기</button>
+  `;
+
+  // Store tsv for copy
+  window._lastTsv = tsvRow;
+
+  if (autoSaved) {
+    showToast('구글 시트에 자동 저장되었습니다!');
+  } else {
+    // Auto copy
+    navigator.clipboard.writeText(tsvRow).then(() => {
+      showToast('데이터가 클립보드에 복사되었습니다!');
+    }).catch(() => {});
+  }
+}
+
+function copyToClipboard() {
+  if (window._lastTsv) {
+    navigator.clipboard.writeText(window._lastTsv).then(() => {
+      showToast('복사 완료! 시트에 붙여넣기(Ctrl+V) 해주세요.');
+    });
+  }
+}
+
+function copyData(tsv) {
+  navigator.clipboard.writeText(tsv).then(() => {
+    showToast('복사 완료! 시트에 붙여넣기(Ctrl+V) 해주세요.');
+  });
+}
+
+function resetAll() {
+  selectedCamp = null;
+  document.getElementById('formArea').style.display = 'block';
+  document.getElementById('successScreen').classList.remove('show');
+  document.getElementById('successScreen').style.display = 'none';
+  document.getElementById('searchArea').style.display = 'block';
+  document.getElementById('selectedArea').style.display = 'none';
+  document.getElementById('itemCard').style.display = 'none';
+  document.getElementById('remarkCard').style.display = 'none';
+  document.getElementById('submitBtn').disabled = true;
+  searchInput.value = '';
+  document.getElementById('remarkInput').value = '';
+  updateSteps(1);
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// === 관리자 로그 패널 (?log 접속 시) ===
+if (location.search.includes('log')) {
+  document.getElementById('logPanel').style.display = 'block';
+  renderLogs();
+}
+
+function renderLogs() {
+  const logs = getLocalLogs();
+  const el = document.getElementById('logList');
+  if (logs.length === 0) { el.innerHTML = '<p style="color:#9E9E9E;">저장된 내역 없음</p>'; return; }
+  el.innerHTML = logs.slice().reverse().map((log, idx) => {
+    const itemStr = items.map((name, i) => name + ':' + (log.items[i] || 0)).join(', ');
+    return '<div style="padding:12px 0;border-bottom:1px solid #EEE;">' +
+      '<div style="font-weight:600;color:#212121;">' + log.campName + ' <span style="font-size:11px;color:#9E9E9E;">' + (log.region||'') + '</span></div>' +
+      '<div style="font-size:12px;color:#9E9E9E;margin:2px 0;">' + log.date + ' | ' + (log.timestamp||'').slice(0,19) + '</div>' +
+      '<div style="font-size:12px;margin-top:4px;">' + itemStr + '</div>' +
+      (log.remark ? '<div style="font-size:12px;color:#D32F2F;margin-top:2px;">비고: ' + log.remark + '</div>' : '') +
+      '</div>';
+  }).join('');
+}
+
+function exportLogs() {
+  const logs = getLocalLogs();
+  if (logs.length === 0) { showToast('저장된 내역 없음'); return; }
+  const header = ['날짜','캠핑장','지역',...items,'비고','시간'].join('\t');
+  const rows = logs.map(l =>
+    [l.date, l.campName, l.region||'', ...l.items, l.remark||'', (l.timestamp||'').slice(0,19)].join('\t')
+  );
+  navigator.clipboard.writeText(header + '\n' + rows.join('\n')).then(() => {
+    showToast('전체 내역 복사 완료! 시트에 붙여넣기 가능');
+  });
+}
+</script>
+</body>
+</html>
