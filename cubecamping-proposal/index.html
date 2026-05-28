@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>큐브캠핑 프리미엄 & 베이직 사업 제안</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --charcoal: #3a3a3a;
+    --warm-gray: #6b6560;
+    --stone: #8c8279;
+    --sand: #b8a99a;
+    --cream: #f5f0eb;
+    --ivory: #faf8f5;
+    --wood: #a0785c;
+    --wood-dark: #7a5a3e;
+    --forest: #4a6741;
+    --forest-light: #6b8f5e;
+    --gold: #c9a45c;
+    --gold-light: #e8d5a8;
+    --premium-accent: #2c5f4a;
+    --basic-accent: #5a4a3a;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans KR', -apple-system, sans-serif;
+    color: var(--charcoal);
+    background: var(--ivory);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── Hero Section ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(30,40,30,0.55) 0%,
+      rgba(30,40,30,0.4) 40%,
+      rgba(30,40,30,0.65) 100%
+    );
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 40px 20px;
+    max-width: 900px;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    padding: 8px 28px;
+    border: 1px solid rgba(201,164,92,0.5);
+    border-radius: 30px;
+    color: var(--gold-light);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  .hero h1 {
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  .hero h1 span {
+    display: block;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: clamp(16px, 2.2vw, 22px);
+    color: rgba(255,255,255,0.75);
+    font-weight: 300;
+    margin-bottom: 48px;
+    line-height: 1.6;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.4);
+    font-size: 12px;
+    letter-spacing: 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+  }
+
+  .hero-scroll::after {
+    content: '';
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+
+  /* ── Section Commons ── */
+  section {
+    padding: 100px 20px;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--forest);
+    margin-bottom: 16px;
+    padding: 6px 16px;
+    background: rgba(74,103,65,0.08);
+    border-radius: 4px;
+  }
+
+  .section-title {
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 800;
+    line-height: 1.3;
+    margin-bottom: 20px;
+    color: var(--charcoal);
+  }
+
+  .section-desc {
+    font-size: 17px;
+    color: var(--warm-gray);
+    max-width: 680px;
+    line-height: 1.8;
+    font-weight: 300;
+  }
+
+  /* ── Market Background ── */
+  .market {
+    background: #fff;
+  }
+
+  .market-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    margin-top: 60px;
+  }
+
+  .market-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .market-card {
+    padding: 28px 32px;
+    background: var(--ivory);
+    border-radius: 16px;
+    border-left: 4px solid var(--forest-light);
+    transition: transform 0.3s ease;
+  }
+
+  .market-card:hover {
+    transform: translateX(8px);
+  }
+
+  .market-card h4 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--charcoal);
+  }
+
+  .market-card p {
+    font-size: 14px;
+    color: var(--warm-gray);
+    line-height: 1.7;
+  }
+
+  .market-visual {
+    position: relative;
+    padding: 40px;
+  }
+
+  .market-chart {
+    background: linear-gradient(135deg, var(--cream) 0%, #fff 100%);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+  }
+
+  .chart-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--warm-gray);
+    margin-bottom: 32px;
+    letter-spacing: 1px;
+  }
+
+  /* ── Models Comparison ── */
+  .models {
+    background: var(--ivory);
+  }
+
+  .models-header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+
+  .models-header .section-desc {
+    margin: 0 auto;
+  }
+
+  .models-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .model-card {
+    background: #fff;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .model-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+  }
+
+  .model-card.premium { border-top: 4px solid var(--premium-accent); }
+  .model-card.basic { border-top: 4px solid var(--wood); }
+
+  .model-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 3;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  .premium .model-badge {
+    background: var(--premium-accent);
+    color: #fff;
+  }
+
+  .basic .model-badge {
+    background: var(--wood);
+    color: #fff;
+  }
+
+  .model-image {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    display: block;
+  }
+
+  .model-body {
+    padding: 36px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .model-name {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+
+  .premium .model-name { color: var(--premium-accent); }
+  .basic .model-name { color: var(--wood-dark); }
+
+  .model-tagline {
+    font-size: 15px;
+    color: var(--stone);
+    margin-bottom: 28px;
+    font-weight: 400;
+  }
+
+  .model-concept {
+    padding: 20px 24px;
+    border-radius: 12px;
+    margin-bottom: 28px;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .premium .model-concept {
+    background: rgba(44,95,74,0.06);
+    color: var(--premium-accent);
+    border: 1px solid rgba(44,95,74,0.12);
+  }
+
+  .basic .model-concept {
+    background: rgba(160,120,92,0.08);
+    color: var(--wood-dark);
+    border: 1px solid rgba(160,120,92,0.15);
+  }
+
+  .model-features h4 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--stone);
+    margin-bottom: 16px;
+  }
+
+  .feature-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .feature-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14.5px;
+    color: var(--charcoal);
+    line-height: 1.6;
+  }
+
+  .feature-list li::before {
+    content: '✓';
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    margin-top: 2px;
+  }
+
+  .premium .feature-list li::before {
+    background: rgba(44,95,74,0.1);
+    color: var(--premium-accent);
+  }
+
+  .basic .feature-list li::before {
+    background: rgba(160,120,92,0.12);
+    color: var(--wood-dark);
+  }
+
+  .model-target {
+    padding: 20px 24px;
+    background: var(--ivory);
+    border-radius: 12px;
+  }
+
+  .model-target h5 {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--stone);
+    margin-bottom: 10px;
+  }
+
+  .target-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .target-tag {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .premium .target-tag {
+    background: rgba(44,95,74,0.08);
+    color: var(--premium-accent);
+  }
+
+  .basic .target-tag {
+    background: rgba(160,120,92,0.1);
+    color: var(--wood-dark);
+  }
+
+  .model-pricing {
+    margin-top: auto;
+    padding: 16px 20px;
+    background: var(--cream);
+    border-radius: 12px;
+    text-align: center;
+  }
+
+  .model-pricing .pricing-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--stone);
+    margin-bottom: 6px;
+  }
+
+  .model-pricing .pricing-value {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--charcoal);
+  }
+
+  .model-card.premium .model-pricing {
+    background: linear-gradient(135deg, rgba(45,80,50,0.08), rgba(45,80,50,0.03));
+  }
+
+  .model-card.basic .model-pricing {
+    background: linear-gradient(135deg, rgba(139,115,85,0.08), rgba(139,115,85,0.03));
+  }
+
+  /* ── Pricing Insight ── */
+  .pricing-insight {
+    margin-top: 64px;
+    background: #fff;
+    border-radius: 20px;
+    padding: 48px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.04);
+  }
+
+  .pricing-insight-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--charcoal);
+    margin-bottom: 32px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .pricing-insight-title::before,
+  .pricing-insight-title::after {
+    content: '';
+    height: 1px;
+    width: 40px;
+    background: var(--sand);
+  }
+
+  .insight-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+
+  .insight-card {
+    padding: 28px 32px;
+    border-radius: 16px;
+    border-left: 4px solid;
+  }
+
+  .insight-card.premium-insight {
+    background: rgba(44,95,74,0.04);
+    border-color: var(--premium-accent);
+  }
+
+  .insight-card.basic-insight {
+    background: rgba(160,120,92,0.04);
+    border-color: var(--wood);
+  }
+
+  .insight-card h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .insight-card.premium-insight h4 { color: var(--premium-accent); }
+  .insight-card.basic-insight h4 { color: var(--wood-dark); }
+
+  .insight-card p {
+    font-size: 14px;
+    color: var(--warm-gray);
+    line-height: 1.8;
+  }
+
+  .insight-summary {
+    background: linear-gradient(135deg, var(--charcoal), #2a2a2a);
+    border-radius: 16px;
+    padding: 32px 36px;
+    color: #fff;
+  }
+
+  .insight-summary h4 {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  .insight-summary p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.8;
+  }
+
+  @media (max-width: 768px) {
+    .insight-cards { grid-template-columns: 1fr; }
+    .pricing-insight { padding: 32px 24px; }
+  }
+
+  /* ── Rental Options ── */
+  .rental {
+    background: #fff;
+  }
+
+  .rental-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .rental-header .section-desc {
+    margin: 0 auto;
+  }
+
+  .rental-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .rental-card {
+    background: var(--ivory);
+    border-radius: 16px;
+    padding: 32px 24px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+  }
+
+  .rental-card:hover {
+    border-color: var(--sand);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+  }
+
+  .rental-icon {
+    font-size: 36px;
+    margin-bottom: 16px;
+  }
+
+  .rental-card h4 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--charcoal);
+  }
+
+  .rental-card p {
+    font-size: 13px;
+    color: var(--stone);
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+
+  .rental-price {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--wood-dark);
+  }
+
+  .rental-price small {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--stone);
+  }
+
+  /* ── Partnership Steps ── */
+  .partnership {
+    background: var(--cream);
+  }
+
+  .partnership-header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .partnership-header .section-desc {
+    margin: 0 auto;
+  }
+
+  .partner-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-bottom: 56px;
+  }
+
+  .partner-step {
+    background: #fff;
+    border-radius: 16px;
+    padding: 32px 24px;
+    text-align: center;
+    position: relative;
+  }
+
+  .step-num {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--forest);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 800;
+    margin: 0 auto 20px;
+  }
+
+  .partner-step h4 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--charcoal);
+  }
+
+  .partner-step p {
+    font-size: 13px;
+    color: var(--stone);
+    line-height: 1.7;
+  }
+
+  .partner-step::after {
+    content: '→';
+    position: absolute;
+    right: -16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: var(--sand);
+    font-weight: 700;
+  }
+
+  .partner-step:last-child::after { display: none; }
+
+  /* ── Footer ── */
+  footer {
+    background: var(--charcoal);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 13px;
+  }
+
+  footer strong {
+    color: rgba(255,255,255,0.8);
+    font-weight: 600;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1024px) {
+    .models-grid { gap: 24px; }
+    .rental-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    section { padding: 72px 16px; }
+    .market-grid { grid-template-columns: 1fr; gap: 40px; }
+    .models-grid { grid-template-columns: 1fr; }
+    .rental-grid { grid-template-columns: 1fr 1fr; }
+    .partner-steps { grid-template-columns: 1fr 1fr; }
+    .partner-step::after { display: none; }
+  }
+
+  @media (max-width: 480px) {
+    .rental-grid { grid-template-columns: 1fr; }
+    .partner-steps { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="hero-bg">
+    <img src="cubestay-hero.png" alt="큐브캠핑 캠핑장 설치 예시">
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">Business Proposal 2026</div>
+    <h1>
+      큐브캠핑
+      <span>프리미엄 & 베이직</span>
+    </h1>
+    <p class="hero-sub">
+      카라반과 캠핑의 중간, 새로운 숙박 솔루션<br>
+      두 가지 선택, 하나의 완벽한 캠핑 경험
+    </p>
+  </div>
+  <a href="#market" class="hero-scroll">SCROLL</a>
+</section>
+
+<!-- ═══════════ MARKET BACKGROUND ═══════════ -->
+<section class="market" id="market">
+  <div class="container">
+    <div class="market-grid">
+      <div>
+        <span class="section-tag">Market Insight</span>
+        <h2 class="section-title">왜 지금,<br>큐브캠핑인가</h2>
+        <p class="section-desc" style="margin-bottom: 40px;">
+          캠핑 시장은 더 이상 '텐트를 치는 것'이 아닙니다.
+          카라반의 편리함과 캠핑의 감성을 동시에 원하는 캠퍼의 급증으로,
+          그 중간에 위치한 큐브캠핑에 대한 수요가 폭발적으로 성장하고 있습니다.
+        </p>
+        <div class="market-cards">
+          <div class="market-card">
+            <h4>캠핑 초보자 유입 증가</h4>
+            <p>코로나 이후 자연 레저 관심 폭증. 장비 없이 시작하고 싶은 신규 캠퍼가 전체 시장의 43%를 차지합니다.</p>
+          </div>
+          <div class="market-card">
+            <h4>글램핑을 넘어선 새로운 니즈</h4>
+            <p>글램핑의 높은 가격 부담과 획일적 경험에 대한 피로감. 합리적이면서도 프라이빗한 캠핑 공간 수요가 증가합니다.</p>
+          </div>
+          <div class="market-card">
+            <h4>캠핑장 운영 효율화 트렌드</h4>
+            <p>모듈형 시설을 통해 설치·철거가 간편하고, 시즌별 레이아웃 변경이 자유로워 운영 효율이 극대화됩니다.</p>
+          </div>
+        </div>
+      </div>
+      <div class="market-visual">
+        <div class="market-chart">
+          <div class="chart-title">큐브캠핑의 차별화 포인트</div>
+          <div style="display: flex; flex-direction: column; gap: 20px;">
+            <div style="display: flex; align-items: flex-start; gap: 16px;">
+              <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(74,103,65,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 22px;">🌿</div>
+              <div>
+                <div style="font-size: 15px; font-weight: 700; color: var(--charcoal); margin-bottom: 4px;">자연과 함께하는 숙박</div>
+                <div style="font-size: 13px; color: var(--warm-gray); line-height: 1.6;">모텔·호텔·리조트와 달리 자연 속에서 프라이빗한 숙박 경험을 제공합니다.</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 16px;">
+              <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(74,103,65,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 22px;">❄️</div>
+              <div>
+                <div style="font-size: 15px; font-weight: 700; color: var(--charcoal); margin-bottom: 4px;">4계절 이용 & 운영 가능</div>
+                <div style="font-size: 13px; color: var(--warm-gray); line-height: 1.6;">냉·온풍기 완비로 한여름, 한겨울에도 쾌적한 환경을 유지합니다.</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 16px;">
+              <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(74,103,65,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 22px;">⚡</div>
+              <div>
+                <div style="font-size: 15px; font-weight: 700; color: var(--charcoal); margin-bottom: 4px;">간편한 설치 & 이동</div>
+                <div style="font-size: 13px; color: var(--warm-gray); line-height: 1.6;">건축 허가 없이 모듈형으로 빠르게 설치하고, 필요 시 이동이 가능합니다.</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 16px;">
+              <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(74,103,65,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 22px;">💰</div>
+              <div>
+                <div style="font-size: 15px; font-weight: 700; color: var(--charcoal); margin-bottom: 4px;">합리적 초기 투자</div>
+                <div style="font-size: 13px; color: var(--warm-gray); line-height: 1.6;">건축물 대비 낮은 초기 비용으로 높은 수익률을 실현합니다.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SERVICE MODELS ═══════════ -->
+<section class="models" id="models">
+  <div class="container">
+    <div class="models-header">
+      <span class="section-tag">Service Models</span>
+      <h2 class="section-title">두 가지 큐브캠핑,<br>두 가지 캠핑 라이프</h2>
+      <p class="section-desc">
+        고객의 다양한 니즈에 맞춘 프리미엄과 베이직 모델로<br>
+        캠핑장 수익을 극대화하세요.
+      </p>
+    </div>
+
+    <div class="models-grid">
+      <!-- PREMIUM -->
+      <div class="model-card premium">
+        <span class="model-badge">PREMIUM</span>
+        <img src="큐브캠핑 프리미엄.png" alt="큐브캠핑 프리미엄 - 올인클루시브 모델" class="model-image">
+        <div class="model-body">
+          <h3 class="model-name">큐브캠핑 프리미엄</h3>
+          <p class="model-tagline">몸만 오세요. 나머지는 준비되어 있습니다.</p>
+
+          <div class="model-concept">
+            올인클루시브 캠핑의 정점. 싱크대부터 냉난방, 쿠디 에어매트까지 완비되어
+            캠핑 경험이 없어도 최고의 아웃도어 라이프를 즐길 수 있습니다.
+          </div>
+
+          <div class="model-features">
+            <h4>기본 제공 품목</h4>
+            <ul class="feature-list">
+              <li>어닝 (3x6)</li>
+              <li>싱크대</li>
+              <li>냉 / 온풍기</li>
+              <li>냉장고</li>
+              <li>쿠디 에어매트</li>
+              <li>캠핑의자 2개</li>
+              <li>화로대</li>
+              <li>바베큐그릴</li>
+              <li>캠핑박스</li>
+              <li>캠핑테이블</li>
+              <li>전자렌지</li>
+              <li>버너</li>
+              <li>식기류</li>
+            </ul>
+          </div>
+
+          <div class="model-target">
+            <h5>타겟 고객</h5>
+            <div class="target-tags">
+              <span class="target-tag">캠핑 초보자</span>
+              <span class="target-tag">가족 캠퍼</span>
+              <span class="target-tag">편리함 추구</span>
+              <span class="target-tag">커플 여행</span>
+            </div>
+          </div>
+
+          <div class="model-pricing">
+            <div class="pricing-label">1박 기준가 (예시)</div>
+            <div class="pricing-value">150,000 ~ 200,000원</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BASIC -->
+      <div class="model-card basic">
+        <span class="model-badge">BASIC</span>
+        <img src="큐브캠핑 베이직.png" alt="큐브캠핑 베이직 - 자가 장비 활용 모델" class="model-image">
+        <div class="model-body">
+          <h3 class="model-name">큐브캠핑 베이직</h3>
+          <p class="model-tagline">나만의 캠핑을 완성하는 프라이빗 공간.</p>
+
+          <div class="model-concept">
+            핵심 냉난방 인프라를 갖춘 깔끔한 공간에 나만의 장비를 세팅하세요.
+            경험 있는 캠퍼를 위한 합리적 가격의 프라이빗 캠핑 솔루션입니다.
+          </div>
+
+          <div class="model-features">
+            <h4>기본 제공 품목</h4>
+            <ul class="feature-list">
+              <li>어닝 (3x6)</li>
+              <li>냉 / 온풍기</li>
+              <li>냉장고</li>
+              <li>캠핑의자 2개</li>
+              <li>캠핑테이블</li>
+              <li>화로대</li>
+            </ul>
+            <p style="font-size: 13px; color: var(--stone); margin-bottom: 28px; line-height: 1.7;">
+              * 넓은 오픈 플로어에 개인 장비를 자유롭게 세팅하거나,<br>
+              &nbsp;&nbsp;필요한 장비를 추가 렌탈하여 나만의 캠핑을 구성할 수 있습니다.
+            </p>
+          </div>
+
+          <div class="model-target">
+            <h5>타겟 고객</h5>
+            <div class="target-tags">
+              <span class="target-tag">경험 캠퍼</span>
+              <span class="target-tag">장비 소유자</span>
+              <span class="target-tag">합리적 소비</span>
+              <span class="target-tag">미니멀 캠핑</span>
+            </div>
+          </div>
+
+          <div class="model-pricing">
+            <div class="pricing-label">1박 기준가 (예시)</div>
+            <div class="pricing-value">100,000 ~ 140,000원</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pricing Insight -->
+    <div class="pricing-insight">
+      <div class="pricing-insight-title">가격 전략 인사이트</div>
+
+      <div class="insight-cards">
+        <div class="insight-card premium-insight">
+          <h4>큐브캠핑 프리미엄</h4>
+          <p>
+            1박 기준가 <strong>20만원 초과 시 펜션 이용에 준하는 금액</strong>이 되므로,
+            그 이상의 가격은 권장하지 않습니다.
+            큐브캠핑은 카라반의 편리함과 캠핑의 감성을 결합한 콜라보 모델로,
+            <strong>몸만 와서 즐겨도 되는 트렌드</strong>를 타겟으로 합니다.
+            펜션 대비 자연 속 프라이빗 경험이라는 차별점이 가격 경쟁력의 핵심입니다.
+          </p>
+        </div>
+        <div class="insight-card basic-insight">
+          <h4>큐브캠핑 베이직</h4>
+          <p>
+            기존 운영 중인 업체들의 <strong>시장가를 기준으로 예시 책정</strong>한 가격이며,
+            개인 장비를 보유한 캠퍼들이 <strong>편하게 이용할 수 있는 컨셉</strong>입니다.
+            핵심 인프라(냉난방, 화로대, 테이블 등)만 제공하여
+            합리적인 가격으로 자유로운 캠핑을 즐길 수 있습니다.
+          </p>
+        </div>
+      </div>
+
+      <div class="insight-summary">
+        <h4>SUMMARY</h4>
+        <p>
+          큐브캠핑은 <strong>펜션보다 저렴하지만, 일반 캠핑보다 편리한</strong> 가격 포지셔닝을 지향합니다.
+          프리미엄은 "준비 없이 즐기는 올인클루시브 캠핑"으로 15~20만원 내에서 펜션 대비 차별화된 자연 숙박 경험을 제공하고,
+          베이직은 "내 장비로 자유롭게 즐기는 프라이빗 캠핑"으로 10~14만원의 시장 경쟁력 있는 가격을 유지합니다.
+          두 모델의 전략적 조합으로 초보 캠퍼부터 경험 캠퍼까지 폭넓은 고객층을 확보하면서도,
+          캠핑장 운영자에게는 <strong>안정적인 객단가와 높은 가동률</strong>을 동시에 실현할 수 있습니다.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ RENTAL OPTIONS ═══════════ -->
+<section class="rental" id="rental">
+  <div class="container">
+    <div class="rental-header">
+      <span class="section-tag">Add-on Rental</span>
+      <h2 class="section-title">베이직 캠퍼를 위한<br>추가 렌탈 옵션</h2>
+      <p class="section-desc">
+        필요한 장비만 골라 렌탈하세요.<br>
+        합리적인 가격으로 나만의 캠핑을 완성할 수 있습니다.
+      </p>
+    </div>
+
+    <div class="rental-grid" style="grid-template-columns: repeat(5, 1fr);">
+      <div class="rental-card">
+        <div class="rental-icon">🔥</div>
+        <h4>바베큐 그릴 세트</h4>
+        <p>바베큐 그릴 + 그릴망 + 집게 + 화로대 세트</p>
+        <div class="rental-price">15,000원 <small>/ 1박</small></div>
+      </div>
+      <div class="rental-card">
+        <div class="rental-icon">🛏️</div>
+        <h4>에어매트리스</h4>
+        <p>편안한 취침을 위한 에어매트리스 대여</p>
+        <div class="rental-price">10,000원 <small>/ 1박</small></div>
+      </div>
+      <div class="rental-card">
+        <div class="rental-icon">🧶</div>
+        <h4>침낭 / 이불</h4>
+        <p>침낭 혹은 이불 대여</p>
+        <div class="rental-price">10,000원 <small>/ 1박</small></div>
+      </div>
+      <div class="rental-card">
+        <div class="rental-icon">🍳</div>
+        <h4>코펠 (식기류)</h4>
+        <p>코펠 세트 + 버너 + 식기류 + 조리도구</p>
+        <div class="rental-price">10,000원 <small>/ 1박</small></div>
+      </div>
+      <div class="rental-card">
+        <div class="rental-icon">🪑</div>
+        <h4>테이블 & 체어 세트</h4>
+        <p>접이식 캠핑 테이블 + 캠핑 체어 2개</p>
+        <div class="rental-price">10,000원 <small>/ 1박</small></div>
+      </div>
+    </div>
+
+    <!-- 올인원 패키지 -->
+    <div style="margin-top: 32px; background: linear-gradient(135deg, var(--premium-accent), #1a4535); border-radius: 20px; padding: 36px 40px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px;">
+      <div>
+        <div style="font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-light); margin-bottom: 8px;">ALL-IN-ONE PACKAGE</div>
+        <div style="font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 6px;">올인원 패키지</div>
+        <div style="font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.7;">바베큐 그릴 세트 + 에어매트리스 + 침낭/이불 + 코펠 (식기류) + 테이블 & 체어 세트<br>5가지 렌탈 품목을 한 번에 할인된 가격으로 이용하세요.</div>
+      </div>
+      <div style="text-align: center;">
+        <div style="font-size: 14px; color: rgba(255,255,255,0.5); text-decoration: line-through;">55,000원</div>
+        <div style="font-size: 36px; font-weight: 900; color: var(--gold);">45,000원</div>
+        <div style="font-size: 13px; color: rgba(255,255,255,0.6);">/ 1박</div>
+      </div>
+    </div>
+
+    <!-- 추가 수익 안내 -->
+    <div style="margin-top: 32px; padding: 28px 36px; background: var(--ivory); border-radius: 16px; border-left: 4px solid var(--gold); display: flex; align-items: flex-start; gap: 16px;">
+      <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(201,164,92,0.12); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 20px;">💡</div>
+      <div>
+        <div style="font-size: 15px; font-weight: 700; color: var(--charcoal); margin-bottom: 6px;">렌탈 장비 운영을 통한 추가 수익</div>
+        <div style="font-size: 14px; color: var(--warm-gray); line-height: 1.8;">
+          위 렌탈 옵션 장비들을 제작업체에서 직접 취급·운영할 경우, 1박 숙박 요금 외에 <strong style="color: var(--charcoal);">추가적인 렌탈 수익</strong>이 발생합니다.
+          특히 베이직 모델 이용객의 렌탈 수요가 높아 안정적인 부가 수익원으로 기대할 수 있습니다.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="container">
+    <p><strong>큐브캠핑</strong> &nbsp;|&nbsp; 모듈형 캠핑 시설 사업 제안서</p>
+    <p style="margin-top: 8px;">&copy; 2026 CubeCamping. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>
