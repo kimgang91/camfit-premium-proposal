@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[캠핏 공지] 안심취소 80/100 서비스 도입 및 환불규정 안내</title>
+<style>
+  :root{
+    --green:#1aa86c; --green-d:#0f7d4f; --green-l:#e8f7f0;
+    --ink:#1c2421; --muted:#5d6b64; --line:#e3e9e5;
+    --warn:#c0392b; --warn-bg:#fdecea; --warn-line:#f5c6c0;
+    --hold:#b8860b; --hold-bg:#fdf6e3;
+    --bg:#f4f7f5; --card:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:840px;margin:0 auto;padding:0 20px 80px;}
+
+  header{background:linear-gradient(135deg,var(--green) 0%,var(--green-d) 100%);
+    color:#fff;padding:40px 0 32px;margin-bottom:26px;}
+  header .wrap{padding-top:0;padding-bottom:0;}
+  .eyebrow{font-size:13px;letter-spacing:2px;opacity:.85;font-weight:600;text-transform:uppercase;}
+  h1{margin:9px 0 16px;font-size:25px;font-weight:800;letter-spacing:-.5px;}
+  .meta{display:flex;flex-wrap:wrap;gap:10px;font-size:13.5px;}
+  .pill{background:rgba(255,255,255,.18);padding:5px 12px;border-radius:999px;font-weight:600;}
+
+  .intro{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:24px 26px;margin-bottom:18px;box-shadow:0 1px 2px rgba(0,0,0,.03);}
+  .intro p{margin:0 0 12px;color:#2f3a35;}
+  .intro p:last-child{margin-bottom:0;}
+
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:22px 26px;margin-bottom:18px;box-shadow:0 1px 2px rgba(0,0,0,.03);}
+  h2{font-size:18px;margin:0 0 16px;font-weight:800;display:flex;align-items:center;gap:11px;}
+  h2 .num{width:28px;height:28px;background:var(--green);color:#fff;border-radius:8px;
+    font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  h3{font-size:15.5px;color:var(--green-d);margin:18px 0 8px;font-weight:700;}
+  h3:first-of-type{margin-top:0;}
+
+  ul.bul{margin:0;padding-left:0;list-style:none;}
+  ul.bul li{padding:7px 0 7px 22px;position:relative;color:#2f3a35;border-bottom:1px solid #f3f6f4;}
+  ul.bul li:last-child{border-bottom:none;}
+  ul.bul li::before{content:"";position:absolute;left:4px;top:15px;width:6px;height:6px;
+    border-radius:50%;background:var(--green);}
+  b{color:var(--green-d);}
+  b.warn{color:var(--warn);}
+
+  .callout{background:var(--green-l);border-left:4px solid var(--green);border-radius:0 10px 10px 0;
+    padding:16px 20px;color:#1f3329;}
+  .callout.amber{background:var(--hold-bg);border-left-color:var(--hold);color:#5a4711;}
+  .callout.red{background:var(--warn-bg);border-left-color:var(--warn);color:#5a2620;}
+  .callout + .callout{margin-top:12px;}
+
+  /* refund table */
+  .tbl-wrap{overflow-x:auto;}
+  table.refund{width:100%;border-collapse:collapse;font-size:14px;margin-top:4px;}
+  table.refund th,table.refund td{border:1px solid var(--line);padding:9px 10px;text-align:center;}
+  table.refund thead th{background:var(--green-d);color:#fff;font-weight:700;}
+  table.refund tbody .grp{background:var(--green-l);font-weight:800;color:var(--green-d);vertical-align:middle;}
+  table.refund tbody .cond{background:#fafcfb;font-weight:600;}
+  table.refund tbody .full{color:var(--warn);font-weight:700;}
+  .cap{font-size:12.5px;color:var(--muted);margin:10px 0 0;}
+
+  .imgbox{margin-top:14px;text-align:center;}
+  .imgbox img{max-width:100%;border:1px solid var(--line);border-radius:10px;}
+  .imgbox figcaption{font-size:12.5px;color:var(--muted);margin-top:8px;}
+
+  footer{text-align:center;color:var(--muted);font-size:13.5px;margin-top:26px;line-height:1.8;}
+  .sig{font-weight:800;color:var(--ink);font-size:15px;margin-top:6px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">CAMFIT · 공지사항</div>
+    <h1>안심취소 80/100 서비스 도입 및 환불규정 안내</h1>
+    <div class="meta">
+      <span class="pill">📅 2026년 7월 13일부터 순차 적용</span>
+      <span class="pill">🏕 입점 캠핑장 사장님 / 이용 캠퍼 안내</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- 인사 -->
+  <div class="intro">
+    <p>안녕하세요, 캠핏입니다.</p>
+    <p>캠퍼와 캠핑장 모두가 신뢰할 수 있는 예약 환경을 만들기 위해 <b>‘안심취소 80/100 서비스’</b>를 도입하며, 함께 적용되는 <b>환불규정</b>을 아래와 같이 안내드립니다.</p>
+  </div>
+
+  <!-- 1. 서비스 도입 및 프로모션 -->
+  <section>
+    <h2><span class="num">1</span>안심취소 80/100 서비스 도입 및 프로모션</h2>
+    <ul class="bul">
+      <li>이번에 도입하는 서비스는 <b>‘안심취소 80/100 서비스’</b>입니다.</li>
+      <li><b>2026년 7월 13일부터 순차적으로 적용</b>됩니다.</li>
+      <li>도입 후 <b>6개월간은 프로모션 기간</b>으로, 해당 기간의 <b>서비스 비용은 캠핏이 전액 지원</b>합니다. 즉, 프로모션 기간 동안 <b>사장님·캠퍼 모두 별도의 비용 부담이 없습니다.</b></li>
+    </ul>
+    <div class="callout" style="margin-top:14px;">
+      <b>※ "캠핏이 비용을 지원하는 프로모션"입니다.</b><br>
+      안심취소 80/100 서비스는 원래 비용이 발생하는 서비스이나, 도입 후 6개월간은 그 비용을 <b>캠핏이 부담(지원)</b>하여 무료로 제공하는 것입니다. (사장님 유료 전환 아님)
+    </div>
+
+    <p style="margin:16px 0 0;color:#2f3a35;">다만, 안심취소 80/100은 <b>보험 기반으로 운영되는 서비스</b>이므로 아래 사항을 함께 안내드립니다.</p>
+
+    <div class="callout amber" style="margin-top:12px;">
+      <b>※ 6개월 프로모션 이후 정책</b><br>
+      6개월 무료 프로모션 종료 이후의 운영 정책은 <b>보험사 정책 변동 가능성</b>이 있어 <b>상황에 따라 재판단할 예정</b>입니다. 변경 사항이 확정되면 사전에 별도 안내드리겠습니다.
+    </div>
+    <div class="callout red">
+      <b class="warn">※ 조기 종료 가능 안내</b><br>
+      본 서비스는 보험 기반으로 운영되므로, <b>손실율이 과도하게 높아지거나 부정 이용(어뷰징) 행위가 적발되는 경우</b>, 프로모션 기간 중이라도 <b>서비스가 조기 종료될 수 있습니다.</b> 건전한 이용 환경 유지를 위한 불가피한 조치임을 양해 부탁드립니다.
+    </div>
+  </section>
+
+  <!-- 2. 결제수단 안내 -->
+  <section>
+    <h2><span class="num">2</span>결제수단 관련 안내</h2>
+    <div class="callout red">
+      <b class="warn">계좌이체 결제건은 안심취소 80/100 서비스가 적용되지 않습니다.</b><br>
+      안심취소 서비스는 <b>PG(카드 등 온라인) 결제건에 한하여 적용</b>됩니다. 계좌이체 예약건은 보호 대상에서 제외되므로, 캠퍼 보호와 분쟁 예방을 위해 <b>PG 결제 전환을 권장</b>드립니다.
+    </div>
+  </section>
+
+  <!-- 3. 예약 시장 변화 -->
+  <section>
+    <h2><span class="num">3</span>서비스 도입에 따른 예약 시장 변화</h2>
+    <p style="margin:0 0 12px;color:#2f3a35;">안심취소 80/100 서비스가 적용되면, <b>캠퍼의 예약 행태와 시장 흐름이 크게 달라질 것으로 예상</b>됩니다.</p>
+    <ul class="bul">
+      <li>그동안 캠퍼가 취소·환불에 대한 부담으로 망설이던 예약이 <b>안심하고 결제로 이어지는 흐름</b>으로 전환됩니다.</li>
+      <li>취소 부담이 줄면서 <b>예약 전환율 상승, 빈자리 회전 가속</b> 등 예약 시장 전반의 활성화가 기대됩니다.</li>
+      <li>캠퍼 신뢰도가 높은 <b>안심취소 적용 캠핑장으로 예약이 집중</b>되는 흐름이 나타날 수 있어, 조기 도입이 유리합니다.</li>
+    </ul>
+  </section>
+
+  <!-- 4. 환불규정 -->
+  <section>
+    <h2><span class="num">4</span>환불규정 안내 (공통 적용)</h2>
+    <div class="callout">
+      환불규정은 <b>「소비자분쟁해결기준」(한국소비자원 고시)</b>에 따라 <b>전체 예약 건에 공통 적용</b>됩니다. 아래 환불 수수료율 표를 기준으로 취소 시점에 따라 환급액이 산정됩니다.
+    </div>
+
+    <h3>환불 수수료율 표 (공통 적용)</h3>
+    <div class="tbl-wrap">
+      <table class="refund">
+        <thead>
+          <tr><th colspan="2">구분</th><th>환급 기준</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="grp" rowspan="6">주중<br><span style="font-weight:600;font-size:12px;color:var(--muted)">(일~목 숙박)</span></td><td class="cond">사용예정일 10일 전 취소</td><td>계약금 환급</td></tr>
+          <tr><td class="cond">사용예정일 7일 전 취소</td><td>총 요금의 10% 공제 후 환급</td></tr>
+          <tr><td class="cond">사용예정일 5일 전 취소</td><td>총 요금의 30% 공제 후 환급</td></tr>
+          <tr><td class="cond">사용예정일 3일 전 취소</td><td>총 요금의 50% 공제 후 환급</td></tr>
+          <tr><td class="cond">사용예정일 1일 전 취소</td><td>총 요금의 80% 공제 후 환급</td></tr>
+          <tr><td class="cond">사용예정일 당일 취소</td><td class="full">총 요금의 100% 공제 후 환급</td></tr>
+
+          <tr><td class="grp" rowspan="6">주말<br><span style="font-weight:600;font-size:12px;color:var(--muted)">(금~토, 공휴일 전일 숙박)</span></td><td class="cond">사용예정일 10일 전 취소</td><td>계약금 환급</td></tr>
+          <tr><td class="cond">사용예정일 7일 전 취소</td><td>총 요금의 20% 공제 후 환급</td></tr>
+          <tr><td class="cond">사용예정일 5일 전 취소</td><td>총 요금의 40% 공제 후 환급</td></tr>
+          <tr><td class="cond">사용예정일 3일 전 취소</td><td>총 요금의 60% 공제 후 환급</td></tr>
+          <tr><td class="cond">사용예정일 1일 전 취소</td><td>총 요금의 90% 공제 후 환급</td></tr>
+          <tr><td class="cond">사용예정일 당일 취소</td><td class="full">총 요금의 100% 공제 후 환급</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="cap">※ 위 표는 「소비자분쟁해결기준」에 근거한 환불 수수료율로, 전체 예약에 공통 적용됩니다.</p>
+
+    <figure class="imgbox">
+      <img src="refund-table.png" alt="환불 수수료율 표 (공통 적용)">
+      <figcaption>[부록 1] 환불 수수료율 표 (공통 적용)</figcaption>
+    </figure>
+  </section>
+
+  <footer>
+    문의 : 캠핏 운영팀 &nbsp;/&nbsp; camfit.ai3@nextedition.co.kr
+    <div class="sig">캠핏 드림</div>
+  </footer>
+
+</div>
+</body>
+</html>
