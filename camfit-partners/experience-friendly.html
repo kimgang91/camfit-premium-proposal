@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>프렌들리 체험 타입</title>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap');
+        :root {
+            --primary: #1B5E20; --primary-light: #2E7D32; --primary-dark: #0D3B11;
+            --accent: #FF6F00; --bg: #FAFAF8; --card: #FFFFFF;
+            --text: #1A1A1A; --text-light: #5A5A5A; --text-muted: #8A8A8A;
+            --border: #E8E8E4; --border-light: #F0F0EC;
+            --lite: #E8F5E9; --lite-accent: #43A047;
+            --premium: #FFF3E0; --premium-accent: #EF6C00;
+            --danger: #FFEBEE; --danger-accent: #C62828;
+            --vip: #F3E5F5; --vip-accent: #7B1FA2;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Noto Sans KR',-apple-system,sans-serif; background:var(--bg); color:var(--text); line-height:1.7; -webkit-font-smoothing:antialiased; }
+
+        /* Hero */
+        .hero { background:linear-gradient(135deg,var(--primary-dark),var(--primary),var(--primary-light)); color:white; padding:80px 24px 60px; text-align:center; }
+        .hero-badge { display:inline-block; background:rgba(255,255,255,0.15); padding:6px 20px; border-radius:100px; font-size:13px; font-weight:500; margin-bottom:24px; border:1px solid rgba(255,255,255,0.2); }
+        .hero h1 { font-size:clamp(32px,5vw,48px); font-weight:800; margin-bottom:12px; letter-spacing:-1px; }
+        .hero p { font-size:17px; opacity:0.85; font-weight:300; max-width:500px; margin:0 auto 32px; }
+        .hero-meta { display:flex; justify-content:center; gap:32px; font-size:13px; opacity:0.7; }
+
+        .container { max-width:900px; margin:0 auto; padding:0 24px; }
+        .section { margin:48px 0; }
+        .section-label { display:inline-block; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--primary); margin-bottom:8px; }
+        .section-title { font-size:28px; font-weight:800; letter-spacing:-0.5px; margin-bottom:8px; }
+        .section-desc { font-size:15px; color:var(--text-light); margin-bottom:32px; }
+        .divider { height:1px; background:var(--border); margin:48px 0; }
+        .card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:32px; margin-bottom:20px; }
+        .info-box { padding:16px 20px; background:var(--bg); border-radius:10px; font-size:13px; color:var(--text-light); border:1px solid var(--border); margin-top:16px; }
+
+        /* TOC */
+        .toc { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:28px 32px; margin:-24px auto 48px; position:relative; z-index:10; }
+        .toc h3 { font-size:14px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:16px; }
+        .toc-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:6px; }
+        .toc-item { display:flex; align-items:center; gap:8px; padding:8px 12px; border-radius:8px; font-size:14px; color:var(--text-light); text-decoration:none; }
+        .toc-item:hover { background:var(--bg); color:var(--primary); }
+        .toc-num { font-weight:700; color:var(--primary); font-size:12px; width:20px; }
+
+        /* Problem */
+        .problem-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:16px; }
+        .problem-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:28px 24px; position:relative; overflow:hidden; }
+        .problem-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--danger-accent); }
+        .problem-num { display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:8px; background:var(--danger); color:var(--danger-accent); font-size:13px; font-weight:700; margin-bottom:14px; }
+        .problem-card h4 { font-size:16px; font-weight:700; margin-bottom:8px; }
+        .problem-card p { font-size:14px; color:var(--text-light); line-height:1.6; }
+
+        /* Model */
+        .model-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(380px,1fr)); gap:20px; }
+        .model-card { background:var(--card); border-radius:18px; overflow:hidden; border:2px solid var(--border); }
+        .model-card.lite { border-color:var(--lite-accent); }
+        .model-card.premium { border-color:var(--premium-accent); }
+        .model-header { padding:28px 28px 20px; }
+        .model-card.lite .model-header { background:linear-gradient(135deg,#E8F5E9,#C8E6C9); }
+        .model-card.premium .model-header { background:linear-gradient(135deg,#FFF3E0,#FFE0B2); }
+        .model-tag { display:inline-block; padding:4px 14px; border-radius:100px; font-size:11px; font-weight:700; margin-bottom:12px; color:white; }
+        .model-card.lite .model-tag { background:var(--lite-accent); }
+        .model-card.premium .model-tag { background:var(--premium-accent); }
+        .model-header h3 { font-size:22px; font-weight:800; margin-bottom:4px; }
+        .model-header .subtitle { font-size:14px; color:var(--text-light); }
+        .model-body { padding:24px 28px 28px; }
+        .model-features { list-style:none; margin-bottom:20px; }
+        .model-features li { padding:8px 0; font-size:14px; display:flex; align-items:flex-start; gap:10px; border-bottom:1px solid var(--border-light); }
+        .model-features li:last-child { border-bottom:none; }
+        .model-features .icon { flex-shrink:0; width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; margin-top:2px; }
+        .model-card.lite .icon { background:var(--lite); color:var(--lite-accent); }
+        .model-card.premium .icon { background:var(--premium); color:var(--premium-accent); }
+
+        /* Scope Table */
+        .scope-tag { display:inline-block; padding:3px 10px; border-radius:6px; font-size:11px; font-weight:700; }
+        .scope-tag.yes { background:var(--lite); color:var(--lite-accent); }
+        .scope-tag.no { background:#F5F5F5; color:#BDBDBD; }
+        .compare-table { width:100%; border-collapse:collapse; font-size:14px; }
+        .compare-table th { background:var(--bg); padding:14px 16px; font-weight:700; text-align:center; border-bottom:2px solid var(--border); }
+        .compare-table th:first-child { text-align:left; }
+        .compare-table td { padding:14px 16px; border-bottom:1px solid var(--border-light); text-align:center; }
+        .compare-table td:first-child { text-align:left; font-weight:500; color:var(--text-light); }
+        .compare-table .col-lite { background:#F1F8E9; }
+        .compare-table .col-premium { background:#FFF8E1; }
+        .compare-table .th-lite { background:var(--lite-accent); color:white; }
+        .compare-table .th-premium { background:var(--premium-accent); color:white; }
+
+        /* Share Box */
+        .share-box { border-radius:16px; padding:32px; margin-bottom:20px; }
+        .share-box.type-a { background:linear-gradient(135deg,#E8F5E9,#F1F8E9); border:2px solid #A5D6A7; }
+        .share-box.type-b { background:linear-gradient(135deg,#E3F2FD,#E8EAF6); border:2px solid #90CAF9; }
+        .share-box h4 { font-size:18px; font-weight:800; margin-bottom:6px; }
+        .share-box .fee { font-size:14px; color:var(--text-light); margin-bottom:20px; }
+        .share-bar { display:flex; height:52px; border-radius:12px; overflow:hidden; margin-bottom:16px; font-size:13px; font-weight:700; }
+        .share-bar > div { display:flex; align-items:center; justify-content:center; color:white; }
+        .bar-cost { background:#78909C; }
+        .bar-md-l { background:var(--lite-accent); }
+        .bar-md-p { background:var(--premium-accent); }
+        .bar-camfit-l { background:var(--primary); }
+        .bar-camfit-p { background:#1565C0; }
+        .share-legend { display:flex; flex-wrap:wrap; gap:16px; margin-bottom:16px; }
+        .share-legend-item { display:flex; align-items:center; gap:6px; font-size:13px; }
+        .share-legend-dot { width:12px; height:12px; border-radius:3px; }
+        .share-detail { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+        .share-detail-item { background:white; border-radius:10px; padding:16px; text-align:center; }
+        .share-detail-item .label { font-size:12px; color:var(--text-muted); font-weight:600; }
+        .share-detail-item .pct { font-size:24px; font-weight:800; margin:4px 0; }
+        .share-detail-item .note { font-size:11px; color:var(--text-muted); }
+        .share-extra { background:white; border-radius:10px; padding:14px 16px; margin-top:12px; font-size:13px; color:var(--text-light); display:flex; align-items:center; gap:8px; }
+        .share-extra .badge { background:var(--accent); color:white; padding:3px 10px; border-radius:6px; font-size:11px; font-weight:700; flex-shrink:0; }
+
+        /* Sim */
+        .sim-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+        .sim-box { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:24px; }
+        .sim-box h5 { font-size:14px; font-weight:700; margin-bottom:16px; display:flex; align-items:center; gap:8px; }
+        .sim-row { display:flex; justify-content:space-between; padding:8px 0; font-size:14px; border-bottom:1px solid var(--border-light); }
+        .sim-row:last-child { border-bottom:none; }
+        .sim-row.total { border-top:2px solid var(--primary); padding-top:12px; margin-top:4px; font-weight:800; font-size:15px; }
+        .sim-row.total.pt { border-color:var(--premium-accent); }
+        .sim-row .neg { color:var(--danger-accent); }
+        .sim-row .green { color:var(--primary); }
+        .sim-row .orange { color:var(--premium-accent); }
+        .sim-row .blue { color:#1565C0; }
+
+        /* Level */
+        .level-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:14px; margin-top:24px; }
+        .level-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:24px 20px; text-align:center; overflow:hidden; position:relative; }
+        .level-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
+        .level-card.l1::before { background:#90A4AE; }
+        .level-card.l2::before { background:#66BB6A; }
+        .level-card.l3::before { background:var(--accent); }
+        .level-card.l4::before { background:var(--vip-accent); }
+        .level-emoji { font-size:28px; margin-bottom:10px; }
+        .level-title { font-size:14px; font-weight:700; margin-bottom:4px; }
+        .level-sites { font-size:12px; color:var(--text-muted); margin-bottom:12px; }
+        .level-amount { font-size:18px; font-weight:800; }
+        .level-sub { font-size:11px; color:var(--text-muted); margin-top:2px; }
+        .level-card.l1 .level-amount { color:#546E7A; }
+        .level-card.l2 .level-amount { color:#2E7D32; }
+        .level-card.l3 .level-amount { color:var(--accent); }
+        .level-card.l4 .level-amount { color:var(--vip-accent); }
+        .level-range { display:flex; gap:4px; justify-content:center; margin-top:8px; }
+        .level-range .tag { font-size:10px; padding:2px 8px; border-radius:4px; font-weight:600; }
+        .tag-lite { background:var(--lite); color:var(--lite-accent); }
+        .tag-premium { background:var(--premium); color:var(--premium-accent); }
+
+        /* S-class */
+        .sclass-card { background:linear-gradient(135deg,#F3E5F5,#EDE7F6); border:2px solid #CE93D8; border-radius:16px; padding:32px; }
+        .sclass-card h4 { color:var(--vip-accent); font-size:18px; font-weight:800; margin-bottom:6px; }
+        .sclass-card .subtitle { font-size:14px; color:var(--text-light); margin-bottom:20px; }
+        .sclass-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; }
+        .sclass-item { background:white; border-radius:10px; padding:18px 16px; }
+        .sclass-item .label { font-size:11px; color:var(--text-muted); font-weight:600; text-transform:uppercase; letter-spacing:0.5px; }
+        .sclass-item .value { font-size:17px; font-weight:700; color:var(--vip-accent); margin-top:4px; }
+        .sclass-item .note { font-size:12px; color:var(--text-muted); margin-top:2px; }
+
+        /* Services */
+        .service-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:16px; }
+        .service-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:28px 24px; text-align:center; }
+        .service-tier { display:inline-block; padding:4px 14px; border-radius:100px; font-size:11px; font-weight:700; margin-bottom:14px; }
+        .service-card.tier-low .service-tier { background:#E3F2FD; color:#1565C0; }
+        .service-card.tier-mid .service-tier { background:var(--lite); color:var(--lite-accent); }
+        .service-card.tier-high .service-tier { background:var(--premium); color:var(--premium-accent); }
+        .service-price { font-size:28px; font-weight:800; margin-bottom:4px; }
+        .service-unit { font-size:13px; color:var(--text-muted); margin-bottom:16px; }
+        .service-list { list-style:none; text-align:left; }
+        .service-list li { padding:6px 0; font-size:13px; color:var(--text-light); border-bottom:1px solid var(--border-light); }
+        .service-list li:last-child { border-bottom:none; }
+
+        /* Roadmap */
+        .roadmap { position:relative; }
+        .roadmap::before { content:''; position:absolute; left:20px; top:0; bottom:0; width:2px; background:var(--border); }
+        .roadmap-phase { position:relative; padding-left:56px; padding-bottom:36px; }
+        .roadmap-phase:last-child { padding-bottom:0; }
+        .roadmap-dot { position:absolute; left:10px; top:4px; width:22px; height:22px; border-radius:50%; border:3px solid var(--primary); background:white; }
+        .roadmap-phase.active .roadmap-dot { background:var(--primary); }
+        .roadmap-time { font-size:12px; font-weight:700; color:var(--primary); letter-spacing:0.5px; margin-bottom:8px; }
+        .roadmap-title { font-size:17px; font-weight:700; margin-bottom:12px; }
+        .roadmap-tasks { list-style:none; }
+        .roadmap-tasks li { padding:6px 0; font-size:14px; color:var(--text-light); display:flex; align-items:center; gap:8px; }
+        .task-check { width:18px; height:18px; border-radius:4px; border:2px solid var(--border); flex-shrink:0; }
+
+        /* Risk */
+        .risk-item { display:grid; grid-template-columns:1fr 1fr; gap:16px; padding:18px 0; border-bottom:1px solid var(--border-light); font-size:14px; }
+        .risk-item:last-child { border-bottom:none; }
+        .risk-label { font-weight:600; color:var(--danger-accent); }
+        .risk-solution { color:var(--text-light); }
+
+        /* Decision */
+        .decision-grid { display:grid; gap:12px; }
+        .decision-item { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px 24px; display:grid; grid-template-columns:36px 1fr; align-items:center; gap:16px; }
+        .decision-num { width:36px; height:36px; border-radius:10px; background:var(--primary); color:white; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; }
+        .decision-text { font-size:14px; font-weight:600; }
+        .decision-options { font-size:13px; color:var(--text-muted); }
+
+        /* Comment */
+        .comment-section { background:#FFF8E1; border:2px solid #FFE082; border-radius:16px; padding:32px; margin-top:48px; }
+        .comment-section h3 { font-size:18px; font-weight:700; margin-bottom:8px; }
+        .comment-section p { font-size:14px; color:var(--text-light); margin-bottom:20px; }
+        .comment-box { width:100%; min-height:120px; border:1px solid #E0E0E0; border-radius:10px; padding:16px; font-family:'Noto Sans KR',sans-serif; font-size:14px; resize:vertical; outline:none; }
+        .comment-box:focus { border-color:var(--primary); }
+        .comment-name { width:200px; border:1px solid #E0E0E0; border-radius:8px; padding:10px 14px; font-family:'Noto Sans KR',sans-serif; font-size:14px; outline:none; margin-top:12px; }
+        .comment-btn { display:inline-block; background:var(--primary); color:white; border:none; border-radius:8px; padding:10px 28px; font-family:'Noto Sans KR',sans-serif; font-size:14px; font-weight:600; cursor:pointer; margin-top:12px; margin-left:8px; }
+        .comment-btn:hover { background:var(--primary-dark); }
+        .comments-list { margin-top:24px; }
+        .comment-entry { background:white; border-radius:10px; padding:16px 20px; margin-bottom:10px; border:1px solid #F0E6C0; }
+        .comment-entry .author { font-weight:700; font-size:13px; color:var(--primary); }
+        .comment-entry .time { font-size:11px; color:var(--text-muted); margin-left:8px; }
+        .comment-entry .body { font-size:14px; color:var(--text); margin-top:6px; white-space:pre-wrap; }
+        .footer { text-align:center; padding:48px 24px; color:var(--text-muted); font-size:13px; border-top:1px solid var(--border); }
+
+        @media (max-width:700px) {
+            .model-grid, .sim-grid { grid-template-columns:1fr; }
+            .risk-item { grid-template-columns:1fr; gap:6px; }
+            .share-detail { grid-template-columns:1fr; }
+            .hero-meta { flex-direction:column; gap:4px; }
+        }
+    
+
+html,body{height:100%;overflow:hidden;background:#1d2420}
+#stage{position:fixed;left:0;top:0;right:0;bottom:56px;display:flex;align-items:center;justify-content:center}
+#deck{width:1280px;height:720px;position:relative;transform-origin:center center;flex:none}
+.slide{position:absolute;inset:0;background:var(--bg);border-radius:6px;overflow:hidden;padding:44px 64px 40px;display:none}
+.slide.on{display:block}
+.slide .section{margin:0}
+.slide .section-title{font-size:30px;margin-bottom:6px}
+.slide .section-desc{margin-bottom:22px}
+.slide .card{padding:24px;margin-bottom:0}
+.slide .info-box{margin-top:14px}
+.slide .model-header{padding:20px 24px 14px}
+.slide .model-body{padding:14px 24px 18px}
+.slide .model-features li{padding:6px 0}
+.slide .model-features{margin-bottom:12px}
+.slide .compare-table td,.slide .compare-table th{padding:11px 16px}
+.pno{position:absolute;right:28px;bottom:16px;font-size:12px;color:var(--text-muted);font-weight:600}
+.slide.cover{padding:0;background:linear-gradient(135deg,var(--primary-dark),var(--primary),var(--primary-light));color:#fff;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.slide.cover.on{display:flex}
+.slide.cover .hero{background:none;padding:0}
+.slide.cover .hero h1{font-size:60px}
+.slide.cover .hero p{font-size:19px;max-width:700px!important}
+#roadmap .roadmap{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:20px}
+#roadmap .roadmap::before{display:none}
+#roadmap .roadmap-phase{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px 24px 20px}
+#roadmap .roadmap-dot{position:static;margin-bottom:12px}
+#decisions .decision-grid{grid-template-columns:1fr 1fr;margin-top:20px}
+.slide .comment-section{margin-top:0}
+.slide .comment-box{min-height:90px}
+.slide .comments-list{max-height:250px;overflow:auto}
+/* nav */
+#nav{position:fixed;left:0;right:0;bottom:0;height:56px;background:#fff;border-top:1px solid var(--border);display:flex;align-items:center;gap:6px;padding:0 14px;overflow-x:auto;white-space:nowrap}
+#nav button{font-family:inherit;border:1px solid transparent;background:none;color:var(--text-light);font-size:13px;font-weight:600;padding:7px 12px;border-radius:8px;cursor:pointer;flex:none}
+#nav button:hover{background:var(--bg);color:var(--primary)}
+#nav button.on{background:var(--lite);color:var(--primary);border-color:#C8E6C9}
+#nav button b{color:var(--primary);margin-right:5px;font-size:11px}
+#nav .arrow{font-size:16px;color:var(--text-muted);padding:6px 10px}
+#nav .sp{flex:1;min-width:8px}
+#nav .cnt{font-size:12px;color:var(--text-muted);font-weight:600;flex:none;padding:0 6px}
+@media print{html,body{overflow:visible;background:#fff}#nav{display:none}#stage{position:static;display:block}#deck{transform:none!important;width:auto;height:auto}.slide,.slide.cover{display:block!important;position:relative;width:1280px;height:720px;page-break-after:always;border-radius:0}.slide.cover{display:flex!important}@page{size:1280px 720px;margin:0}}
+
+/* mobile: stacked scroll */
+@media (max-width:820px){
+html,body{overflow:auto;height:auto;background:var(--bg)}
+#stage{position:static;display:block;padding:0 0 72px}
+#deck{transform:none!important;width:auto;height:auto}
+.slide,.slide.cover{display:block!important;position:relative;inset:auto;height:auto;border-radius:0;padding:28px 18px 36px;border-bottom:8px solid #EEF1EE;scroll-margin-top:0}
+.slide.cover{display:flex!important;min-height:70vh;padding:48px 20px}
+.slide.cover .hero h1{font-size:38px}
+.slide.cover .hero p{font-size:15px}
+.slide .section-title{font-size:23px}
+.slide .section-desc{font-size:14px;margin-bottom:16px}
+.slide [style*="grid-template-columns"],.model-grid,.problem-grid,#roadmap .roadmap,.share-detail{grid-template-columns:1fr!important}
+.slide .card{padding:16px}
+.model-header{padding:18px 18px 12px!important}
+.model-body{padding:12px 18px 16px!important}
+.compare-table{font-size:13px}
+.compare-table td,.compare-table th{padding:10px 10px!important}
+.slide table{min-width:560px}
+.slide .compare-table{min-width:0}
+.pno{display:none}
+#nav{height:52px;padding:0 6px}
+#nav .arrow,#nav .cnt,#nav .sp{display:none}
+#nav button{font-size:12.5px;padding:7px 10px}
+.comment-name{width:100%}
+.comment-btn{margin-left:0;width:100%}
+}
+</style>
+</head>
+<body>
+<div id="stage"><div id="deck">
+<section class="slide cover"><div class="hero">
+    <div class="hero-badge">INTERNAL STRATEGY DOCUMENT</div>
+    <h1>프렌들리 체험 타입</h1>
+    <p style="max-width:640px;">체험 프로그램 업체를 영업할 때 캠핏 공급가를 기준으로 수수료를 정하는 구조입니다. 기존 RS(수익배분) 방식을 대신합니다.</p>
+    <div class="hero-meta">
+        <span>작성일 2026.10.13</span>
+        <span>상태: 내부 검토용 초안</span>
+    </div>
+</div><div class="pno">1 / 8</div></section>
+<section class="slide"><div class="section" id="diagnosis">
+        <div class="section-label">01</div>
+        <div class="section-title">바꾸는 이유</div>
+        <div class="card"  style="margin:0 0 20px; background:linear-gradient(135deg, #F1F8E9, #E8F5E9); border:1px solid #C8E6C9;">
+        <h4 style="font-size:16px; font-weight:700; color:var(--primary-dark); margin-bottom:10px;">왜 공급가 기준으로 바꾸나요?</h4>
+        <p style="font-size:14px; color:var(--text-light); line-height:1.8; margin:0;">지금까지는 영업하는 쪽이 계약을 따내려고 수수료를 낮춰 제안하는 일이 많았습니다. 수수료가 내려가면 나눌 금액도 같이 줄어서 회사도 영업자도 남는 게 없는 치킨게임이 됩니다.</p>
+        <p style="font-size:14px; color:var(--primary-dark); line-height:1.8; margin:12px 0 0; font-weight:500;">그래서 캠핏이 받는 금액을 공급가 기준별로 먼저 정해 두고, 영업 수익은 그보다 높게 받은 부분에서 나오도록 바꿉니다. 캠핏이 따로 주는 RS는 원칙적으로 없고, 예외적인 경우에만 지급합니다.</p>
+    </div><div class="problem-grid">
+            <div class="problem-card">
+                <div class="problem-num">1</div>
+                <h4>수수료 낮추기 경쟁</h4>
+                <p>계약을 성사시키려고 수수료를 낮춰 제안하는 일이 반복됩니다. 계약 수는 늘어도 한 건에서 남는 금액은 줄어듭니다.</p>
+            </div>
+            <div class="problem-card">
+                <div class="problem-num">2</div>
+                <h4>모두 손해 보는 구조</h4>
+                <p>RS는 받은 수수료를 나누는 방식이라 수수료가 낮아지면 캠핏 몫과 영업자 몫이 같이 줄어듭니다.</p>
+            </div>
+            <div class="problem-card">
+                <div class="problem-num">3</div>
+                <h4>욕심에 의해 높입니다</h4>
+                <p>변경된 구조로 진행 시 더 높은 수익을 가져가기 위한 욕심에 의해 캠핏 / 피코 / MD 모두 윈윈할 수 있습니다.</p>
+            </div>
+        </div>
+    </div><div class="pno">2 / 8</div></section>
+<section class="slide"><div class="section" id="compare">
+        <div class="section-label">02</div>
+        <div class="section-title">기존 방식과 비교</div>
+        <div class="section-desc">RS를 어디에서 계산하느냐가 달라집니다.</div>
+
+        <div class="card">
+            <div style="overflow-x:auto; border-radius:12px; border:1px solid var(--border);">
+                <table class="compare-table">
+                    <thead>
+                        <tr>
+                            <th style="background:var(--bg); width:22%;">항목</th>
+                            <th class="th-premium">기존 RS</th>
+                            <th class="th-lite">공급가 기준</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>RS 계산 기준</td><td class="col-premium">캠핏 공헌이익의 %</td><td class="col-lite">공급가보다 높게 받은 수수료</td></tr>
+                        <tr><td>RS 크기를 정하는 것</td><td class="col-premium">캠핏 공헌이익 크기</td><td class="col-lite">영업자가 제안한 수수료율</td></tr>
+                        <tr><td>네이버 의존</td><td class="col-premium">네이버 예약 수수료 등 비용이 커서<br>공헌이익 자체가 작음</td><td class="col-lite">공급가 안에서 캠핏이 부담</td></tr>
+                        <tr><td>영업 방향</td><td class="col-premium">수수료를 낮춰 계약 유도</td><td class="col-lite">공급가보다 높은 수수료를 제안</td></tr>
+                        <tr><td style="font-weight:800; color:var(--text);">결과</td><td class="col-premium" style="font-weight:800; color:var(--danger-accent);">많은 RS가 발생할 수 없음</td><td class="col-lite" style="font-weight:800; color:var(--primary);">높게 받을수록 RS가 더 많이 발생</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div><div class="pno">3 / 8</div></section>
+<section class="slide"><div class="section" id="grade">
+        <div class="section-label">03</div>
+        <div class="section-title">공급가 기준</div>
+        <div class="section-desc">캠핏 공급가는 7.7%를 기본으로 책정합니다. 프렌들리(피코)는 그보다 높게 받는 수수료만큼 업체에 제공할 서비스를 정해야 합니다.</div>
+
+        <div style="display:grid; grid-template-columns:1fr 1.35fr; gap:20px;">
+            <div class="card" style="background:linear-gradient(135deg,#E8F5E9,#F1F8E9); border:2px solid #A5D6A7;">
+                <div style="font-size:13px; font-weight:700; color:var(--lite-accent);">캠핏 공급가</div>
+                <div style="font-size:64px; font-weight:900; color:var(--primary); letter-spacing:-2px; line-height:1.15; margin-top:8px;">7.7%</div>
+                <div style="font-size:15px; font-weight:700; margin-top:6px;">기본 책정</div>
+                <div style="background:white; border-radius:10px; padding:14px 16px; margin-top:22px; font-size:13.5px; color:var(--text-light); line-height:1.7;">추후 상품에 따라 공급가는 변경될 수 있습니다.</div>
+            </div>
+            <div class="card">
+                <div style="font-size:13px; font-weight:700; color:var(--premium-accent);">프렌들리(피코)</div>
+                <div style="font-size:21px; font-weight:800; margin-top:6px; line-height:1.4;">더 받는 수수료만큼<br>제공할 서비스를 정의합니다</div>
+                <p style="font-size:14px; color:var(--text-light); margin-top:10px;">공급가보다 높은 수수료를 제안해 수익을 내는 만큼, 업체에 어떤 서비스를 제공하는지가 정해져 있어야 합니다. 이것이 업체에 설명하는 수수료의 명분이 됩니다.</p>
+                <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:16px;">
+                    <div style="background:var(--premium); border-radius:10px; padding:14px; text-align:center; font-weight:700; font-size:14px;">전화 응대</div>
+                    <div style="background:var(--premium); border-radius:10px; padding:14px; text-align:center; font-weight:700; font-size:14px;">홈페이지</div>
+                    <div style="background:var(--premium); border-radius:10px; padding:14px; text-align:center; font-weight:700; font-size:14px;">마케팅 등</div>
+                </div>
+            </div>
+        </div>
+        <div class="info-box">
+            <strong>수수료 구성:</strong> 업체가 내는 수수료 = 캠핏 공급가 7.7% + 피코 수익. 피코 수익이 클수록 그에 맞는 서비스를 더 제공해야 합니다.
+        </div>
+    </div><div class="pno">4 / 8</div></section>
+<section class="slide"><div class="section" id="rs">
+        <div class="section-label">04</div>
+        <div class="section-title">RS 방식</div>
+        <div class="section-desc">원칙적으로 공급가보다 높게 받은 부분을 피코와 MD가 나누고, 예외적인 경우에만 캠핏이 RS를 지급합니다.</div>
+
+        <div class="model-grid">
+            <div class="model-card lite">
+                <div class="model-header">
+                    <div class="model-tag">원칙</div>
+                    <h3>피코와 MD가 쉐어</h3>
+                    <div class="subtitle">공급가보다 높게 계약한 경우</div>
+                </div>
+                <div class="model-body">
+                    <ul class="model-features">
+                        <li><span class="icon">1</span><span>캠핏 공급가 7.7%는 캠핏이 받습니다.</span></li>
+                        <li><span class="icon">2</span><span>공급가보다 높게 받은 부분을 피코와 영업자(MD)가 정한 비율로 나눕니다.</span></li>
+                        <li><span class="icon">3</span><span>수익 쉐어로 피코와 MD가 더 많은 수익을 가져갈 수 있기 때문에 캠핏에서 제공되는 RS는 제외합니다.</span></li>
+                    </ul>
+                    <div style="background:var(--lite); border-radius:10px; padding:14px 16px; font-size:13px;">
+                        <div style="font-weight:700; color:var(--lite-accent); margin-bottom:4px;">예시: 수수료 12%로 계약</div>
+                        캠핏 7.7% / 넘는 부분 4.3%를 피코와 MD가 정한 비율로 나눔
+                    </div>
+                </div>
+            </div>
+            <div class="model-card premium">
+                <div class="model-header">
+                    <div class="model-tag">예외</div>
+                    <h3>캠핏이 RS 지급</h3>
+                    <div class="subtitle">아래 사항에 해당할 때</div>
+                </div>
+                <div class="model-body">
+                    <ul class="model-features">
+                        <li><span class="icon">1</span><span>피코가 자기 마진 없이 계약을 진행한 경우</span></li>
+                        <li><span class="icon">2</span><span>마진이 없는 상황에서 캠핏이 제공하지 못하는 서비스(마케팅 자동화, 블로그와 인스타 자동화, 홈페이지 제작 등)를 영업 쪽에서 제공하는 경우</span></li>
+                        <li><span class="icon">&#10003;</span><span>이때는 예전처럼 공헌이익 기준 RS나 캡보너스를 캠핏이 건별로 판단해 지급합니다.</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="info-box">
+            피코와 MD의 쉐어 비율은 아직 정해지지 않았습니다. 예외는 자동으로 적용되지 않으며, 누가 어떤 기준으로 지급을 결정할지도 아직 정해지지 않았습니다.
+        </div>
+    </div><div class="pno">5 / 8</div></section>
+<section class="slide"><div class="section" id="simulation">
+        <div class="section-label">05</div>
+        <div class="section-title">수익 시뮬레이션</div>
+        <div class="section-desc">월 체험 매출 500만원 업체 1곳 기준입니다.</div>
+
+        <div class="card">
+            <div style="overflow-x:auto; border-radius:12px; border:1px solid var(--border);">
+                <table style="width:100%; border-collapse:collapse; font-size:14px;">
+                    <thead style="background:var(--primary); color:white;">
+                        <tr>
+                            <th style="padding:14px 16px; text-align:left;">계약 수수료</th>
+                            <th style="padding:14px 16px; text-align:center;">수수료 수입</th>
+                            <th style="padding:14px 16px; text-align:center;">캠핏 공급가</th>
+                            <th style="padding:14px 16px; text-align:center;">피코와 MD 쉐어</th>
+                            <th style="padding:14px 16px; text-align:center;">캠핏 RS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td style="padding:13px 16px; font-weight:700;">12%</td><td style="padding:13px 16px; text-align:center;">600,000원<span style="font-size:12px; font-weight:500; color:var(--text-muted);"> (12%)</span></td><td style="padding:13px 16px; text-align:center;">385,000원<span style="font-size:12px; font-weight:500; color:var(--text-muted);"> (7.7%)</span></td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--lite-accent);">215,000원<span style="font-size:12px; font-weight:500; color:var(--text-muted);"> (4.3%)</span></td><td style="padding:13px 16px; text-align:center;">없음 (원칙)</td></tr>
+                        <tr><td style="padding:13px 16px; font-weight:700;">10%</td><td style="padding:13px 16px; text-align:center;">500,000원<span style="font-size:12px; font-weight:500; color:var(--text-muted);"> (10%)</span></td><td style="padding:13px 16px; text-align:center;">385,000원<span style="font-size:12px; font-weight:500; color:var(--text-muted);"> (7.7%)</span></td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--lite-accent);">115,000원<span style="font-size:12px; font-weight:500; color:var(--text-muted);"> (2.3%)</span></td><td style="padding:13px 16px; text-align:center;">없음 (원칙)</td></tr>
+                        <tr style="background:var(--premium);"><td style="padding:13px 16px; font-weight:700;">7.7%</td><td style="padding:13px 16px; text-align:center;">385,000원<span style="font-size:12px; font-weight:500; color:var(--text-muted);"> (7.7%)</span></td><td style="padding:13px 16px; text-align:center;">385,000원<span style="font-size:12px; font-weight:500; color:var(--text-muted);"> (7.7%)</span></td><td style="padding:13px 16px; text-align:center;">0원<span style="font-size:12px; font-weight:500; color:var(--text-muted);"> (0%)</span></td><td style="padding:13px 16px; text-align:center; font-weight:700; color:var(--premium-accent);">공헌이익 기준 RS나 캡보너스 검토 (예외)</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="info-box">
+                피코와 MD 쉐어 금액은 정한 비율로 다시 나뉩니다. 7.7%로 계약하면 피코 마진이 없으므로 예외에 해당합니다. 캠핏 공급가는 네이버 예약 수수료 등 비용을 빼기 전 금액입니다.
+            </div>
+        </div>
+    </div><div class="pno">6 / 8</div></section>
+<section class="slide"><div class="section" id="roadmap">
+        <div class="section-label">06</div>
+        <div class="section-title">진행 순서</div>
+        <div class="roadmap">
+            <div class="roadmap-phase active">
+                <div class="roadmap-dot"></div>
+                <div class="roadmap-time">1단계 · 1~2주</div>
+                <div class="roadmap-title">기준 확정</div>
+                <ul class="roadmap-tasks">
+                    <li><div class="task-check"></div>피코와 MD 쉐어 비율 확정</li>
+                    <li><div class="task-check"></div>피코 제공 서비스 범위 정의</li>
+                    <li><div class="task-check"></div>MD, 피코 대상 설명</li>
+                </ul>
+            </div>
+            <div class="roadmap-phase">
+                <div class="roadmap-dot"></div>
+                <div class="roadmap-time">2단계 · 1~2개월</div>
+                <div class="roadmap-title">계약과 정산 반영</div>
+                <ul class="roadmap-tasks">
+                    <li><div class="task-check"></div>체험 계약서 수수료 조항 수정</li>
+                    <li><div class="task-check"></div>예외 지급 기준과 승인 절차 정리</li>
+                    <li><div class="task-check"></div>기존 RS 계약 업체 전환 일정 수립</li>
+                </ul>
+            </div>
+            <div class="roadmap-phase">
+                <div class="roadmap-dot"></div>
+                <div class="roadmap-time">3단계 · 3개월 이후</div>
+                <div class="roadmap-title">점검</div>
+                <ul class="roadmap-tasks">
+                    <li><div class="task-check"></div>평균 계약 수수료가 올랐는지 확인</li>
+                    <li><div class="task-check"></div>예외 지급 건수와 금액 리뷰</li>
+                    <li><div class="task-check"></div>상품별 공급가 조정 여부 판단</li>
+                </ul>
+            </div>
+        </div>
+    </div><div class="pno">7 / 8</div></section>
+<section class="slide"><div class="comment-section" id="comments">
+        <h3>의견 남기기</h3>
+        <p>수정할 점이나 추가 의견을 남겨 주세요.</p>
+        <textarea class="comment-box" placeholder="의견을 입력하세요..."></textarea>
+        <div>
+            <input type="text" class="comment-name" placeholder="이름">
+            <button class="comment-btn" onclick="addComment()">등록</button>
+        </div>
+        <div class="comments-list" id="commentsList"></div>
+    </div><div class="pno">8 / 8</div></section>
+</div></div>
+<nav id="nav"><button class="arrow" id="prev" aria-label="이전">&#8249;</button><button data-i="0">표지</button><button data-i="1"><b>01</b>바꾸는 이유</button><button data-i="2"><b>02</b>기존 방식과 비교</button><button data-i="3"><b>03</b>공급가 기준</button><button data-i="4"><b>04</b>RS 방식</button><button data-i="5"><b>05</b>수익 시뮬레이션</button><button data-i="6"><b>06</b>진행 순서</button><button data-i="7">의견</button><span class="sp"></span><span class="cnt" id="cnt"></span><button class="arrow" id="next" aria-label="다음">&#8250;</button></nav>
+<script>
+let comments = JSON.parse(localStorage.getItem('camfit-experience-friendly-comments') || '[]');
+function renderComments() {
+    document.getElementById('commentsList').innerHTML = comments.map(c => `<div class="comment-entry"><span class="author">${c.author}</span><span class="time">${c.time}</span><div class="body">${c.body}</div></div>`).join('');
+}
+function addComment() {
+    const box = document.querySelector('.comment-box'), name = document.querySelector('.comment-name');
+    const body = box.value.trim(), author = name.value.trim() || '익명';
+    if (!body) return;
+    const now = new Date();
+    const time = `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+    comments.unshift({ author, body, time });
+    localStorage.setItem('camfit-experience-friendly-comments', JSON.stringify(comments));
+    box.value = '';
+    renderComments();
+}
+renderComments();
+
+</script>
+<script>
+const slides=[...document.querySelectorAll('.slide')], navb=[...document.querySelectorAll('#nav button[data-i]')], deck=document.getElementById('deck'), stage=document.getElementById('stage');
+const mq=window.matchMedia('(max-width:820px)');
+let cur=0;
+function fit(){if(mq.matches){deck.style.transform='';return;}const s=Math.min(stage.clientWidth/1280,stage.clientHeight/720)*0.96;deck.style.transform='scale('+s+')';}
+function mark(i){cur=i;navb.forEach((b,k)=>b.classList.toggle('on',k===cur));navb[cur].scrollIntoView({block:'nearest',inline:'nearest'});document.getElementById('cnt').textContent=(cur+1)+' / '+slides.length;}
+function go(i,scroll){i=Math.max(0,Math.min(slides.length-1,i));if(mq.matches){mark(i);if(scroll!==false)slides[i].scrollIntoView({behavior:'smooth',block:'start'});}else{slides.forEach((el,k)=>el.classList.toggle('on',k===i));mark(i);}history.replaceState(null,'','#'+(i+1));}
+navb.forEach(b=>b.onclick=()=>go(+b.dataset.i));
+document.getElementById('prev').onclick=()=>go(cur-1);document.getElementById('next').onclick=()=>go(cur+1);
+document.addEventListener('keydown',e=>{if(mq.matches||/INPUT|TEXTAREA/.test(e.target.tagName))return;if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();go(cur+1);}if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();go(cur-1);}if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);});
+let ticking=false;
+window.addEventListener('scroll',()=>{if(!mq.matches||ticking)return;ticking=true;requestAnimationFrame(()=>{ticking=false;let k=0;slides.forEach((el,i)=>{if(el.getBoundingClientRect().top<window.innerHeight*0.35)k=i;});if(k!==cur)mark(k);});},{passive:true});
+window.addEventListener('resize',fit);mq.addEventListener('change',()=>{fit();go(cur);});
+fit();go((parseInt(location.hash.slice(1))||1)-1, (parseInt(location.hash.slice(1))||1)>1);
+</script>
+</body>
+</html>
